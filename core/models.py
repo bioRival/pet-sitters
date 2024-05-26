@@ -1,5 +1,27 @@
+from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Sum
 
+class Author(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+
+# Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
+    def update_rating(self):
+        post_rating = Services.objects.filter(author=self).aggregate(
+            Sum('rating'))['rating__sum']
+        comment_rating = Comment.objects.filter(user=self.user).aggregate(
+            Sum('rating'))['rating__sum']
+        comment_rating_to_posts = Comment.objects.filter(
+            post__author__user=self.user).aggregate(Sum('rating'))[
+            'rating__sum']
+
+        self.rating = ((post_rating * 3) + comment_rating +
+                       comment_rating_to_posts)
+        self.save()
+
+    def __str__(self):
+        return self.user.username
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -7,18 +29,25 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-
+# Основная модель услуг (!) Не знаю какие категории должны быть, добавила временные
 class Services(models.Model):
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    content_type = models.CharField(max_length=10, choices=[
+        ('котоняня', 'Котоняня'), ('собаконяня', 'Собаконяня')])
+    created_time = models.DateTimeField(auto_now_add=True)
+    categories = models.ManyToManyField(Category, through='ServicesCategory',
+                                        related_name='ServicesCategory')
     title = models.CharField(max_length=255)
-    content = models.TextField(blank=True)
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(default=True)
-    cat = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
+    text = models.TextField()
+    rating = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.title
+        return f'{self.title} {self.text}'
 
+
+class ServicesCategory(models.Model):
+    postTrough = models.ForeignKey(Services, on_delete=models.CASCADE)
+    categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 class Response(models.Model):
@@ -35,3 +64,18 @@ class Response(models.Model):
 
     def get_absolute_url(self):
         return f'/response/{self.id}'
+
+class Comment(models.Model):
+    post = models.ForeignKey(Services, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField()
+
+    def like(self):
+        self.rating += 1
+        self.save()
+
+    def dislike(self):
+        self.rating -= 1
+        self.save()
