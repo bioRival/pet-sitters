@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
+from django.utils import timezone
+
 
 class Author(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,6 +25,24 @@ class Author(models.Model):
     def __str__(self):
         return self.user.username
 
+
+# Я бы пользователя скорее в таком виде рассматривала, чтобы сразу роль была видна
+PACKAGES = [
+    ('заказчик', 'Заказчик'),
+    ('Зооняня', 'Зооняня'),
+]
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    # image = models.ImageField(default='user_avatar.png', upload_to='...')
+    last_visit = models.DateField(default=timezone.now, blank=True)
+    location = models.CharField(max_length=254, null=True, blank=True)
+    contact_phone = models.CharField(max_length=15)
+    user_role = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
+
+
+# А что у нас вообще в категориях будет? Сюда, по-хорошему, как раз услуги надо закидывать, типа Передержки, Груминга и т.д.
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
