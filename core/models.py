@@ -49,7 +49,7 @@ class ServicesCategory(models.Model):
     postTrough = models.ForeignKey(Services, on_delete=models.CASCADE)
     categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
-
+#Откликами не занималась, просто модель
 class Response(models.Model):
     text = models.TextField()
     datetime_response = models.DateTimeField(auto_now_add=True)
