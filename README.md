@@ -1,6 +1,5 @@
 ### Необходимые компоненты:
   - Python 3.12.3
-  - Django 5.0.6
   - GitHub Desktop
 
 ### Установка:
@@ -9,7 +8,7 @@
 `py -m pip install virtualenv`  
 `py -m virtualenv venv`  
 `venv/scripts/activate` 
-3. Установите Django  
-`pip install django==5.0.6`
+3. Установите все необходимые модули из файла requirements.txt  
+`pip install -r requirements.txt`
 4. Запустите проект  
    `py manage.py runserver`
