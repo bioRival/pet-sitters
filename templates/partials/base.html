@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--================ REMIXICON ================-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.min.css">
+    
+    <!--================ CSS ================-->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    
+    <!--================ JS ================-->
+    <script src="{% static 'scripts/main.js' %}" defer></script>
+    
+    
+    <!--================ ADDITIONAL MODULES ================-->
+    {% block head %}{% endblock head %}
+
     <title>
        {% block title %} Document {% endblock title %}
     </title>
 </head>
 <body>
-{% block content %}
+    {% include 'partials/header.html' %}
+    {% block content %}
 
-{% endblock content %}
+    {% endblock content %}
 </body>
 </html>
