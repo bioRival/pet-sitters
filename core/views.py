@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.contrib.auth.models import User
+from django.views.generic import ListView, CreateView
 from rest_framework import generics
-from .models import Services
+from .models import Services, BaseRegisterForm
 from .serializers import ServicesSerializer
 
 # Временное представление для API
@@ -22,3 +23,10 @@ class ServicesList(ListView):
         form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
+
+
+# регистрационная вьюха
+class BaseRegisterView(CreateView):
+    model = User
+    form_class = BaseRegisterForm
+    success_url = '/'

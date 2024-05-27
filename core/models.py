@@ -1,7 +1,27 @@
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
+
+PACKAGES = [
+    ('заказчик', 'Заказчик'),
+    ('Зооняня', 'Зооняня'),
+]
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # из регистрации потянет имя, фамилию, email
+    contact_phone = models.CharField(max_length=10)
+    image = models.ImageField(upload_to="")
+    last_visit = models.DateField(default=timezone.now, blank=True)
+    location = models.CharField(max_length=254, null=True, blank=True)
+    user_role = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
+    rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.user.first_name
 
 
 class Author(models.Model):
@@ -27,11 +47,6 @@ class Author(models.Model):
 
 
 # Я бы пользователя скорее в таком виде рассматривала, чтобы сразу роль была видна
-PACKAGES = [
-    ('заказчик', 'Заказчик'),
-    ('Зооняня', 'Зооняня'),
-]
-
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
@@ -99,3 +114,19 @@ class Comment(models.Model):
     def dislike(self):
         self.rating -= 1
         self.save()
+
+
+# модель регистрации с емайл
+class BaseRegisterForm(UserCreationForm):
+    email = forms.EmailField(label="Email")
+    first_name = forms.CharField(label="Имя")
+    last_name = forms.CharField(label="Фамилия")
+
+    class Meta:
+        model = User
+        fields = ("username",
+                  "first_name",
+                  "last_name",
+                  "email",
+                  "password1",
+                  "password2", )

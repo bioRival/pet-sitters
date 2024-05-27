@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title> Страница профиля пользователя</title>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Добро пожаловать</a></h1>
+        </div>
+        {% block content %}
+        <h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+        <div> Здесь будет персональная информация для каждого пользователя </div>
+
+        <button> <a href="sign/logout/">Выйти</a> </button>
+        {% endblock %}
+    </body>
+</html>
