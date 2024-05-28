@@ -12,13 +12,12 @@ PACKAGES = [
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE) # из регистрации потянет имя, фамилию, email
-    contact_phone = models.CharField(max_length=10)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=10)
     image = models.ImageField(upload_to="")
-    last_visit = models.DateField(default=timezone.now, blank=True)
+    # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
-    user_role = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
-    rating = models.IntegerField(default=0)
+    user_type = models.CharField(max_length=15)
 
     def __str__(self):
         return self.user.first_name

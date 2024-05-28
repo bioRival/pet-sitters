@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Войти в систему</title>
+</head>
+<body>
+{% block content %}
+<h2> Войти в систему </h2>
+<form method="POST"> {% csrf_token %}
+    <div class="container mt-5">
+        <h6>Если еще не зарегистрированы, нажмите сюда        <a href="/customer_signup/" type="submit" class="btn" style="background-color: #4f868c; color: white;">Зарегистрироваться</a>
+        </h6>
+        <div class="mb-3">
+            <label for="username" class="form-label"><i style="font-weight: bold;">Логин</i></label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Введите email">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label"><i style="font-weight: bold;">Пароль</i></label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль">
+        </div>
+        <br>
+        <input type="submit" value="Подтвердить" class="btn" style="background-color: #4f868c; color: white; font-size: larger; width: 8rem;">
+    </div>
+</form>
+{% endblock content %}
+</body>
+</html>
