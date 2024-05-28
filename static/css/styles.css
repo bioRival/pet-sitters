@@ -17,6 +17,10 @@
     /* .5rem = 8px | 1rem = 16px ... */
     --body-font: "Montserrat", sans-serif;
     --normal-font-size: 1rem;
+
+    /*================= Font Weight =================*/
+    --font-regular: 400;
+    --font-semi-bold: 600;
     
     /*================= z index =================*/
     --z-tooltip: 10;
@@ -51,3 +55,27 @@ a {
     max-width: 1120px;
     margin-inline: 1.5rem;
 }
+
+
+
+
+
+
+
+
+/*================= BREAKPOINTS =================*/
+/* For small devices */
+@media screen and (max-width: 340px) {
+    .container {
+        margin-inline: 1rem;
+    }
+}
+/* For large devices */
+@media screen and (min-width: 1118px) {
+    .container {
+        margin-inline: auto;
+    }
+}
+
+
+
