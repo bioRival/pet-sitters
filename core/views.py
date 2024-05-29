@@ -34,7 +34,7 @@ class BaseRegisterView(CreateView):
     success_url = '/'
 
 
-# вход для заказчика
+# вход для заказчика username = email
 def customer_login(request):
     if request.user.is_authenticated:
         return redirect("/")
