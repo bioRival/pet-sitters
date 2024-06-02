@@ -48,12 +48,22 @@ INSTALLED_APPS = [
 
 LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = 'login/'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'testpython81'
+EMAIL_HOST_PASSWORD = 'ngjilhgwelrkmgng'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'testpython81@yandex.ru'
+
+SITE_URL = 'http://127.0.0.1:8000'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

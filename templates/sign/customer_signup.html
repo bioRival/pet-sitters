@@ -10,16 +10,12 @@
 <form class="container mt-4" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <div class="row">
+   <div class="row mt-4">
         <div class="form-group col-md-6">
-            <label>Имя пользователя</label>
-            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Введите имя">
+            <label>Электронная почта</label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Введите email">
         </div>
-        <div class="form-group col-md-6">
-            <label>Фамилия пользователя</label>
-            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Введите фамилию">
-        </div>
-    </div>
+   </div>
 
     <div class="row mt-4">
         <div class="form-group col-md-6">
@@ -32,32 +28,11 @@
         </div>
     </div>
 
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label>Электронная почта</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="Введите email">
-        </div>
-        <div class="form-group col-md-6">
-            <label>Контактный телефон</label>
-            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Введите номер телефона">
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="form-group col-md-6">
-            <label>Адрес</label>
-            <input type="text" class="form-control" name="location" id="location" placeholder="введите адрес">
-        </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Аватарка</label>
-            <input type="file" class="form-control" name="image" id="image" placeholder="Выберите картинку">
-        </div>
     <div>
            <p><strong>Вы заказчик или исполнитель?</strong></p>
    <p><select name="user_type">
-    <option value="заказчик">Я заказчик</option>
-    <option value="исполнитель" selected>Я исполнитель</option>
+    <option value="заказчик" selected>Я заказчик</option>
+    <option value="исполнитель">Я исполнитель</option>
    </select></p>
     </div>
     <br>

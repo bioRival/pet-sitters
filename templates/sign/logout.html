@@ -1,12 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Выход из системы</title>
-</head>
-<body>
-{% block content %}
-<h2> Вы вышли из системы </h2>
-{% endblock %}
-</body>
+<html>
+    <head>
+        <title> Выход из системы</title>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Добро пожаловать</a></h1>
+        </div>
+        {% block content %}
+        <h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+        <div> Здесь будет персональная информация для каждого пользователя </div>
+
+        <button> <a href="{% url 'logout' %}">Выйти</a> </button>
+        {% endblock %}
+    </body>
 </html>

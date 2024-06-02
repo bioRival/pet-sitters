@@ -1,9 +1,12 @@
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.views.generic import ListView, CreateView
+from django.views import View
+from django.views.generic import ListView, CreateView, DetailView
 from rest_framework import generics
 from .models import Services, BaseRegisterForm, Customer
 from .serializers import ServicesSerializer
@@ -62,27 +65,47 @@ def customer_login(request):
 def customer_signup(request):
     if request.method == "POST":
         username = request.POST['email']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
+        # first_name = request.POST['first_name']
+        # last_name = request.POST['last_name']
+        email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        email = request.POST['email']
-        phone = request.POST['phone']
-        location = request.POST['location']
-        image = request.FILES['image']
+        # phone = request.POST['phone']
+        # location = request.POST['location']
+        # image = request.FILES['image']
         user_type = request.POST['user_type']
 
         if password1 != password2:
             messages.error(request, "Неправильный пароль.")
             return redirect('/customer_signup')
 
-        user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
+        user = User.objects.create_user(username=username,
                                         password=password1, email=email)
-        customers = Customer.objects.create(user=user, phone=phone, location=location, image=image, user_type=user_type)
+        customers = Customer.objects.create(user=user, user_type=user_type)
+
+        # user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
+        #                                 password=password1, email=email)
+        # customers = Customer.objects.create(user=user, phone=phone, location=location, image=image, user_type=user_type)
         user.save()
         customers.save()
-        return render(request, "sign/customer_login.html")
+        send_mail(
+            subject='Регистрация пройдена успешно',
+            message=f'Здравствуйте! Вы успешно зарегистрированы на сайте petsitters.ru.',
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email]
+        )
+        username = request.POST['email']
+        password = request.POST['password1']
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return HttpResponseRedirect("/")
     return render(request, "sign/customer_signup.html")
+
+
+class CustomerProfile(DetailView):
+    model = Customer
+    template_name = 'customer_profile.html'
+    context_object_name = 'customer_profile'
 
 
 def customer_profile(request):
@@ -104,12 +127,18 @@ def customer_profile(request):
         customer.save()
         customer.user.save()
 
-        try:
-            image = request.FILES['media']
-            customer.image = image
-            customer.save()
-        except:
-            pass
+        # try:
+        #     image = request.FILES['media']
+        #     customer.image = image
+        #     customer.save()
+        # except:
+        #     pass
         alert = True
-        return render(request, "customer_profile.html", {'alert': alert})
-    return render(request, "customer_profile.html", {'customer': customer})
+        return render(request, "profile.html", {'alert': alert})
+    return render(request, "profile.html", {'customer': customer})
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('customer_login/')
