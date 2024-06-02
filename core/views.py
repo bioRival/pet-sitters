@@ -108,6 +108,7 @@ class CustomerProfile(DetailView):
     context_object_name = 'customer_profile'
 
 
+# редактируемый профиль
 def customer_profile(request):
     if not request.user.is_authenticated:
         return redirect('/customer_login/')

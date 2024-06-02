@@ -12,15 +12,16 @@ PACKAGES = [
 
 
 class Customer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=11)
-    image = models.ImageField(upload_to="")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio=models.TextField(null=True, blank=True)
+    phone = models.CharField(max_length=11, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to="images/profile")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
     user_type = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
 
     def __str__(self):
-        return self.user.first_name
+        return str(self.user)
 
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
