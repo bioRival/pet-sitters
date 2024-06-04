@@ -5,13 +5,13 @@
 
     /*================= Colors =================*/
     /* Color mode HSL(hue, saturation, lightness) */
-    --purple-color: #C896FF;
-    --yellow-color: #F8E46F;
-    --light-yellow-color: #FCF3BE;
-    --black-color: #140029;
-    --dark-purple-color: #320064;
-    --light-purple-color: #D9B6FF;
-    --white-color: #fff;
+    --purple-color: hsl(269, 100%, 79%);
+    --yellow-color: hsl(51, 91%, 70%);
+    --light-yellow-color: hsl(51, 91%, 87%);
+    --black-color: hsl(269, 100%, 8%);
+    --dark-purple-color: hsl(270, 100%, 20%);
+    --light-purple-color: hsl(269, 100%, 86%);
+    --white-color: hsl(0, 0%, 100%);
 
     --title-color: var(--dark-purple-color);
     --text-color: var(--black-color);
@@ -85,13 +85,13 @@ a {
 
 /*================= BREAKPOINTS =================*/
 /* For small devices */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     .container {
-        margin-inline: 1rem;
+        margin-inline: .5rem;
     }
 }
 /* For large devices */
-@media screen and (min-width: 1118px) {
+@media screen and (min-width: 1150px) {
     .container {
         margin-inline: auto;
     }

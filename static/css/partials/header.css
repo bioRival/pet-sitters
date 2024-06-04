@@ -1,11 +1,10 @@
 /*========================= HEADER & NAV =========================*/
 .header {
-    /* position: fixed; */
-    /* top: 0; left: 0; */
     width: 100%;
     
-    background-color: transparent;
+    background-color: var(--white-color);
     z-index: var(--z-fixed);
+    transition: background-color 1s;
 }
 
 .nav {
@@ -26,16 +25,15 @@
 .nav__toggle,
 .nav__close {
     font-size: 1.5rem;
-    color: var(--black-color);
+    color: var(--dark-purple-color);
     cursor: pointer;
 }
-
 
 
 .nav__list {
     display: flex;
     flex-direction: column;
-    row-gap: 3rem;
+    row-gap: .3rem;
 
 }
 
@@ -85,10 +83,15 @@
     background-color: var(--dark-purple-color);
     padding: 1rem 2rem;
     border-radius: 40px;
+    transition: background-color .4s;
 
     font-size: var(--normal-font-size);
     color: var(--white-color);
     font-weight: var(--font-semi-bold);
+}
+
+.nav__sign-in:hover {
+    background-color: var(--purple-color);
 }
 
 .nav__sign-in i {
@@ -96,43 +99,31 @@
     font-weight: initial;
 }
 
-/* Navigation for mobile devices */
-@media screen and (max-width: 1150px) {
-    .nav__menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        background-color: hsla(var(--hue), 70%, 4%, .2);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        width: 80%;
-        height: 100%;
-        padding: 7rem 3rem;
-        transition: right .4s;
-    }
-}
-
-/* Show menu */
-.show-menu {
-    right: 0;
-}
-
 /* Add blur header */
+.blur-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: transparent;
+}
+
 .blur-header::after {
     content: '';
     position: absolute;
-    width: 1000%;
+    width: 100%;
     height: 100%;
-    background-color: hsla(var(--hue), 70%, 4%, .2);
+    background-color: hsla(0, 0%, 100%, 0.5);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     top: 0; left:0;
     z-index: -1;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 /* Active link */
 .active-link {
-    /* color: var(--first-color-light); */
+    color: var(--purple-color);
 }
 
 .active-link::after {
@@ -140,7 +131,57 @@
 }
 
 /*========================= BREAKPOINTS =========================*/
+/* Navigation for mobile devices */
+@media screen and (max-width: 1150px) {
+    :root {
+        --header-height: 3rem;
+    }
 
+    .nav__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        background-color: hsla(0, 0%, 100%, 0.5);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        width: 80%;
+        height: 100%;
+        padding: 7rem .5rem;
+        transition: right .4s;
+    }
+
+    .nav__link {
+        display: block;
+        padding: 1rem;
+        border-radius: 25px;
+        transition: color .4s, background-color .4s ease-in-out;
+    }
+
+    .nav__link:hover {
+        color: var(--dark-purple-color);
+        background-color: hsla(0, 0%, 100%, 0.2);
+    }
+
+    .nav__link::after {
+        background-color: transparent;
+    }
+
+    .nav__sign-in {
+        gap: .2rem;
+        padding: .5rem 1rem;
+        border-radius: 40px;
+    
+        font-size: var(--small-font-size);
+    }
+
+    .nav__sign-in i {
+        font-size: 1rem;
+    }
+
+    .nav__logo img {
+        height: 1.5rem;
+    }
+}
 
 /* for medium devices */
 @media screen and (min-width: 768px) {
@@ -148,8 +189,6 @@
         width: 50%;
     }
 }
-
-
 
 /* for large devices */
 @media screen and (min-width: 1150px) {
@@ -166,4 +205,11 @@
         flex-direction: row;
         column-gap: 4rem;
     }
+}
+
+
+
+/* Show menu */
+.show-menu {
+    right: 0;
 }

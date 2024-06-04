@@ -10,14 +10,12 @@ if (navToggle) {
     navToggle.addEventListener('click', () => {
         navMenu.classList.add('show-menu')
     })
-    console.log('navToggle')
 }
 
 if(navClose) {
     navClose.addEventListener('click', () => {
         navMenu.classList.remove('show-menu')
     })
-    console.log('navClose')
 }
 
 /*========================= REMOVE MENU MOBILE =========================*/
@@ -33,7 +31,13 @@ navLink.forEach(link => link.addEventListener('click', () => {
 /*========================= ADD BLUR HEADER =========================*/
 function blurHeader() {
     const header = document.getElementById('header')
-    this.scrollY >= 50  ? header.classList.add('blur-header')
-                        : header.classList.remove('blur-header')
+    if (window.innerWidth <= 1150) {
+        if (this.scrollY >= 100) {
+            header.classList.add('blur-header')
+        } else {
+            header.classList.remove('blur-header')
+        }
+    }
+
 }
 window.addEventListener('scroll', blurHeader)
