@@ -1,22 +1,34 @@
 
 /*================= VARIABLES CSS =================*/
 :root {
-    --header-height: 3.5rem;
+    --header-height: 8.1rem;
 
     /*================= Colors =================*/
     /* Color mode HSL(hue, saturation, lightness) */
-    --black-color: hsl(220, 24%, 12%);
-    --black-color-light: hsl(220, 24%, 15%);
-    --black-color-lighten: hsl(220, 24%, 18%);
+    --purple-color: #C896FF;
+    --yellow-color: #F8E46F;
+    --light-yellow-color: #FCF3BE;
+    --black-color: #140029;
+    --dark-purple-color: #320064;
+    --light-purple-color: #D9B6FF;
     --white-color: #fff;
-    --body-color: hsl(220, 100%, 97%);
+
+    --title-color: var(--dark-purple-color);
+    --text-color: var(--black-color);
+    --body-color: var(--white-color);
     
     /*================= Fonts =================*/
     /* .5rem = 8px | 1rem = 16px ... */
     --body-font: "Montserrat", sans-serif;
     --text-font: "Montserrat", sans-serif;
     --title-font: "Random Grotesque Standard", sans-serif;
+    --biggest-font-size: 3rem;
+    --big-font-size: 1.5rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
     --normal-font-size: 1rem;
+    --small-font-size: .8rem;
 
     /*================= Font Weight =================*/
     --font-regular: 400;
@@ -35,6 +47,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -57,7 +73,10 @@ a {
     margin-inline: 1.5rem;
 }
 
-
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
 
 
 
