@@ -2,12 +2,15 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView
 from rest_framework import generics
+
+from .forms import CreateProfileForm
 from .models import Services, BaseRegisterForm, Customer
 from .serializers import ServicesSerializer
 
@@ -30,17 +33,10 @@ class ServicesList(ListView):
             form.save()
 
 
-# регистрационная вьюха
-class BaseRegisterView(CreateView):
-    model = User
-    form_class = BaseRegisterForm
-    success_url = '/'
-
-
 # вход для заказчика username = email
 def customer_login(request):
     if request.user.is_authenticated:
-        return redirect("/")
+        return redirect("/profile/")
     else:
         if request.method == "POST":
             username = request.POST['username']
@@ -98,6 +94,7 @@ def customer_signup(request):
         password = request.POST['password1']
         user = authenticate(username=username, password=password)
         login(request, user)
+
         return HttpResponseRedirect("/")
     return render(request, "sign/customer_signup.html")
 
@@ -106,6 +103,30 @@ class CustomerProfile(DetailView):
     model = Customer
     template_name = 'customer_profile.html'
     context_object_name = 'customer_profile'
+
+
+class ShowProfilePageView(DetailView):
+    model = Customer
+    template_name = 'user_profile.html'
+
+    def get_context_data(self, *args, **kwargs):
+        users = Customer.objects.all()
+        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
+        page_user = get_object_or_404(Customer, id=self.kwargs['pk'])
+        context['page_user'] = page_user
+        return context
+
+
+class CreateProfilePageView(CreateView):
+    form_class = CreateProfileForm
+    model = Customer
+    template_name = 'create_customer_profile.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('services_list')
 
 
 # редактируемый профиль
@@ -142,4 +163,4 @@ def customer_profile(request):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('customer_login/')
+        return redirect('/customer_login/')

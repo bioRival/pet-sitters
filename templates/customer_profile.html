@@ -6,6 +6,6 @@
 </head>
 <body>
 <h2>Профиль пользователя {{ customer.user.first_name }} {{customer.user.last_name }}</h2>
-
+    {% csrf_token %}
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+{% block content %}
+<div class="form-section container mt-3 justify-content-center d-flex">
+<div class="col-lg-4 col-sm-12">
+<form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    {% for field in form %}
+        <p class="form-label">{{ field.label }}</p>
+        <p>{{ field }}</p>
+        {% if field.errors %}
+            <ul class="alert alert-danger">
+                {{ field.errors }}
+            </ul>
+        {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-outline-success">Зарегистрироваться</button>
+</form>
+</div>
+</div>
+{% endblock content %}
+</body>
+</html>

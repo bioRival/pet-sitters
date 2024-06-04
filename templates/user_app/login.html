@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация</title>
+</head>
+<body>
+{% block content %}
+<div class="form-section container mt-3 justify-content-center d-flex">
+<div class="col-lg-4 col-sm-12">
+<h2>Добро пожаловать в Petsitter!</h2>
+        <input type="button" onclick="history.back();" class="btn btn-outline-secondary btn-sm" value="Вернуться"/>
+<form method="post">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+    {% for field in form %}
+        <p class="form-label">{{ field.label }}</p>
+        <p>{{ field }}</p>
+    {% endfor %}
+            <button> <a href="{% url 'home' %}">Забыли пароль?</a> </button>
+    <br>
+    <button type="submit" class="btn btn-outline-success">Войти</button>
+</form>
+</div>
+</div>
+{% endblock content %}
+        <button> <a href="{% url 'user_app:signup' %}">Зарегистрироваться</a> </button>
+</body>
+</html>

@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
+
+
 from django.db.models import Sum
 from django.utils import timezone
 
@@ -13,15 +16,35 @@ PACKAGES = [
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio=models.TextField(null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=11, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True, upload_to="images/profile")
+    image = models.ImageField(null=True, blank=True, upload_to="images/profile/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
     user_type = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
 
     def __str__(self):
         return str(self.user)
+
+    def save(self, *args, **kwargs):
+        """
+        Сохранение полей модели при их отсутствии заполнения
+        """
+        if not self.slug:
+            self.slug = unique_slugify(self, self.user.username)
+        super().save(*args, **kwargs)
+    #
+    # def __str__(self):
+    #     """
+    #     Возвращение строки
+    #     """
+    #     return self.user.username
+
+    def get_absolute_url(self):
+        """
+        Ссылка на профиль
+        """
+        return reverse('customer_profile', kwargs={'slug': self.slug})
 
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
