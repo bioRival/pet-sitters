@@ -1,0 +1,25 @@
+/*================= GOOGLE FONTS =================*/
+/* Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/*================= CUSTOM FONTS =================*/
+/* Random Grotesque */
+@font-face {  
+    font-family: 'Random Grotesque Standard Bold';  
+    src: url('../../fonts/RG-StandardBold.ttf') format('truetype');
+}
+
+@font-face {  
+    font-family: 'Random Grotesque Standard Book';  
+    src: url('../../fonts/RG-StandardBook.ttf') format('truetype');
+}
+
+@font-face {  
+    font-family: 'Random Grotesque Standard Medium';  
+    src: url('../../fonts/RG-StandardMedium.ttf') format('truetype');
+}
+
+@font-face {  
+    font-family: 'Random Grotesque Standard Semibold';  
+    src: url('../../fonts/RG-StandardBook.ttf') format('truetype');
+}
