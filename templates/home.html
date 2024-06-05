@@ -2,42 +2,100 @@
 
 {% load static %}
 
-{% block head %} 
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <script src="{% static 'scripts/home.js' %}" defer></script>
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<script src="{% static 'scripts/home.js' %}" defer></script>
 {% endblock head %}
 
 {% block title %} Petsitters.ru - Главная {% endblock title %}
 
 {% block content %}
-    <main class="main">
-        <!--==================== BANNER ====================-->
-        <section class="banner">
-            <div class="container">
-                <div class="banner__card">
-                    <div class="banner__data">
-                        <h1 class="banner__title">
-                            Найдите опытного ситтера для своего питомца
-                        </h1>
-                        <p class="banner__text">
-                            Чтобы уехать в отпуск, провести выходные на природе, 
-                            навестить родителей или съездить в командировку
-                        </p>
-                        <div class="banner__buttons-container">
-                            <a href="#" class="banner__button">Найти ситтера</a>
-                            <a href="#" class="banner__button">Стать ситтером</a>
-                        </div>
-                    </div>
-
-                    <!-- Image Slideshow -->
-                    <div class="banner__image-container">
-                        <img class="banner__image" alt="banner picture"
-                            src="{% static 'images/home/banner-dog.png' %}" >
-                        <img class="banner__image" alt="banner picture"
-                            src="{% static 'images/home/banner-cat-tongue.png' %}" >
+<main class="main">
+    <!--==================== BANNER ====================-->
+    <section class="banner section">
+        <div class="container">
+            <div class="banner__card">
+                <div class="banner__data">
+                    <h1 class="banner__title">
+                        Найдите опытного ситтера для своего питомца
+                    </h1>
+                    <p class="banner__text">
+                        Чтобы уехать в отпуск, провести выходные на природе,
+                        навестить родителей или съездить в командировку
+                    </p>
+                    <div class="banner__buttons-container">
+                        <a href="#" class="banner__button">Найти ситтера</a>
+                        <a href="#" class="banner__button">Стать ситтером</a>
                     </div>
                 </div>
+
+                <!-- Image Slideshow -->
+                <div class="banner__image-container">
+                    <img class="banner__image" alt="banner picture" src="{% static 'images/home/banner-dog.png' %}">
+                    <img class="banner__image" alt="banner picture"
+                        src="{% static 'images/home/banner-cat-tongue.png' %}">
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!--==================== SERVICES ====================-->
+    <section class="services section">
+        <div class="container">
+            <h1 class="section__title">Наши услуги</h1>
+            <ul class="services__list">
+                <li class="services__item">
+                    <a href="#" class="services__wrapper">
+                        <img class="services__image" src="{% static 'images/home/service-img-1.png' %}"
+                            alt="services image">
+                        <h2 class="services__name">Выгул</h2>
+                        <p class="services__text">
+                            Погуляем с собакой, если вам некогда
+                        </p>
+                        <div class="services__bottom">
+                            <span class="services__price">от 600 ₽</span>
+                            <div href="#" class="services__arrow-button">
+                                <i class="ri-arrow-right-line services__icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="services__item">
+                    <a href="#" class="services__wrapper">
+                        <img class="services__image" src="{% static 'images/home/service-img-2.png' %}"
+                            alt="services image">
+                        <h2 class="services__name">Передержка</h2>
+                        <p class="services__text">
+                            Позаботимся о питомцах во время вашего отъезда
+                        </p>
+                        <div class="services__bottom">
+                            <span class="services__price">от 800 ₽</span>
+                            <div href="#" class="services__arrow-button">
+                                <i class="ri-arrow-right-line services__icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="services__item">
+                    <a href="#" class="services__wrapper">
+                        <img class="services__image" src="{% static 'images/home/service-img-3.png' %}"
+                            alt="services image">
+                        <h2 class="services__name">Няня</h2>
+                        <p class="services__text">
+                            Присмотрим за собакой и кошкой, пока вас нет дома
+                        </p>
+                        <div class="services__bottom">
+                            <span class="services__price">от 1000 ₽</span>
+                            <div href="#" class="services__arrow-button">
+                                <i class="ri-arrow-right-line services__icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
 {% endblock content%}

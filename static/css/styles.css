@@ -22,11 +22,14 @@
     --body-font: "Montserrat", sans-serif;
     --text-font: "Montserrat", sans-serif;
     --title-font: "Random Grotesque Standard Bold", sans-serif;
+
     --biggest-font-size: 4.25rem;
     --big-font-size: 3rem;
-    --h1-font-size: 1.5rem;
+
+    --h1-font-size: 3rem;
     --h2-font-size: 1.25rem;
     --h3-font-size: 1.125rem;
+
     --normal-font-size: 1rem;
     --small-font-size: .8rem;
 
@@ -65,6 +68,7 @@ body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    overflow-x: hidden;
 }
 
 ul {
@@ -96,6 +100,10 @@ h3 {
 .grid {
     display: grid;
     gap: 1.5rem;
+}
+
+.section {
+    padding-block: 5rem;
 }
 
 
