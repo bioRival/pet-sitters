@@ -63,7 +63,8 @@ body {
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
     min-height: 100vh;
-    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 ul {
