@@ -6,28 +6,52 @@
 </head>
 <body>
 {% block content %}
-<div class="form-section container mt-3 justify-content-center d-flex">
-<div class="col-lg-4 col-sm-12">
-<form method="post">
+<h2>Регистрация в Petsitter</h2>
+        <input type="button" onclick="history.back();" class="btn btn-outline-secondary btn-sm" value="Вернуться"/>
+<form class="container mt-4" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
+
+       <div class="row mt-4">
+        <div class="form-group col-md-6">
+            <p><label>Имя</label></p>
+            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Имя"
+                value="{{customer.user.first_name}}" required>
         </div>
-    {% endif %}
-    {% for field in form %}
-        <p class="form-label">{{ field.label }}</p>
-        <p>{{ field }}</p>
-        {% if field.errors %}
-            <ul class="alert alert-danger">
-                {{ field.errors }}
-            </ul>
-        {% endif %}
-    {% endfor %}
-    <button type="submit" class="btn btn-outline-success">Зарегистрироваться</button>
+   </div>
+
+   <div class="row mt-4">
+        <div class="form-group col-md-6">
+            <p><label>E-mail</label></p>
+            <input type="email" class="form-control" name="email" id="email" placeholder="Почта" required>
+        </div>
+   </div>
+
+    <div class="row mt-4">
+        <div class="form-group col-md-6">
+            <p><label>Пароль</label></p>
+            <input type="password" class="form-control" name="password1" id="password1" placeholder="Придумайте пароль" required>
+        </div>
+    </div>
+
+    <div>
+           <p><strong>Кто вы?</strong></p>
+   <p><select name="user_type">
+    <option value="заказчик" selected>Я - клиент</option>
+    <option value="исполнитель">Я - ситтер</option>
+   </select></p>
+    </div>
+
+    <div>
+        <label>
+          <input type="checkbox" name="">
+          Даю согласие на обработку персональных данных
+        </label>
+    </div>
+    <br>
+<input type="submit" value="Зарегистрироваться" class="btn" style="background-color: #4f868c; color: white; font-size: small; width: 8rem;">
+    <br>
+            <button> <a href="{% url 'user_app:login' %}">Войти</a> </button>
 </form>
-</div>
-</div>
 {% endblock content %}
 </body>
 </html>

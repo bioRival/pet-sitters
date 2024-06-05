@@ -9,8 +9,8 @@ from django.db.models import Sum
 from django.utils import timezone
 
 PACKAGES = [
-    ('заказчик', 'Заказчик'),
-    ('исполнитель', 'Зооняня'),
+    ('заказчик', 'Я - клиент'),
+    ('исполнитель', 'Я - ситтер'),
 ]
 
 
@@ -26,13 +26,13 @@ class Customer(models.Model):
     def __str__(self):
         return str(self.user)
 
-    def save(self, *args, **kwargs):
-        """
-        Сохранение полей модели при их отсутствии заполнения
-        """
-        if not self.slug:
-            self.slug = unique_slugify(self, self.user.username)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     """
+    #     Сохранение полей модели при их отсутствии заполнения
+    #     """
+    #     if not self.slug:
+    #         self.slug = unique_slugify(self, self.user.username)
+    #     super().save(*args, **kwargs)
     #
     # def __str__(self):
     #     """
