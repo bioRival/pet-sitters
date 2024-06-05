@@ -1,0 +1,75 @@
+/*========================== BANNER ==========================*/
+.banner {
+    padding-block: 5rem 6.62rem;
+}
+
+.banner__card {
+    position: relative;
+    background-color: var(--purple-color);
+    border-radius: 60px;
+    padding: 5rem;
+    box-shadow: var(--normal-shadow);
+}
+
+.banner__data {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 39rem;
+}
+
+.banner__title {
+    font-family: var(--title-font);
+    font-size: var(--biggest-font-size);
+    font-weight: var(--font-bold);
+}
+
+.banner__text {
+    font-family: var(--text-font);
+    font-size: var(--h1-font-size);
+    font-weight: var(--font-medium);
+}
+
+.banner__buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+}
+
+.banner__button {
+    background-color: var(--light-purple-color);
+    padding: 1.3rem 2.5rem;
+    border-radius: 40px;
+
+    font-family: var(--text-font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+    color: var(--dark-purple-color);
+    transition: color .5s, background-color .5s;
+}
+
+.banner__button:hover {
+    background-color: var(--dark-purple-color);
+    color: var(--white-color);
+}
+
+.banner__image-container {
+    /* position: relative; */
+}
+
+.banner__image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    transition: opacity 3s, transform 3s;
+    mask-image: linear-gradient(to bottom, 
+                hsla(269, 100%, 79%) 60%, 
+                transparent 100%);
+}
+
+.banner__show-image {
+    opacity: 1;
+    transform: translateX(-2rem);
+}
+
