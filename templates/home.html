@@ -1,7 +1,45 @@
 {% extends 'partials/base.html' %}
-{% block title %}Petsitters.ru - Главная{% endblock title %}
+
+{% load static %}
+
+{% block head %} 
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <script src="{% static 'scripts/home.js' %}" defer></script>
+{% endblock head %}
+
+{% block title %} Petsitters.ru - Главная {% endblock title %}
+
 {% block content %}
-    <img width="300px" style="display: block; margin: 10px auto 0 auto;" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnluZHV2eHVpMXEwODVneThvODZoMjAwOG8xNTltOHFmd2MzZ2VjeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lJNoBCvQYp7nq/giphy.gif">
+    <main class="main">
+        <!--==================== BANNER ====================-->
+        <section class="banner">
+            <div class="container">
+                <div class="banner__card">
+                    <div class="banner__data">
+                        <h1 class="banner__title">
+                            Найдите опытного ситтера для своего питомца
+                        </h1>
+                        <p class="banner__text">
+                            Чтобы уехать в отпуск, провести выходные на природе, 
+                            навестить родителей или съездить в командировку
+                        </p>
+                        <div class="banner__buttons-container">
+                            <a href="#" class="banner__button">Найти ситтера</a>
+                            <a href="#" class="banner__button">Стать ситтером</a>
+                        </div>
+                    </div>
+
+                    <!-- Image Slideshow -->
+                    <div class="banner__image-container">
+                        <img class="banner__image" alt="banner picture"
+                            src="{% static 'images/home/banner-dog.png' %}" >
+                        <img class="banner__image" alt="banner picture"
+                            src="{% static 'images/home/banner-cat-tongue.png' %}" >
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
     <br/><a href="/admin/" <u><button type="button" class="btn btn-primary">Панель администратора (для удобства)</button></u></a>
     <br/><a href="/api/v1/serviceslist/" <u><button type="button" class="btn btn-primary">Django REST framework</button></u></a>
 {% endblock content%}
