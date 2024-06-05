@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/partials/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/partials/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/partials/footer.css' %}">
     
     <!--================ JS ================-->
     <script src="{% static 'scripts/main.js' %}" defer></script>
@@ -30,5 +31,6 @@
     {% block content %}
 
     {% endblock content %}
+    {% include 'partials/footer.html' %}
 </body>
 </html>

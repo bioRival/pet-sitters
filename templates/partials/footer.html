@@ -1,0 +1,37 @@
+{% load static %}
+
+<footer class="footer">
+    <div class="footer__wrapper">
+        <div class="footer__content">
+            <div class="footer__left">
+                <img src="{% static 'images/footer/logo.png' %}" alt="logo picture">
+                <nav class="footer__nav">
+                    <ul>
+                        <li><a href="">О сервисе</a></li>
+                        <li><a href="">Услуги</a></li>
+                        <li><a href="">Наши ситтеры</a></li>
+                        <li><a href="">Стать ситтером</a></li>
+                        <li><a href="">Чек-лист подготовки к передержке</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer__middle">
+                <h2 class="footer__form-title">Остались вопросы? Пишите!</h2>
+                <form action="" method="post">
+                    <input type="email" id="email" name="email" placeholder="E-mail" required>
+                    <button type="submit">Отправить</button>
+                </form>
+            </div>
+            <div class="footer__right">
+                <ul>
+                    <li><a href=""><img src="{% static 'images/footer/Telegram.png' %}" alt="Telegram logo"></a></li>
+                    <li><a href=""><img src="{% static 'images/footer/Whatsapp.png' %}" alt="Whatsapp logo"></a></li>
+                    <li><a href=""><img src="{% static 'images/footer/inst.png' %}" alt="inst logo"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <span>© 2024 PetSitters. Все права защищены.</span>
+        </div>
+    </div>
+</footer>

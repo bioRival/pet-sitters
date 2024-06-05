@@ -57,6 +57,8 @@ body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
+    min-height: 100vh;
+    position: relative;
 }
 
 ul {
