@@ -99,15 +99,15 @@
     font-weight: initial;
 }
 
-/* Add blur header */
-.blur-header {
+/* Makes header sticky in js */
+.sticky-header {
     position: sticky;
     top: 0;
     width: 100%;
     background-color: transparent;
 }
 
-.blur-header::after {
+.sticky-header::after {
     content: '';
     position: absolute;
     width: 100%;

@@ -28,16 +28,14 @@ navLink.forEach(link => link.addEventListener('click', () => {
 }))
 
 
-/*========================= ADD BLUR HEADER =========================*/
-function blurHeader() {
+/*========================= TURN HEADER STICKY  =========================*/
+window.addEventListener('scroll', () => {
     const header = document.getElementById('header')
     if (window.innerWidth <= 1150) {
-        if (this.scrollY >= 100) {
-            header.classList.add('blur-header')
+        if (window.scrollY >= 100) {
+            header.classList.add('sticky-header')
         } else {
-            header.classList.remove('blur-header')
+            header.classList.remove('sticky-header')
         }
     }
-
-}
-window.addEventListener('scroll', blurHeader)
+})

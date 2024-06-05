@@ -2,7 +2,7 @@
 
 <header class="header" id="header">
     <nav class="nav container">
-        <a href="#" class="nav__logo">
+        <a href="{% url 'home' %}" class="nav__logo">
             <img src="{% static 'images/header/logo.svg' %}" alt="logo picture">
             <img src="{% static 'images/header/logo-text.svg' %}" alt="petsitter">
         </a>
@@ -28,7 +28,7 @@
         </div>
         <div class="nav__top-menu">
             <!-- Singin button -->
-            <a href="#" class="nav__sign-in">
+            <a href="{% url 'user_app:login' %}" class="nav__sign-in">
                 <i class="ri-login-circle-line"></i>
                 Войти
             </a>
