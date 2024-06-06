@@ -18,27 +18,14 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=11, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True, upload_to="images/profile/")
+    image = models.ImageField(null=True, blank=True, default='images/profile/default_user.png',
+                              upload_to="images/profile/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
     user_type = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
 
     def __str__(self):
         return str(self.user)
-
-    # def save(self, *args, **kwargs):
-    #     """
-    #     Сохранение полей модели при их отсутствии заполнения
-    #     """
-    #     if not self.slug:
-    #         self.slug = unique_slugify(self, self.user.username)
-    #     super().save(*args, **kwargs)
-    #
-    # def __str__(self):
-    #     """
-    #     Возвращение строки
-    #     """
-    #     return self.user.username
 
     def get_absolute_url(self):
         """
@@ -126,17 +113,22 @@ class Comment(models.Model):
         self.save()
 
 
-# модель регистрации с емайл
-class BaseRegisterForm(UserCreationForm):
-    email = forms.EmailField(label="Email")
-    first_name = forms.CharField(label="Имя")
-    last_name = forms.CharField(label="Фамилия")
+class Pet(models.Model):
+    PETS = [
+        ('собака', 'Собака'),
+        ('кошка', 'Кошка')
+    ]
 
-    class Meta:
-        model = User
-        fields = ("username",
-                  "first_name",
-                  "last_name",
-                  "email",
-                  "password1",
-                  "password2", )
+    WEIGHT = [
+        ('1', '1-5 кг'),
+        ('2', '6-10 кг'),
+        ('3', '11-20 кг'),
+        ('4', '21+ кг')
+    ]
+
+    pet_type = models.CharField(max_length=6, choices=PETS, default='собака')
+    name = models.CharField(max_length=50)
+    description = models.TextField
+    weight = models.CharField(max_length=10, choices=WEIGHT, default='1')
+    host = models.ForeignKey(Customer, on_delete=models.CASCADE)
+

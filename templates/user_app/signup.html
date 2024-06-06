@@ -8,6 +8,7 @@
 {% block content %}
 <h2>Регистрация в Petsitter</h2>
         <input type="button" onclick="history.back();" class="btn btn-outline-secondary btn-sm" value="Вернуться"/>
+    {% include 'messages.html' %}
 <form class="container mt-4" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
 
