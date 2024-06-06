@@ -2,42 +2,168 @@
 
 {% load static %}
 
-{% block head %} 
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <script src="{% static 'scripts/home.js' %}" defer></script>
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<script src="{% static 'scripts/home.js' %}" defer></script>
 {% endblock head %}
 
 {% block title %} Petsitters.ru - Главная {% endblock title %}
 
 {% block content %}
-    <main class="main">
-        <!--==================== BANNER ====================-->
-        <section class="banner">
-            <div class="container">
-                <div class="banner__card">
-                    <div class="banner__data">
-                        <h1 class="banner__title">
-                            Найдите опытного ситтера для своего питомца
-                        </h1>
-                        <p class="banner__text">
-                            Чтобы уехать в отпуск, провести выходные на природе, 
-                            навестить родителей или съездить в командировку
-                        </p>
-                        <div class="banner__buttons-container">
-                            <a href="#" class="banner__button">Найти ситтера</a>
-                            <a href="#" class="banner__button">Стать ситтером</a>
-                        </div>
-                    </div>
-
-                    <!-- Image Slideshow -->
-                    <div class="banner__image-container">
-                        <img class="banner__image" alt="banner picture"
-                            src="{% static 'images/home/banner-dog.png' %}" >
-                        <img class="banner__image" alt="banner picture"
-                            src="{% static 'images/home/banner-cat-tongue.png' %}" >
+<main class="main">
+    <!--==================== BANNER ====================-->
+    <section class="banner section">
+        <div class="container">
+            <div class="banner__card">
+                <div class="banner__data">
+                    <h1 class="banner__title">
+                        Найдите опытного ситтера для своего питомца
+                    </h1>
+                    <p class="banner__text">
+                        Чтобы уехать в отпуск, провести выходные на природе,
+                        навестить родителей или съездить в командировку
+                    </p>
+                    <div class="banner__buttons-container">
+                        <a href="#" class="banner__button">Найти ситтера</a>
+                        <a href="#" class="banner__button">Стать ситтером</a>
                     </div>
                 </div>
+
+                <!-- Image Slideshow -->
+                <div class="banner__image-container">
+                    <img class="banner__image" alt="banner picture" src="{% static 'images/home/banner-dog.png' %}">
+                    <img class="banner__image" alt="banner picture"
+                        src="{% static 'images/home/banner-cat-tongue.png' %}">
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!--==================== SERVICES ====================-->
+    <section class="services section">
+        <div class="container">
+            <h1 class="section__title">Наши услуги</h1>
+            <ul class="services__list">
+                <li class="services__item">
+                    <a href="#" class="services__wrapper">
+                        <img class="services__image" src="{% static 'images/home/service-img-1.png' %}"
+                            alt="services image">
+                        <h2 class="services__name">Выгул</h2>
+                        <p class="services__text">
+                            Погуляем с собакой, если вам некогда
+                        </p>
+                        <div class="services__bottom">
+                            <span class="services__price">от 600 ₽</span>
+                            <div href="#" class="services__arrow-button">
+                                <i class="ri-arrow-right-line services__icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="services__item">
+                    <a href="#" class="services__wrapper">
+                        <img class="services__image" src="{% static 'images/home/service-img-2.png' %}"
+                            alt="services image">
+                        <h2 class="services__name">Передержка</h2>
+                        <p class="services__text">
+                            Позаботимся о питомцах во время вашего отъезда
+                        </p>
+                        <div class="services__bottom">
+                            <span class="services__price">от 800 ₽</span>
+                            <div href="#" class="services__arrow-button">
+                                <i class="ri-arrow-right-line services__icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <li class="services__item">
+                    <a href="#" class="services__wrapper">
+                        <img class="services__image" src="{% static 'images/home/service-img-3.png' %}"
+                            alt="services image">
+                        <h2 class="services__name">Няня</h2>
+                        <p class="services__text">
+                            Присмотрим за собакой и кошкой, пока вас нет дома
+                        </p>
+                        <div class="services__bottom">
+                            <span class="services__price">от 1000 ₽</span>
+                            <div href="#" class="services__arrow-button">
+                                <i class="ri-arrow-right-line services__icon"></i>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!--==================== FILTER ====================-->
+    <section class="filter section">
+        <div class="container">
+            <h1 class="section__title">Рассчитать стоимость</h1>
+            <div class="filter__card">
+                <div class="filter__card-top">
+                    <form class="filter__form">
+                        <h2 class="filter__label">Вид ситтинга</h2>
+                        <div class="filter__input-box">
+                            <input type="radio" class="filter__radio"
+                                    id="type1" name="type" value="walk" />
+                            <label class="filter__button" for="type1">Выгул</label>
+
+                            <input type="radio" class="filter__radio"
+                                    id="type2" name="type" value="walk" />
+                            <label class="filter__button" for="type2">Передержка</label>
+
+                            <input type="radio" class="filter__radio"
+                                    id="type3" name="type" value="walk" />
+                            <label class="filter__button" for="type3">Дневная няня</label>
+                        </div>
+                        <div class="filter__middle-container">
+                            <label class="filter__label" for="address">
+                                Вид ситтинга
+                            </label>
+                            <input id="address" type="text" placeholder="Москва, Россия">
+
+                            <label class="filter__label" for="date-start">
+                                Даты передержки
+                            </label>
+                            <input id="date-start" type="date">
+                            <input id="date-end" type="date">
+                        </div>
+                        <div>
+                            <label class="filter__label" for="pet-weight">
+                                Размер животного
+                            </label>
+
+                            <input type="radio" id="weight-s" name="weight" value="small" />
+                            <label for="weight-s">1-5 кг</label>
+
+                            <input type="radio" id="weight-m" name="weight" value="medium" />
+                            <label for="weight-m">6-10 кг</label>
+
+                            <input type="radio" id="weight-l" name="weight" value="large" />
+                            <label for="weight-l">11-20 кг</label>
+
+                            <input type="radio" id="weight-xl" name="weight" value="xlarge" />
+                            <label for="weight-xl">21+ кг</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkbox-dog" name="checkbox-dog" value="dog">
+                            <label for="checkbox-dog">Dog</label>
+
+                            <input type="checkbox" id="checkbox-cat" name="checkbox-cat" value="cat">
+                            <label for="checkbox-cat">Cat</label>
+                            <button type="submit">Найти исполнителя</button>
+                        </div>
+                    </form>
+                    <img src="{% static 'images/home/filter-pic.png' %}" alt="">
+                </div>
+                <div class="filter__card-bottom">
+                    <div class="filter__map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock content%}
