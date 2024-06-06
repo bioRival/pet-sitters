@@ -1,33 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Авторизация</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+
+{% block title %} Авторизация {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock head %}
+
 {% block content %}
-<div class="form-section container mt-3 justify-content-center d-flex">
-<div class="col-lg-4 col-sm-12">
-<h2>Добро пожаловать в Petsitter!</h2>
-        <input type="button" onclick="history.back();" class="btn btn-outline-secondary btn-sm" value="Вернуться"/>
-<form method="post">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
+<div class="login-main">
+    <div class="login-wrapper">
+        <div class="login-content">
+
+            <button onclick="history.back();" class="back-button">
+                <img src="{% static 'images/login/back_button.svg' %}" alt="Back">
+                <span>Вернуться</span>
+            </button>
+
+            <h2 class="login-title">Добро пожаловать в Petsitter!</h2>
+            <div class="form-group">
+                <form method="post">
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                        <label class="form-label">{{ field.label }}</label>
+                        <div class="input-wrapper">
+                            {{ field }}
+                            {% if field.field.widget.input_type == "password" %}
+                                <span class="toggle-password" onclick="togglePasswordVisibility(this)">
+                                    <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide">
+                                </span>
+                            {% endif %}
+                        </div>
+                    {% endfor %} 
+
+                    <div class="forgot-password">
+                        <a href="{% url 'home' %}">Забыли пароль?</a>
+                    </div>
+                    <button type="submit" class="btn btn-login">
+                        Войти
+                    </button>
+                </form>
+                <button class="btn btn-register">
+                    <a href="{% url 'user_app:signup' %}">Регистрация</a>
+                </button>
+            </div>
         </div>
-    {% endif %}
-    {% for field in form %}
-        <p class="form-label">{{ field.label }}</p>
-        <p>{{ field }}</p>
-    {% endfor %}
-            <button> <a href="{% url 'home' %}">Забыли пароль?</a> </button>
-    <br>
-    <button type="submit" class="btn btn-outline-success">Войти</button>
-</form>
-</div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility(element) {
+            const input = element.previousElementSibling;
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+    </script>
+
 </div>
 {% endblock content %}
-        <button> <a href="{% url 'user_app:signup' %}">Зарегистрироваться</a> </button>
-</body>
-</html>
