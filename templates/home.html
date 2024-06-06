@@ -97,5 +97,73 @@
             </ul>
         </div>
     </section>
+
+    <!--==================== FILTER ====================-->
+    <section class="filter section">
+        <div class="container">
+            <h1 class="section__title">Рассчитать стоимость</h1>
+            <div class="filter__card">
+                <div class="filter__card-top">
+                    <form class="filter__form">
+                        <h2 class="filter__label">Вид ситтинга</h2>
+                        <div class="filter__input-box">
+                            <input type="radio" class="filter__radio"
+                                    id="type1" name="type" value="walk" />
+                            <label class="filter__button" for="type1">Выгул</label>
+
+                            <input type="radio" class="filter__radio"
+                                    id="type2" name="type" value="walk" />
+                            <label class="filter__button" for="type2">Передержка</label>
+
+                            <input type="radio" class="filter__radio"
+                                    id="type3" name="type" value="walk" />
+                            <label class="filter__button" for="type3">Дневная няня</label>
+                        </div>
+                        <div class="filter__middle-container">
+                            <label class="filter__label" for="address">
+                                Вид ситтинга
+                            </label>
+                            <input id="address" type="text" placeholder="Москва, Россия">
+
+                            <label class="filter__label" for="date-start">
+                                Даты передержки
+                            </label>
+                            <input id="date-start" type="date">
+                            <input id="date-end" type="date">
+                        </div>
+                        <div>
+                            <label class="filter__label" for="pet-weight">
+                                Размер животного
+                            </label>
+
+                            <input type="radio" id="weight-s" name="weight" value="small" />
+                            <label for="weight-s">1-5 кг</label>
+
+                            <input type="radio" id="weight-m" name="weight" value="medium" />
+                            <label for="weight-m">6-10 кг</label>
+
+                            <input type="radio" id="weight-l" name="weight" value="large" />
+                            <label for="weight-l">11-20 кг</label>
+
+                            <input type="radio" id="weight-xl" name="weight" value="xlarge" />
+                            <label for="weight-xl">21+ кг</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="checkbox-dog" name="checkbox-dog" value="dog">
+                            <label for="checkbox-dog">Dog</label>
+
+                            <input type="checkbox" id="checkbox-cat" name="checkbox-cat" value="cat">
+                            <label for="checkbox-cat">Cat</label>
+                            <button type="submit">Найти исполнителя</button>
+                        </div>
+                    </form>
+                    <img src="{% static 'images/home/filter-pic.png' %}" alt="">
+                </div>
+                <div class="filter__card-bottom">
+                    <div class="filter__map"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </main>
 {% endblock content%}

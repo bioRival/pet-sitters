@@ -198,3 +198,93 @@
 .services__wrapper:hover .services__arrow-button {
     transform: translateX(.5rem);
 }
+
+
+
+
+
+
+
+
+
+
+/*========================== FILTER ==========================*/
+.filter__card {
+    padding-top: 2.5rem;
+    border-radius: 60px;
+    border: 2px solid var(--yellow-color);
+    overflow: hidden;
+}
+
+.filter__form {
+    flex-grow: 1;
+}
+
+.filter__card-top {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-inline: 2.5rem;
+}
+
+.filter__input-box {
+    display: flex;
+    flex-direction: row;
+    /* align-content: stretch; */
+    /* width: 100%; */
+    gap: 1.25rem;
+}
+
+.filter__input-box > * {
+    flex: 1;
+}
+
+.filter__label {
+    display: block;
+    color: var(--dark-purple-color);
+    font-family: var(--text-font);
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+
+.filter__radio {
+    display: none;
+}
+
+.filter__radio:checked + .filter__button {
+    background-color: var(--yellow-color);
+}
+
+.filter__button {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    padding: 1rem 2.5rem;
+    border-radius: 40px;
+    border: 2px solid var(--yellow-color);
+    cursor: pointer;
+
+    color: var(--black-color);
+    font-family: var(--text-font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+    text-align: center;
+}
+
+
+
+
+
+
+.filter__map {
+    height: 370px;
+    width: 100%;
+    background-color: var(--light-yellow-color);
+}
