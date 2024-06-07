@@ -91,6 +91,22 @@ h3 {
     font-size: var(--h3-font-size);
 }
 
+input {
+    font-family: var(--text-font);
+    font-size: var(--normal-font-size);
+    color: var(--black-color);
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+input:focus,
+button:focus {
+    outline: none;
+}
+
 /*================= REUSABLE CSS CLASSES =================*/
 .container {
     max-width: 1240px;

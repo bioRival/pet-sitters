@@ -23,3 +23,45 @@ function bannerSlideshow() {
 }
 
 bannerSlideshow()
+
+
+
+
+/*=============================== CAT / DOG FILTER BUTTONS ===============================*/
+function initCatDogButtons() {
+    let timeout;
+    function handleChange(e, pngImg, gifImg) {
+        if (e.currentTarget.checked) {
+            clearTimeout(timeout)
+            pngImg.style.display = 'none'
+            gifImg.style.display = 'inline-block'
+            timeout = setTimeout(() => {
+                pngImg.style.display = 'inline-block'
+                gifImg.style.display = 'none'
+            }, 800)
+        } else {
+            pngImg.style.display = 'inline-block'
+            gifImg.style.display = 'none'
+        }
+        console.log("Hello")
+    }
+
+    document.getElementById('checkbox-dog').addEventListener('change', (e) => handleChange(
+        e,
+        document.getElementById('dog-png'),
+        document.getElementById('dog-gif'),
+    ))
+    document.getElementById('checkbox-cat').addEventListener('change', (e) => handleChange(
+        e,
+        document.getElementById('cat-png'),
+        document.getElementById('cat-gif'),
+    ))
+
+
+}
+initCatDogButtons()
+
+
+
+
+
