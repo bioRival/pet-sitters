@@ -49,6 +49,10 @@
     color: var(--white-color);
 }
 
+.banner__image-container {
+    width: 100%;
+}
+
 .banner__image {
     position: absolute;
     right: -3rem;
@@ -61,15 +65,45 @@
                 transparent 100%);
 }
 
+#banner-girl {
+    right: -10rem;
+    mask-image: none;
+}
+
 /* Reveal banner slideshow image */
 .banner__show-image {
     opacity: 1;
     transform: translateX(-2rem);
 }
 
+/* Dots at the bottom of the banner */
+.banner__carousel-indicators {
+    position: absolute;
+    bottom: -3rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.banner__carousel-indicators li {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    /* cursor: pointer; */
+    background-color: var(--purple-color);
+    /* border: 1px solid #FFFFFF; */
+    border-radius: 10px;
+    margin: .5rem;
+    user-select: none;
+    transition: background-color 1s;
+}
+
+.banner__carousel-indicators li.active {
+    background-color: var(--dark-purple-color);
+}
+
 /*=========================== BREAKPOINTS ===========================*/
 /* for below large */
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1250px) {
     .banner__card {
         border-radius: 30px;
         padding: 3rem;
@@ -77,6 +111,11 @@
 
     .banner__image {
         max-height: 400px;
+        right: 5rem;
+    }
+
+    #banner-girl {
+        right: -3rem;
     }
 
     .banner__data {
@@ -89,6 +128,15 @@
 
     .banner__text {
         font-size: var(--normal-font-size);
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .banner__image {
+        right: -3rem;
+    }
+    #banner-girl {
+        right: -10rem;
     }
 }
 
@@ -210,14 +258,21 @@
 
 /*========================== FILTER ==========================*/
 .filter__card {
-    padding-top: 2.5rem;
+    /* padding-top: 2.5rem; */
     border-radius: 60px;
     border: 2px solid var(--yellow-color);
     overflow: hidden;
+    width: 100%;
 }
 
 .filter__form {
     flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
 }
 
 .filter__card-top {
@@ -225,19 +280,30 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    padding-inline: 2.5rem;
+    padding: 2.5rem;
+}
+
+.filter__middle-container {
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    gap: 2.5rem;
+}
+
+.filter__middle-container > * {
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .filter__input-box {
     display: flex;
     flex-direction: row;
-    /* align-content: stretch; */
-    /* width: 100%; */
     gap: 1.25rem;
 }
 
 .filter__input-box > * {
-    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .filter__label {
@@ -249,24 +315,12 @@
     margin-bottom: 1rem;
 }
 
-
-
-
-
-
 .filter__radio {
     display: none;
 }
 
-.filter__radio:checked + .filter__button {
-    background-color: var(--yellow-color);
-}
-
 .filter__button {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    padding: 1rem 2.5rem;
+    padding: 1rem 1rem;
     border-radius: 40px;
     border: 2px solid var(--yellow-color);
     cursor: pointer;
@@ -276,8 +330,61 @@
     font-size: var(--h3-font-size);
     font-weight: var(--font-semi-bold);
     text-align: center;
+    transition: background-color .4s;
 }
 
+.filter__radio:checked + .filter__button {
+    background-color: var(--light-yellow-color);
+}
+
+.filter__button:hover {
+    background-color: var(--light-yellow-color);
+}
+
+.filter__input-line {
+    padding: 1rem 1.5rem;
+    border-radius: 40px;
+    border: 2px solid var(--yellow-color);
+    font-size: var(--h2-font-size);
+}
+
+.filter__input-line::placeholder {
+    color: rgba(20, 0, 41, 0.50);
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-medium);
+}
+
+.filter__submit {
+    flex-grow: 3;
+    padding: 1rem;
+    border-radius: 2.5rem;
+    text-align: center;
+    background-color: var(--purple-color);
+
+    color: var(--dark-purple-color);
+    font-family: var(--text-font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+    transition: background-color .4s, color .4s;
+}
+
+.filter__submit:hover {
+    background-color: var(--light-purple-color);
+    color: var(--black-color);
+}
+
+#dog-gif,
+#cat-gif {
+    display: none;
+}
+
+.filter__cat-dog {
+    padding-block: 0;
+}
+
+.filter__cat-dog img {
+    user-select: none;
+}
 
 
 
@@ -287,4 +394,28 @@
     height: 370px;
     width: 100%;
     background-color: var(--light-yellow-color);
+}
+
+/*========================== FILTER BREAKPOINTS ==========================*/
+@media screen and (max-width: 1355px) {
+    .filter__card-top {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filter__card-top > img {
+        order: -1;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .filter__middle-container {
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .filter__input-box {
+        flex-wrap: wrap;
+    }
 }

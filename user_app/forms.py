@@ -28,6 +28,11 @@ class LoginForm(AuthenticationForm):
 
 
 class RegistrationForm(UserCreationForm):
+    PACKAGES = [
+        ('заказчик', 'Я - клиент'),
+        ('исполнитель', 'Я - ситтер'),
+    ]
+
     username = forms.CharField(
         max_length=150,
         label='Имя пользователя',
@@ -50,16 +55,10 @@ class RegistrationForm(UserCreationForm):
             'placeholder': 'Введите пароль'
         })
     )
-    password2 = forms.CharField(
-        max_length=128,
-        label='Подтверждение пароля',
-        widget=forms.PasswordInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Повторите пароль'
-        })
-    )
+
+    user_type = forms.ChoiceField(choices=PACKAGES, widget=forms.Select())
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', ]
+        fields = ['username', 'email', 'password1', ]
 

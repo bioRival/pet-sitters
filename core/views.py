@@ -11,7 +11,7 @@ from django.views.generic import ListView, CreateView, DetailView
 from rest_framework import generics
 
 from .forms import CreateProfileForm
-from .models import Services, BaseRegisterForm, Customer
+from .models import Services, Customer
 from .serializers import ServicesSerializer
 
 # Временное представление для API

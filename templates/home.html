@@ -31,10 +31,18 @@
 
                 <!-- Image Slideshow -->
                 <div class="banner__image-container">
-                    <img class="banner__image" alt="banner picture" src="{% static 'images/home/banner-dog.png' %}">
+                    <img class="banner__image" alt="banner picture" id="banner-girl"
+                        src="{% static 'images/home/banner-girl.png' %}">
+                    <img class="banner__image" alt="banner picture" 
+                        src="{% static 'images/home/banner-dog.png' %}">
                     <img class="banner__image" alt="banner picture"
                         src="{% static 'images/home/banner-cat-tongue.png' %}">
                 </div>
+                <ul class="banner__carousel-indicators">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
             </div>
         </div>
     </section>
@@ -105,56 +113,76 @@
             <div class="filter__card">
                 <div class="filter__card-top">
                     <form class="filter__form">
-                        <h2 class="filter__label">Вид ситтинга</h2>
-                        <div class="filter__input-box">
-                            <input type="radio" class="filter__radio"
-                                    id="type1" name="type" value="walk" />
-                            <label class="filter__button" for="type1">Выгул</label>
+                        <div>
+                            <h2 class="filter__label">Вид услуги</h2>
+                            <div class="filter__input-box">
+                                <input type="radio" class="filter__radio" id="type1" name="type" value="walk" />
+                                <label class="filter__button" for="type1">Выгул</label>
 
-                            <input type="radio" class="filter__radio"
-                                    id="type2" name="type" value="walk" />
-                            <label class="filter__button" for="type2">Передержка</label>
+                                <input type="radio" class="filter__radio" id="type2" name="type" value="walk" />
+                                <label class="filter__button" for="type2">Передержка</label>
 
-                            <input type="radio" class="filter__radio"
-                                    id="type3" name="type" value="walk" />
-                            <label class="filter__button" for="type3">Дневная няня</label>
+                                <input type="radio" class="filter__radio" id="type3" name="type" value="walk" />
+                                <label class="filter__button" for="type3">Дневная няня</label>
+                            </div>
                         </div>
                         <div class="filter__middle-container">
-                            <label class="filter__label" for="address">
-                                Вид ситтинга
-                            </label>
-                            <input id="address" type="text" placeholder="Москва, Россия">
+                            <div>
+                                <label class="filter__label" for="address">
+                                    Где искать
+                                </label>
+                                <div class="filter__input-box">
+                                    <input id="address" class="filter__input-line" type="text"
+                                        placeholder="Москва, Россия">
+                                </div>
+                            </div>
 
-                            <label class="filter__label" for="date-start">
-                                Даты передержки
-                            </label>
-                            <input id="date-start" type="date">
-                            <input id="date-end" type="date">
+                            <div>
+                                <label class="filter__label" for="date-start">
+                                    Даты
+                                </label>
+                                <div class="filter__input-box">
+                                    <input class="filter__input-line" id="date-start" type="date">
+                                    <input class="filter__input-line" id="date-end" type="date">
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <label class="filter__label" for="pet-weight">
-                                Размер животного
+                                Размер питомца
+                            </label>
+                            <div class="filter__input-box">
+                                <input class="filter__radio" type="radio" id="weight-s" name="weight" value="small" />
+                                <label class="filter__button" for="weight-s">1-5 кг</label>
+
+                                <input class="filter__radio" type="radio" id="weight-m" name="weight" value="medium" />
+                                <label class="filter__button" for="weight-m">6-10 кг</label>
+
+                                <input class="filter__radio" type="radio" id="weight-l" name="weight" value="large" />
+                                <label class="filter__button" for="weight-l">11-20 кг</label>
+
+                                <input class="filter__radio" type="radio" id="weight-xl" name="weight" value="xlarge" />
+                                <label class="filter__button" for="weight-xl">21+ кг</label>
+                            </div>
+                        </div>
+                        <div class="filter__input-box">
+                            <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog"
+                                value="dog">
+                            <label class="filter__button filter__cat-dog" for="checkbox-dog">
+                                <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
+                                <img id="dog-gif" src="{% static 'images/home/btn-dog.gif' %}" alt="">
                             </label>
 
-                            <input type="radio" id="weight-s" name="weight" value="small" />
-                            <label for="weight-s">1-5 кг</label>
+                            <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat"
+                                value="cat">
+                            <label class="filter__button filter__cat-dog" for="checkbox-cat">
+                                <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
+                                <img id="cat-gif" src="{% static 'images/home/btn-cat.gif' %}" alt="">
+                            </label>
 
-                            <input type="radio" id="weight-m" name="weight" value="medium" />
-                            <label for="weight-m">6-10 кг</label>
-
-                            <input type="radio" id="weight-l" name="weight" value="large" />
-                            <label for="weight-l">11-20 кг</label>
-
-                            <input type="radio" id="weight-xl" name="weight" value="xlarge" />
-                            <label for="weight-xl">21+ кг</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="checkbox-dog" name="checkbox-dog" value="dog">
-                            <label for="checkbox-dog">Dog</label>
-
-                            <input type="checkbox" id="checkbox-cat" name="checkbox-cat" value="cat">
-                            <label for="checkbox-cat">Cat</label>
-                            <button type="submit">Найти исполнителя</button>
+                            <button class="filter__submit" type="submit">
+                                Найти исполнителя
+                            </button>
                         </div>
                     </form>
                     <img src="{% static 'images/home/filter-pic.png' %}" alt="">
