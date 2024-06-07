@@ -39,3 +39,30 @@ window.addEventListener('scroll', () => {
         }
     }
 })
+
+
+
+
+/*========================= USER-DROPDOWN MENU =========================*/
+function showUserDropdown(content, button) {
+    const   dropdownContent = document.getElementById(content),
+            dropdownButton = document.getElementById(button)
+    
+    // If elements exist
+    if (dropdownButton && dropdownContent) {
+        // Show menu
+        dropdownButton.addEventListener('click', () => {
+            dropdownContent.classList.toggle('show-user-dropdown')
+        })
+
+        // When menu is open click on anything else to close it
+        document.addEventListener('click', (e) => {
+            if (e.target !== dropdownButton) {
+                dropdownContent.classList.remove('show-user-dropdown')
+            }
+        })
+    }
+}
+
+showUserDropdown('user-dropdown-content', 'user-dropdown-button')
+

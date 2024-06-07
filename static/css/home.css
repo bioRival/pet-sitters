@@ -386,12 +386,17 @@
     user-select: none;
 }
 
+.filter__card-bottom {
+    width: 100%;
+}
+
 
 
 /*============== Yandex map geosuggest ===============*/
 .filter__map {
     height: 370px;
     width: 100%;
+    min-width: 400px;
     background-color: var(--light-yellow-color);
 }
 

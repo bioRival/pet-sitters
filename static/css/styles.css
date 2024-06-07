@@ -122,6 +122,10 @@ button:focus {
     padding-block: 5rem;
 }
 
+.dnone {
+    display: none;
+}
+
 
 
 
