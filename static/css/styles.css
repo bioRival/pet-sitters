@@ -65,10 +65,21 @@ body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
+
+    /* Makes footer appear at the bottom */
     min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
+}
+
+/* main {
+    min-height: 100vh ;
+} */
+
+footer {
+    /* Makes footer appear at the bottom */
+    margin-top: auto;
 }
 
 ul {
