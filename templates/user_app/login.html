@@ -5,21 +5,22 @@
 {% block title %} Авторизация {% endblock title %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock head %}
 
 {% block content %}
-<div class="login-main">
-    <div class="login-wrapper">
-        <div class="login-content">
+<div class="auth__main">
+    <div class="auth__wrapper">
+        <div class="auth__content">
 
-            <button onclick="history.back();" class="back-button">
+            <button onclick="history.back();" class="auth__back-button">
                 <img src="{% static 'images/login/back_button.svg' %}" alt="Back">
                 <span>Вернуться</span>
             </button>
 
-            <h2 class="login-title">Добро пожаловать в Petsitter!</h2>
-            <div class="form-group">
+            <h2 class="auth__title">Добро пожаловать в Petsitter!</h2>
+            <div class="auth__form-group">
                 <form method="post">
                     {% csrf_token %}
                     {% if form.non_field_errors %}
@@ -29,25 +30,25 @@
                     {% endif %}
 
                     {% for field in form %}
-                        <label class="form-label">{{ field.label }}</label>
-                        <div class="input-wrapper">
+                        <label class="auth__form-label">{{ field.label }}</label>
+                        <div class="auth__input-wrapper">
                             {{ field }}
                             {% if field.field.widget.input_type == "password" %}
-                                <span class="toggle-password" onclick="togglePasswordVisibility(this)">
+                                <span class="auth__toggle-password" onclick="togglePasswordVisibility(this)">
                                     <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide">
                                 </span>
                             {% endif %}
                         </div>
                     {% endfor %} 
 
-                    <div class="forgot-password">
+                    <div class="auth__form__help-button">
                         <a href="{% url 'home' %}">Забыли пароль?</a>
                     </div>
-                    <button type="submit" class="btn btn-login">
+                    <button type="submit" class="auth__btn auth__main-btn">
                         Войти
                     </button>
                 </form>
-                <button class="btn btn-register">
+                <button class="auth__btn auth__alt-btn">
                     <a href="{% url 'user_app:signup' %}">Регистрация</a>
                 </button>
             </div>

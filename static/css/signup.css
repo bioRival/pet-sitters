@@ -1,0 +1,69 @@
+/* ------------------------- круглый чекбокс ------------------------- */
+/* Скрываем стандартный чекбокс, но оставляем его функциональным */
+.auth__form__help-button input[type="checkbox"] {
+    appearance: none; /* Убираем стандартный вид */
+    -webkit-appearance: none; /* Убираем стандартный вид для WebKit */
+    position: absolute;
+    z-index: -1; /* Скрываем за другими элементами */
+}
+
+/* Стили для кастомного чекбокса */
+.auth__form__help-button label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+}
+
+/* Создаем круглый чекбокс */
+.auth__form__help-button label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Стили для состояния "checked" */
+.auth__form__help-button input[type="checkbox"]:checked + label::before {
+    background-color: #000;
+    border-color: #000;
+}
+/* ------------------------------------------------------------------------ */
+
+
+.auth__form__help-button:hover {
+    color: #7e27db;
+}
+
+
+.signup__toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.signup__toggle-button {
+    padding: 10px 20px;
+    border: 2px solid #FFD700;
+    border-radius: 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+.signup__toggle-button.active {
+    background-color: #FFD700;
+}
+
+.signup__hidden-select {
+    display: none;
+}
