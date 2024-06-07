@@ -2,20 +2,25 @@
 /*=============================== BANNER SLIDESHOW ===============================*/
 function bannerSlideshow() {
     // Getting array of images
-    
-    let images = [...document.querySelectorAll('.banner__image')]
-    images.reverse() // they are backwards, so reversing in order
+    // let images = [...document.querySelectorAll('.banner__image')]
+    let images = document.querySelectorAll('.banner__image')
+    // images.reverse() // they are backwards, so reversing in order
+
+    // Getting carousel dots
+    let dots = document.querySelectorAll('.banner__carousel-indicators li')
 
     let current = 0 // index of image visible
 
     function slideshow() {
         for (let i = 0; i < images.length; i++) {
             images[i].classList.remove('banner__show-image')
+            dots[i].classList.remove('active')
         }
 
-        current = (current != images.length - 1) ? current + 1 : 0
-
         images[current].classList.add('banner__show-image')
+        dots[current].classList.add('active')
+        
+        current = (current != images.length - 1) ? current + 1 : 0
     }
     
     slideshow(); // Execute on loading the page first
