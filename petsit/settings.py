@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 
 LOGIN_URL = 'login/'
 LOGIN_REDIRECT_URL = 'services_list'
-LOGOUT_REDIRECT_URL = 'core:services_list'
+LOGOUT_REDIRECT_URL = 'home'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True

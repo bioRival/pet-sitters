@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <div class="container mt-3">
+        <button class="auth__btn auth__alt-btn">
+            <a href="{% url 'user_app:customer_profile' username=user.username %}">Мой профиль</a>
+        </button>
+        <button class="auth__btn auth__alt-btn">
+            <a href="{% url 'home' %}">История заказов</a>
+        </button>
+        <button class="auth__btn auth__alt-btn">
+            <a href="{% url 'home' %}">Сообщения</a>
+        </button>
+        <br>
+        <div class="row">
+            <div class="col-xl-4 col-sm-12 border border-start border-0">
+            <h3 class="mb-3">Мои данные</h3>
+                    {% if customer_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'user_app:user_profile_edit' username=customer_profile.username %}">Редактировать профиль
+                    </a>
+                {% endif %}
+                <p>
+                <div class="col-12 text-center">
+                    <img src="{{ customer_profile.profile.image.url }}" alt="{{ customer_profile }}" width="300"
+                         height="300" class="img-fluid"><br>
+                </div>
+                    <b>Имя:</b> {{ customer_profile.first_name }}
+                    <br>
+                    <b>Фамилия:</b> {{ customer_profile.last_name }}</p>
+                    <br>
+                    <b>Город:</b> {{ customer_profile.profile.location }}</p>
+                    {% if customer_profile.profile.show_email %}
+                        <br>
+                        <b>Email:</b> {{ customer_profile.email }}
+                    {% endif %}
+                    {% if customer_profile.profile.show_phone %}
+                        <br>
+                        <b>Телефон:</b> {{ customer_profile.profile.phone }}
+                    {% endif %}
+                <br>
+                <h3 class="mb-3">Мой питомец</h3>
+                <h3 class="mb-3">Настройки</h3>
+                {% if customer_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'user_app:user_profile_settings' username=customer_profile.username %}">Изменить пароль
+                    </a>
+                {% endif %}
+                <br>
+                <button class="auth__btn auth__alt-btn">
+                    <a href="{% url 'user_app:logout' %}">Выйти</a>
+                </button>
+                <br>
+                <button class="auth__btn auth__alt-btn">
+                    <a href="{% url 'home' %}">Удалить профиль</a>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

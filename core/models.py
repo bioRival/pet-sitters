@@ -1,3 +1,6 @@
+import datetime
+
+from PIL import Image
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -15,23 +18,49 @@ PACKAGES = [
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField(null=True, blank=True)
-    phone = models.CharField(max_length=11, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True, default='images/profile/default_user.png',
-                              upload_to="images/profile/")
+    phone = models.CharField(max_length=12, null=True, blank=True)
+    image = models.ImageField(null=True, blank=True, default='images/profile/user_default.png',
+                              upload_to="images/profile/%Y/%m/%d/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
     user_type = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
 
-    def __str__(self):
-        return str(self.user)
+    show_email = models.BooleanField(default=False,
+                                     verbose_name='Показывать Email?')
+    show_phone = models.BooleanField(default=False,
+                                     verbose_name='Показывать телефон?')
 
-    def get_absolute_url(self):
-        """
-        Ссылка на профиль
-        """
-        return reverse('customer_profile', kwargs={'slug': self.slug})
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
+    # def save(self, *args, **kwargs):
+    #     img = Image.open(self.image.path)
+    #
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300, 300)
+    #         img.thumbnail(output_size)
+    #         img.save(self.image.path)
+
+    def get_on_site(self):
+        delta = datetime.now() - self.user.date_joined.replace(tzinfo=None)
+        years = delta.days // 365
+        if delta.days < 365:
+            return 'менее года'
+        else:
+            on_site_string = ""
+            if years == 1:
+                on_site_string += f"{years} год, "
+            elif 1 < years < 5:
+                on_site_string += f"{years} года, "
+            elif years >= 5:
+                on_site_string += f"{years} лет"
+            return on_site_string
+
+    def __str__(self):
+        return str(self.user.username)
 
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
@@ -52,7 +81,6 @@ class Customer(models.Model):
 #         return self.user.username
 
 
-# А что у нас вообще в категориях будет? Сюда, по-хорошему, как раз услуги надо закидывать, типа Передержки, Груминга и т.д.
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -127,6 +155,8 @@ class Pet(models.Model):
     ]
 
     pet_type = models.CharField(max_length=6, choices=PETS, default='собака')
+    image = models.ImageField(null=True, blank=True, default='images/profile/pet_default.png',
+                              upload_to="images/pets/%Y/%m/%d/")
     name = models.CharField(max_length=50)
     description = models.TextField
     weight = models.CharField(max_length=10, choices=WEIGHT, default='1')

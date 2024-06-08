@@ -1,17 +1,19 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 
 from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 
 from core.models import Customer
+from user_app import forms
 from user_app.forms import LoginForm, RegistrationForm
 
 
@@ -30,19 +32,6 @@ class LogoutView(View):
         return redirect('home')
 
 
-# class CustomRegistrationView(CreateView):
-#     form_class = RegistrationForm
-#     template_name = 'user_app/signup.html'
-#     extra_context = {'title': 'Регистрация на сайте'}
-#
-#     def get_success_url(self):
-#         return reverse_lazy('user_app:login')
-#
-#     def form_valid(self, form):
-#         user = form.save()
-#         return super().form_valid(form)
-
-
 def customer_signup(request):
     if request.method == "POST":
         username = request.POST['email']
@@ -56,19 +45,9 @@ def customer_signup(request):
             messages.error(request, 'Этот e-mail уже занят.')
             return redirect('/user/signup')
 
-        # if password1 != password2:
-        #     messages.error(request, "Неправильный пароль.")
-        #     return redirect('/customer_signup')
-
         user = User.objects.create_user(username=username, first_name=first_name,
                                         password=password1, email=email)
-        customers = Customer.objects.create(user=user, user_type=user_type)
-
-        # user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
-        #                                 password=password1, email=email)
-        # customers = Customer.objects.create(user=user, phone=phone, location=location, image=image, user_type=user_type)
         user.save()
-        customers.save()
         send_mail(
             subject='Регистрация пройдена успешно',
             message=f'Здравствуйте! Вы успешно зарегистрированы на сайте petsitters.ru.',
@@ -82,3 +61,98 @@ def customer_signup(request):
 
         return HttpResponseRedirect('/')
     return render(request, "user_app/signup.html")
+
+
+class CustomerProfileView(TemplateView):
+    template_name = 'user_app/custom_profile_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            user = get_object_or_404(User, username=self.kwargs.get('username'))
+        except User.DoesNotExist:
+            raise Http404("Пользователь не найден")
+        context['customer_profile'] = user
+        context['title'] = f'Профиль пользователя {user}'
+        return context
+
+
+# смена пароля
+class UserSettingsView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_app/profile_settings_page.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user == get_object_or_404(User, username=self.kwargs.get('username')):
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise HttpResponseForbidden("Вы не имеете доступа к этой странице.")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_info_form'] = forms.CustomInfoForm(instance=self.request.user)
+        context['user_profile_form'] = forms.ProfileForm(instance=self.request.user.profile)
+        context['user_password_form'] = forms.UserPasswordForm(self.request.user)
+        context['title'] = f'Настройки профиля {self.request.user}'
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if 'user_info_form' in request.POST:
+            user_info_form = forms.CustomInfoForm(request.POST, instance=request.user)
+            user_profile_form = forms.ProfileForm(request.POST, request.FILES, instance=self.request.user.profile)
+            if user_info_form.is_valid() and user_profile_form.is_valid():
+                user_info_form.save()
+                user_profile_form.save()
+                messages.success(request, 'Данные успешно изменены.')
+                return redirect('user_app:user_profile_edit', user_info_form.cleaned_data.get('username'))
+            else:
+                context = self.get_context_data(**kwargs)
+                context['user_info_form'] = user_info_form
+                context['user_profile_form'] = user_profile_form
+                return render(request, self.template_name, context)
+        elif 'user_password_form' in request.POST:
+            form = forms.UserPasswordForm(request.user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Пароль успешно изменён.')
+                return self.get(request, *args, **kwargs)
+            else:
+                context = self.get_context_data(**kwargs)
+                context['user_password_form'] = form
+                return render(request, self.template_name, context)
+
+        else:
+            return self.get(request, *args, **kwargs)
+
+
+# редактирование профиля
+class UserEditView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_app/profile_edit_page.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user == get_object_or_404(User, username=self.kwargs.get('username')):
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise HttpResponseForbidden("Вы не имеете доступа к этой странице.")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_info_form'] = forms.CustomInfoForm(instance=self.request.user)
+        context['user_profile_form'] = forms.ProfileForm(instance=self.request.user.profile)
+        context['title'] = f'Настройки профиля {self.request.user}'
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if 'user_info_form' in request.POST:
+            user_info_form = forms.CustomInfoForm(request.POST, instance=request.user)
+            user_profile_form = forms.ProfileForm(request.POST, request.FILES, instance=self.request.user.profile)
+            if user_info_form.is_valid() and user_profile_form.is_valid():
+                user_info_form.save()
+                user_profile_form.save()
+                messages.success(request, 'Данные успешно изменены.')
+                return redirect('user_app:customer_profile', user_info_form.cleaned_data.get('username'))
+            else:
+                context = self.get_context_data(**kwargs)
+                context['user_info_form'] = user_info_form
+                context['user_profile_form'] = user_profile_form
+                return render(request, self.template_name, context)
+
