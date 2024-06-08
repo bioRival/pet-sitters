@@ -263,5 +263,53 @@
             </div>
         </div>
     </section>
+
+    <!--==================== SITTER ====================-->
+    <section class="sitter section">
+        <div class="container">
+            <h1 class="section__title">Наши ситтеры и выгульщики</h1>
+            <ul class="sitter__list">
+                <li class="sitter__item">
+                    <div class="sitter__image-container">
+                        <img src="{% static 'images/home/sitter-1.png' %}"
+                            class="sitter__image" alt="sitter photo">
+                        <span class="sitter__tag">
+                            <i class="ri-walk-line"></i>
+                            Выгульщик
+                        </span>
+                        <span class="sitter__tag">
+                            <img class="sitter__tag-icon" src="{% static 'images/icons/dog-icon.svg' %}" alt="icon">
+                            Догситтер
+                        </span>
+                    </div>
+                    <div class="sitter__info-container">
+                        <div class="sitter__info">
+                            <span class="sitter__name">
+                                Иван
+                            </span>
+                            <span class="sitter__age">
+                                28 лет
+                            </span>
+                        </div>
+                        <div class="sitter__rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <div class="sitter__rating-number">
+                                5.0
+                            </div>
+                        </div>
+                        <div class="sitter__address">
+                            <i class="ri-building-line"></i>
+                            <span>Москва</span>
+                        </div>
+                        <a href="#" class="sitter__link"></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
 </main>
 {% endblock content%}
