@@ -387,8 +387,6 @@
     overflow: hidden;
 }
 
-
-
 /*============== Yandex map geosuggest ===============*/
 .filter__map {
     height: 370px;
@@ -435,7 +433,6 @@
     background-color: var(--light-yellow-color);
 }
 
-
 /*========================== FILTER BREAKPOINTS ==========================*/
 @media screen and (max-width: 1355px) {
     .filter__card-top {
@@ -458,4 +455,86 @@
     .filter__input-box {
         flex-wrap: wrap;
     }
+}
+
+
+
+
+
+
+/*========================== ABOUT ==========================*/
+.about__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.about__card {
+    position: relative;
+    max-width: 300px;
+    /* background-color: var(--light-yellow-color); */
+}
+
+.about__img {
+    transition: transform 1s;
+}
+
+.about__title {
+    padding: 1.5rem;
+    border-radius: 2.5rem;
+    border: 2px solid var(--yellow-color);
+
+    color: var(--black-color);
+    font-family: var(--text-font);
+    font-weight: var(--font-semi-bold);
+    text-align: center;
+
+    transition: opacity .5s;
+}
+
+.about__text {
+    position: absolute;
+    inset: 0;
+    border-radius: 2.5rem;
+    padding: 1.25rem;
+    background-color: hsla(51, 91%, 70%, 0.7);
+    display: flex;
+    flex-direction: column;
+    row-gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.1);
+
+    color: var(--black-color);
+    font-family: var(--text-font);
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-medium);
+    text-align: center;
+    line-height: 150%;
+
+    transition: opacity .5s, transform .8s;
+}
+
+.about__text b {
+    color: var(--dark-purple-color);
+}
+
+.about__text p {
+    margin-bottom: 1rem;
+}
+
+.about__card:hover .about__text {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.about__card:hover .about__title {
+    opacity: 0;
+}
+
+.about__card:hover .about__img {
+    transform: scale(1.05);
 }
