@@ -5,13 +5,14 @@
         <div class="footer__content">
             <div class="footer__left">
                 <img src="{% static 'images/footer/logo.png' %}" alt="logo picture">
+                <img class="footer__paw-icon" src="{% static 'images/icons/paw.svg' %}" alt="">
                 <nav class="footer__nav">
                     <ul>
-                        <li><a href="">О сервисе</a></li>
-                        <li><a href="">Услуги</a></li>
-                        <li><a href="">Наши ситтеры</a></li>
-                        <li><a href="">Стать ситтером</a></li>
-                        <li><a href="">Чек-лист подготовки к передержке</a></li>
+                        <li><a class="footer__link" href="">О сервисе</a></li>
+                        <li><a class="footer__link" href="">Услуги</a></li>
+                        <li><a class="footer__link" href="">Наши ситтеры</a></li>
+                        <li><a class="footer__link" href="">Стать ситтером</a></li>
+                        <li><a class="footer__link" href="">Чек-лист подготовки к передержке</a></li>
                     </ul>
                 </nav>
             </div>
@@ -24,9 +25,23 @@
             </div>
             <div class="footer__right">
                 <ul>
-                    <li><a href=""><img src="{% static 'images/footer/Telegram.png' %}" alt="Telegram logo"></a></li>
-                    <li><a href=""><img src="{% static 'images/footer/Whatsapp.png' %}" alt="Whatsapp logo"></a></li>
-                    <li><a href=""><img src="{% static 'images/footer/inst.png' %}" alt="inst logo"></a></li>
+                    <li>
+                        <a class="footer__social-link" href="#">
+                            <img src="{% static 'images/footer/Telegram.png' %}" alt="Telegram logo">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="footer__social-link" href="#">
+                            <img src="{% static 'images/footer/Whatsapp.png' %}" alt="Whatsapp logo">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="footer__social-link" href="#">
+                            <img src="{% static 'images/footer/inst.png' %}" alt="inst logo">
+                        </a>
+                    </li>
                 </ul>
             </div>
             <img src="{% static 'images/footer/paw.png' %}" alt="paw picture" class="footer__paw">
@@ -35,4 +50,5 @@
             <span>© 2024 PetSitters. Все права защищены.</span>
         </div>
     </div>
+    <img class="footer__based-cat" src="{% static 'images/footer/based-cat.png' %}" alt="">
 </footer>
