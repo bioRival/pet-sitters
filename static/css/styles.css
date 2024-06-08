@@ -43,6 +43,8 @@
     --normal-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
     /*================= z index =================*/
+    --z-back: 0;
+    --z-front: 1;
     --z-tooltip: 10;
     --z-fixed: 1001;
     
@@ -65,10 +67,21 @@ body {
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
+
+    /* Makes footer appear at the bottom */
     min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
+}
+
+/* main {
+    min-height: 100vh ;
+} */
+
+footer {
+    /* Makes footer appear at the bottom */
+    margin-top: auto;
 }
 
 ul {
@@ -120,6 +133,10 @@ button:focus {
 
 .section {
     padding-block: 5rem;
+}
+
+.dnone {
+    display: none;
 }
 
 

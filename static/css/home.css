@@ -88,9 +88,7 @@
     display: inline-block;
     width: 10px;
     height: 10px;
-    /* cursor: pointer; */
     background-color: var(--purple-color);
-    /* border: 1px solid #FFFFFF; */
     border-radius: 10px;
     margin: .5rem;
     user-select: none;
@@ -258,10 +256,8 @@
 
 /*========================== FILTER ==========================*/
 .filter__card {
-    /* padding-top: 2.5rem; */
     border-radius: 60px;
     border: 2px solid var(--yellow-color);
-    overflow: hidden;
     width: 100%;
 }
 
@@ -386,12 +382,18 @@
     user-select: none;
 }
 
+.filter__card-bottom {
+    width: 100%;
+    overflow: hidden;
+}
+
 
 
 /*============== Yandex map geosuggest ===============*/
 .filter__map {
     height: 370px;
     width: 100%;
+    min-width: 400px;
     background-color: var(--light-yellow-color);
 }
 
@@ -419,6 +421,8 @@
 }
 
 .filter__autocomplete-items div {
+    min-width: 320px;
+    max-width: 90vw;
     color: var(--dark-purple-color);
     font-size: var(--h2-font-size);
     font-weight: var(--font-medium);

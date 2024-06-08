@@ -3,12 +3,17 @@
 {% load static %}
 
 {% block head %}
+
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <script src="{% static 'scripts/home.js' %}" defer></script>
 
 <!--==================== Yandex Map Tools ====================-->
-<script src="https://api-maps.yandex.ru/v3/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU"></script>
-<script src="{% static 'scripts/partials/ymapHome.js' %}" defer></script>
+<script src="https://api-maps.yandex.ru/v3/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU" defer></script>
+<script src="{% static 'scripts/partials/ymap_home.js' %}" defer></script>
+
+
+
+
 {% endblock head %}
 
 {% block title %} Petsitters.ru - Главная {% endblock title %}
@@ -52,7 +57,7 @@
     </section>
 
     <!--==================== SERVICES ====================-->
-    <section class="services section">
+    <section class="services section" id="services">
         <div class="container">
             <h1 class="section__title">Наши услуги</h1>
             <ul class="services__list">
