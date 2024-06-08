@@ -256,10 +256,8 @@
 
 /*========================== FILTER ==========================*/
 .filter__card {
-    /* padding-top: 2.5rem; */
     border-radius: 60px;
     border: 2px solid var(--yellow-color);
-    overflow: hidden;
     width: 100%;
 }
 
@@ -386,6 +384,7 @@
 
 .filter__card-bottom {
     width: 100%;
+    overflow: hidden;
 }
 
 
@@ -422,6 +421,8 @@
 }
 
 .filter__autocomplete-items div {
+    min-width: 320px;
+    max-width: 90vw;
     color: var(--dark-purple-color);
     font-size: var(--h2-font-size);
     font-weight: var(--font-medium);
