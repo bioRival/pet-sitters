@@ -1,4 +1,4 @@
-/*========================= SHOW MENU =========================*/
+/*========================= SHOW SIDE MENU =========================*/
 
 const   navMenu = document.getElementById('nav-menu'),
 navToggle = document.getElementById('nav-toggle'),
@@ -31,12 +31,17 @@ navLink.forEach(link => link.addEventListener('click', () => {
 /*========================= TURN HEADER STICKY  =========================*/
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header')
+
+    // if width too wide, don't turn header sticky
     if (window.innerWidth <= 1150) {
+        // if scrolled this much, make header sticky
         if (window.scrollY >= 100) {
             header.classList.add('sticky-header')
         } else {
             header.classList.remove('sticky-header')
         }
+    } else {
+        header.classList.remove('sticky-header')
     }
 })
 
