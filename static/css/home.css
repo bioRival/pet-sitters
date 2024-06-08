@@ -474,7 +474,6 @@
 .about__card {
     position: relative;
     max-width: 300px;
-    /* background-color: var(--light-yellow-color); */
 }
 
 .about__img {
