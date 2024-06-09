@@ -4,6 +4,7 @@ from PIL import Image
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 
@@ -36,6 +37,9 @@ class Customer(models.Model):
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
 
+    def __str__(self):
+        return f'{self.user}'
+
     # def save(self, *args, **kwargs):
     #     img = Image.open(self.image.path)
     #
@@ -59,8 +63,8 @@ class Customer(models.Model):
                 on_site_string += f"{years} лет"
             return on_site_string
 
-    def __str__(self):
-        return str(self.user.username)
+    # def __str__(self):
+    #     return f'{self.user}'
 
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
@@ -148,17 +152,26 @@ class Pet(models.Model):
     ]
 
     WEIGHT = [
-        ('1', '1-5 кг'),
-        ('2', '6-10 кг'),
-        ('3', '11-20 кг'),
-        ('4', '21+ кг')
+        ('1-5 кг', '1-5 кг'),
+        ('6-10 кг', '6-10 кг'),
+        ('11-20 кг', '11-20 кг'),
+        ('21+ кг', '21+ кг')
     ]
 
-    pet_type = models.CharField(max_length=6, choices=PETS, default='собака')
+    AGE = [
+        ('до 1 года', 'до 1 года'),
+        ('1 - 5 лет', '1 - 5 лет'),
+        ('5 - 8 лет', '5 - 8 лет'),
+        ('старше 8 лет', 'старше 8 лет')
+    ]
+
+    pet_type = models.CharField(max_length=6, choices=PETS, default='собака', verbose_name='Тип питомца')
     image = models.ImageField(null=True, blank=True, default='images/profile/pet_default.png',
-                              upload_to="images/pets/%Y/%m/%d/")
-    name = models.CharField(max_length=50)
-    description = models.TextField
-    weight = models.CharField(max_length=10, choices=WEIGHT, default='1')
-    host = models.ForeignKey(Customer, on_delete=models.CASCADE)
+                              upload_to="images/pets/%Y/%m/%d/", verbose_name='Фото')
+    name = models.CharField(max_length=50, verbose_name='Имя питомца')
+    breed = models.CharField(max_length=50, null=True, blank=True, verbose_name='Порода')
+    age = models.CharField(max_length=25, choices=AGE, default='до 1 года', verbose_name='Возраст')
+    extra_info = models.TextField(null=True, blank=True, verbose_name='Дополнительная информация')
+    weight = models.CharField(max_length=25, choices=WEIGHT, default='1-5 кг', verbose_name='Вес')
+    host = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pet', verbose_name='Хозяин')
 

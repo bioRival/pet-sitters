@@ -51,6 +51,7 @@ class RegistrationForm(UserCreationForm):
         })
     )
     password1 = forms.CharField(
+        min_length=6,
         max_length=128,
         label='Пароль',
         widget=forms.PasswordInput(attrs={

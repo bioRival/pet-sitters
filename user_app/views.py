@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, TemplateView
 
-from core.models import Customer
+from core.models import Customer, Pet
 from user_app import forms
 from user_app.forms import LoginForm, RegistrationForm
 
@@ -32,6 +32,7 @@ class LogoutView(View):
         return redirect('home')
 
 
+# регистрация пользователя
 def customer_signup(request):
     if request.method == "POST":
         username = request.POST['email']
@@ -63,6 +64,7 @@ def customer_signup(request):
     return render(request, "user_app/signup.html")
 
 
+# страница профиля заказчика
 class CustomerProfileView(TemplateView):
     template_name = 'user_app/custom_profile_page.html'
 
@@ -73,6 +75,7 @@ class CustomerProfileView(TemplateView):
         except User.DoesNotExist:
             raise Http404("Пользователь не найден")
         context['customer_profile'] = user
+        context['customer_pets'] = Pet.objects.filter(host=user)
         context['title'] = f'Профиль пользователя {user}'
         return context
 

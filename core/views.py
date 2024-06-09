@@ -1,17 +1,19 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
 from rest_framework import generics
 
-from .forms import CreateProfileForm
-from .models import Services, Customer
+from . import models, forms
+from .forms import PetCreateForm, PetForm
+from .models import Services, Customer, Pet
 from .serializers import ServicesSerializer
 
 # Временное представление для API
@@ -99,68 +101,56 @@ def customer_signup(request):
     return render(request, "sign/customer_signup.html")
 
 
-class CustomerProfile(DetailView):
-    model = Customer
-    template_name = 'customer_profile.html'
-    context_object_name = 'customer_profile'
+# создание записи питомца
+class PetCreate(CreateView):
+    form_class = PetCreateForm
+    model = Pet
+    template_name = 'pet_create.html'
 
+    # def form_valid(self, form):
+    #     post = form.save(commit=False)
+    #     post.author = self.request.user.author
+    #     post.save()
+    #
+    #     return super().form_valid(form)
 
-class ShowProfilePageView(DetailView):
-    model = Customer
-    template_name = 'user_profile.html'
-
-    def get_context_data(self, *args, **kwargs):
-        users = Customer.objects.all()
-        context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
-        page_user = get_object_or_404(Customer, id=self.kwargs['pk'])
-        context['page_user'] = page_user
-        return context
-
-
-class CreateProfilePageView(CreateView):
-    form_class = CreateProfileForm
-    model = Customer
-    template_name = 'create_customer_profile.html'
+    def get_success_url(self):
+        return reverse('user_app:customer_profile', kwargs={'username': self.request.user.username})
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.host = self.request.user
         return super().form_valid(form)
 
-    success_url = reverse_lazy('services_list')
+
+# редактирование питомца
+class PetUpdate(LoginRequiredMixin, UpdateView):
+    form_class = PetForm
+    model = Pet
+    template_name = 'pet_edit.html'
+
+    def get_success_url(self):
+        return reverse('user_app:customer_profile', kwargs={'username': self.request.user.username})
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        context = {'pet_id': post.pk}
+        # if post.host.user != self.request.user:
+        #     return render(self.request, template_name='post_lock.html', context=context)
+        return super(PetUpdate, self).dispatch(request, *args, **kwargs)
 
 
-# редактируемый профиль
-def customer_profile(request):
-    if not request.user.is_authenticated:
-        return redirect('/customer_login/')
-    customer = Customer.objects.get(user=request.user)
-    if request.method == "POST":
-        email = request.POST['email']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        phone = request.POST['phone']
-        location = request.POST['location']
+# удаление питомца
+class PetDelete(LoginRequiredMixin, DeleteView):
+    model = Pet
+    template_name = 'pet_delete.html'
 
-        customer.user.email = email
-        customer.user.first_name = first_name
-        customer.user.last_name = last_name
-        customer.phone = phone
-        customer.location = location
-        customer.save()
-        customer.user.save()
+    def get_success_url(self):
+        return reverse('user_app:customer_profile', kwargs={'username': self.request.user.username})
 
-        # try:
-        #     image = request.FILES['media']
-        #     customer.image = image
-        #     customer.save()
-        # except:
-        #     pass
-        alert = True
-        return render(request, "profile.html", {'alert': alert})
-    return render(request, "profile.html", {'customer': customer})
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        context = {'pet_id': post.pk}
+        # if post.host.user != self.request.user:
+        #     return render(self.request, template_name='post_lock.html', context=context)
+        return super(PetDelete, self).dispatch(request, *args, **kwargs)
 
-
-class LogoutView(View):
-    def get(self, request):
-        logout(request)
-        return redirect('/customer_login/')

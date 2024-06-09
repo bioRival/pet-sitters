@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Личный кабинет</title>
 </head>
 <body>
 {% block content %}
@@ -45,6 +45,43 @@
                     {% endif %}
                 <br>
                 <h3 class="mb-3">Мой питомец</h3>
+                    {% for pet in customer_pets %}
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-12 d-flex align-items-center">
+                            <img src="{{ pet.image.url }}" alt="{{ pet }}" width="150"
+                         height="150" class="img-fluid">
+                        </div>
+                        <div class="col-lg-9 col-sm-12">
+                            {{ pet.pet_type }}
+                            <br>
+                            <b>Имя</b> {{ pet.name }}
+                            <br>
+                            <b>Порода</b> {{ pet.breed }}
+                            <br>
+                            <b>Возраст питомца</b> {{ pet.age }}
+                            <br>
+                            <b>Вес (размер)</b> {{ pet.weight }}
+                            <br>
+                            <b>Дополнительная информация</b> {{ pet.extra_info }}
+                            <br>
+                            {% if customer_profile == user %}
+                                <a class="btn btn-primary my-btn me-1"
+                                   href="{% url 'pet_update' pet.id %}">Изменить данные питомца
+                                </a>
+                                <a class="btn btn-primary my-btn me-1"
+                                   href="{% url 'pet_delete' pet.id %}">Удалить данные питомца
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <hr class="m-1">
+                {% endfor %}
+                {% if customer_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'pet_create' %}">Добавить питомца
+                    </a>
+                {% endif %}
                 <h3 class="mb-3">Настройки</h3>
                 {% if customer_profile == user %}
                     <a class="btn btn-primary my-btn me-1"
