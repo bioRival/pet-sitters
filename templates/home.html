@@ -270,7 +270,7 @@
             <h1 class="section__title">Наши ситтеры и выгульщики</h1>
             <ul class="sitter__list"> 
                 <li class="sitter__item">
-                    <a href="#" class="sitter__wrapper">
+                    <a href="#" class="sitter__link">
                         <div class="sitter__image-container">
                             <img src="{% static 'images/home/sitter-1.png' %}"
                                 class="sitter__image" alt="sitter photo">
@@ -308,19 +308,18 @@
                                 </div>
                             </div>
                             <div class="sitter__address">
-                                <i class="ri-building-line"></i>
-                                <span>Москва</span>
+                                <i class="ri-home-2-line"></i>
+                                <span>г.п. Дубровка, Ленинградская область</span>
                             </div>
-                            <div class="sitter__link">
+                            <div class="sitter__arrow-button">
                                 <i class="ri-arrow-right-line"></i>
                             </div>
                         </div>
                     </a>
                 </li>
                 
-
                 <li class="sitter__item">
-                    <a href="#" class="sitter__wrapper">
+                    <a href="#" class="sitter__link">
                         <div class="sitter__image-container">
                             <img src="{% static 'images/home/sitter-2.png' %}"
                                 class="sitter__image" alt="sitter photo">
@@ -367,13 +366,27 @@
                             </div>
                             <div class="sitter__address">
                                 <i class="ri-building-line"></i>
-                                <span>Москва</span>
+                                <span>г. Москва</span>
                             </div>
-                            <div href="#" class="sitter__link">
+                            <div href="#" class="sitter__arrow-button">
                                 <i class="ri-arrow-right-line"></i>
                             </div>
                         </div>
                     </a>
+                </li>
+
+                <li class="sitter__item">
+                    <a href="#" class="sitter__link-all">
+                        <img class="sitter__heart-bg" 
+                            src="{% static 'images/home/heart-bg.svg' %}" alt="">
+                        <h1>100+</h1>
+                        <p>Заботливых и ответственных ситтеров</p>
+                        <button class="sitter__arrow-button-all">
+                            <i class="ri-arrow-right-line"></i>
+                        </button>
+                        <img class="sitter__cat-bg" src="{% static 'images/home/gray-cat.png' %}" alt="">
+                    </a>
+
                 </li>
             </ul>
         </div>
