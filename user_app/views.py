@@ -92,27 +92,12 @@ class UserSettingsView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_info_form'] = forms.CustomInfoForm(instance=self.request.user)
-        context['user_profile_form'] = forms.ProfileForm(instance=self.request.user.profile)
         context['user_password_form'] = forms.UserPasswordForm(self.request.user)
         context['title'] = f'Настройки профиля {self.request.user}'
         return context
 
     def post(self, request, *args, **kwargs):
-        if 'user_info_form' in request.POST:
-            user_info_form = forms.CustomInfoForm(request.POST, instance=request.user)
-            user_profile_form = forms.ProfileForm(request.POST, request.FILES, instance=self.request.user.profile)
-            if user_info_form.is_valid() and user_profile_form.is_valid():
-                user_info_form.save()
-                user_profile_form.save()
-                messages.success(request, 'Данные успешно изменены.')
-                return redirect('user_app:user_profile_edit', user_info_form.cleaned_data.get('username'))
-            else:
-                context = self.get_context_data(**kwargs)
-                context['user_info_form'] = user_info_form
-                context['user_profile_form'] = user_profile_form
-                return render(request, self.template_name, context)
-        elif 'user_password_form' in request.POST:
+        if 'user_password_form' in request.POST:
             form = forms.UserPasswordForm(request.user, request.POST)
             if form.is_valid():
                 form.save()

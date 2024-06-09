@@ -73,12 +73,14 @@ class CustomInfoForm(forms.ModelForm):
         label='Имя пользователя (username)',
         widget=forms.TextInput(attrs={
             'class': 'form-control',
+            'readonly': 'readonly',
             'placeholder': 'Введите имя пользователя'
         })
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
+            'readonly': 'readonly',
             'placeholder': 'Введите email'
         })
     )
