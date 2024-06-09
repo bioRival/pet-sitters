@@ -10,11 +10,11 @@ from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import TemplateView
 
 from core.models import Customer, Pet
 from user_app import forms
-from user_app.forms import LoginForm, RegistrationForm
+from user_app.forms import LoginForm
 
 
 class CustomLoginView(LoginView):
@@ -39,7 +39,6 @@ def customer_signup(request):
         first_name = request.POST['first_name']
         email = request.POST['email']
         password1 = request.POST['password1']
-        # password2 = request.POST['password2']
         user_type = request.POST['user_type']
 
         if User.objects.filter(username=email).exists():
@@ -48,7 +47,8 @@ def customer_signup(request):
 
         user = User.objects.create_user(username=username, first_name=first_name,
                                         password=password1, email=email)
-        user.save()
+        customer = Customer.objects.filter(user=user).update(user_type=user_type)
+
         send_mail(
             subject='Регистрация пройдена успешно',
             message=f'Здравствуйте! Вы успешно зарегистрированы на сайте petsitters.ru.',

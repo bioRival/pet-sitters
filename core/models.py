@@ -26,7 +26,7 @@ class Customer(models.Model):
                               upload_to="images/profile/%Y/%m/%d/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
-    user_type = models.CharField(default="заказчик", choices=PACKAGES, max_length=20)
+    user_type = models.CharField(choices=PACKAGES, max_length=20)
 
     show_email = models.BooleanField(default=False,
                                      verbose_name='Показывать Email?')
