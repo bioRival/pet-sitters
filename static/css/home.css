@@ -555,10 +555,27 @@
 
 .sitter__item {
     border-radius: 2.5rem;
+    background-color: var(--purple-color);
+    min-width: 400px;
+    
+}
+
+.sitter__wrapper {
+    display: block;
+    border-radius: 2.5rem;
     border: 2px solid var(--purple-color);
     background-color: var(--white-color);
-    min-width: 400px;
+    width: 100%;
     padding: 1.25rem;
+    transition: transform .4s;
+}
+
+.sitter__wrapper:hover {
+    transform: translateY(-1rem);
+}
+
+.sitter__wrapper:hover  .sitter__link {
+    transform: translateX(.5rem);
 }
 
 .sitter__image-container {
@@ -601,6 +618,11 @@
     font-weight: var(--font-semi-bold);
 }
 
+.sitter__tag i {
+    font-size: 1.25rem;
+    font-weight: initial;
+}
+
 .sitter__tag-icon {
     display: inline-block;
     max-width: 20px;
@@ -611,18 +633,67 @@
 .sitter__info-container {
     margin-top: 1rem;
     width: 100%;
-    background-color: aquamarine;
     display: grid;
     grid-template-columns: repeat(2, auto);
+    row-gap: 1rem;
 }
 
-.sitter__name,
-.sitter__age {
-    color: var(--black-color);
+.sitter__name {
     font-size: 1.5rem;
     font-weight: var(--font-bold);
 }
 
+.sitter__age {
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+}
+
 .sitter__rating {
     text-align: right;
+    color: var(--yellow-color);
+}
+
+.sitter__rating-number {
+    color: var(--dark-purple-color);
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-semi-bold);
+}
+.sitter__jobs {
+    margin-top: .5rem;
+    color: var(--hint-color);
+}
+.sitter__jobs span {
+    font-weight: var(--font-bold);
+}
+
+.sitter__jobs span:nth-child(1) {
+    color: var(--dark-purple-color);
+}
+
+.sitter__jobs span:nth-child(2) {
+    color: var(--purple-color);
+}
+
+.sitter__address {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-medium);
+}
+
+.sitter__address i {
+    color: var(--light-purple-color);
+    font-size: 2rem;
+}
+
+.sitter__link {
+    justify-self: flex-end;
+    width: fit-content;
+    padding: .3rem 1rem;
+    background-color: var(--purple-color);
+    border-radius: 30px;
+    color: var(--dark-purple-color);
+    font-size: 3rem;
+    transition: transform .4s;
 }
