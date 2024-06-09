@@ -385,6 +385,7 @@
 .filter__card-bottom {
     width: 100%;
     overflow: hidden;
+    border-radius: 60px;
 }
 
 /*============== Yandex map geosuggest ===============*/
@@ -498,7 +499,7 @@
     inset: 0;
     border-radius: 2.5rem;
     padding: 1.25rem;
-    background-color: hsla(51, 91%, 70%, 0.7);
+    background-color: hsla(51, 91%, 70%, 0.8);
     display: flex;
     flex-direction: column;
     row-gap: .5rem;
@@ -536,4 +537,92 @@
 
 .about__card:hover .about__img {
     transform: scale(1.05);
+}
+
+
+
+
+
+
+/*========================== SITTER ==========================*/
+.sitter__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.sitter__item {
+    border-radius: 2.5rem;
+    border: 2px solid var(--purple-color);
+    background-color: var(--white-color);
+    min-width: 400px;
+    padding: 1.25rem;
+}
+
+.sitter__image-container {
+    position: relative;
+    width: 360px;
+    height: 360px;
+    padding: 1.25rem;
+    border-radius: 2.5rem;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    align-content: end;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.sitter__image {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    z-index: var(--z-back);
+}
+
+.sitter__tag {
+    padding: .5rem .8rem;
+    background-color: var(--white-color);
+    border-radius: 2.5rem;
+    position: relative;
+    z-index: var(--z-front);
+
+    display: flex;
+    gap: .3rem;
+    align-items: center;
+
+    color: var(--dark-purple-color);
+    font-size: var(--text-font);
+    font-weight: var(--font-semi-bold);
+}
+
+.sitter__tag-icon {
+    display: inline-block;
+    max-width: 20px;
+    max-height: 20px;
+    filter: brightness(0) saturate(100%) invert(10%) sepia(71%) saturate(3248%) hue-rotate(263deg) brightness(91%) contrast(123%);
+}
+
+.sitter__info-container {
+    margin-top: 1rem;
+    width: 100%;
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+.sitter__name,
+.sitter__age {
+    color: var(--black-color);
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+}
+
+.sitter__rating {
+    text-align: right;
 }
