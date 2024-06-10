@@ -98,7 +98,7 @@ input:-webkit-autofill:active {
     margin-bottom: 10px;
 
     font-family: Montserrat;
-    font-size: 1.2rem;
+    font-size: 1.125rem;
     font-style: normal;
     font-weight: 500;
     line-height: 1.5rem;
@@ -110,7 +110,7 @@ input:-webkit-autofill:active {
 .auth__input-wrapper input::placeholder {
     color: rgba(20, 0, 41, 0.50);
     font-family: Montserrat;
-    font-size: 1.2rem;
+    font-size: 1.125rem;
     font-style: normal;
     font-weight: 500;
     line-height: 28px;
@@ -132,7 +132,7 @@ input:-webkit-autofill:active {
     margin: -16px 0 38px 0;
     color: #d3a4ff;
     font-family: Montserrat;
-    font-size: 1.15rem;
+    font-size: 1.125rem;
     font-style: normal;
     font-weight: 600;
     line-height: 1.5rem;
@@ -146,7 +146,7 @@ input:-webkit-autofill:active {
     padding: 15px;
     border: none;
     border-radius: 25px;
-    font-size: 18px;
+    font-size: 1.125rem;
     cursor: pointer;
     margin-bottom: 10px;
 }
@@ -170,4 +170,8 @@ input:-webkit-autofill:active {
 }
 .auth__alt-btn a:hover {
     color: #7e27db;
+}
+
+.unvisible{
+    display: none;
 }

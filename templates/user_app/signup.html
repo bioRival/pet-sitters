@@ -28,8 +28,8 @@
 
                     <div class="signup__form-group">
                         <div class="signup__toggle-buttons">
-                            <button type="button" class="signup__toggle-button active" id="client-button">Я - клиент</button>
-                            <button type="button" class="signup__toggle-button" id="sitter-button">Я - ситтер</button>
+                            <button type="button" class="signup__toggle-button toggle-button-text active" id="client-button">Я - клиент</button>
+                            <button type="button" class="signup__toggle-button toggle-button-text" id="sitter-button">Я - ситтер</button>
                         </div>
                         <select name="user_type" id="user_type" class="signup__hidden-select">
                             <option value="заказчик">Я - клиент</option>
@@ -55,8 +55,8 @@
                         <input type="password" class="form-control" name="password1" id="password1" placeholder="Придумайте пароль" required>
                         <span class="auth__toggle-password" onclick="togglePasswordVisibility(this)">
                             <!-- <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide"> -->
-                            <i class="ri-eye-line eye unvisible"></i>
-                            <i class="ri-eye-off-line eye"></i>
+                            <i class="ri-eye-line unvisible"></i>
+                            <i class="ri-eye-off-line"></i>
                         </span>
                     </div>
 

@@ -46,18 +46,18 @@
     background-color: white;
     transition: background-color 0.3s;
 }
-
+.toggle-button-text {
+    color: var(--Black, #140029);
+    font-family: Montserrat;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+}
 .signup__toggle-button.active {
     background-color: #FFD700;
 }
 
 .signup__hidden-select {
-    display: none;
-}
-
-.eye {
-
-}
-.unvisible{
     display: none;
 }

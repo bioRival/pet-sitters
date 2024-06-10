@@ -35,7 +35,9 @@
                             {{ field }}
                             {% if field.field.widget.input_type == "password" %}
                                 <span class="auth__toggle-password" onclick="togglePasswordVisibility(this)">
-                                    <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide">
+                                    <!-- <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide"> -->
+                                    <i class="ri-eye-line eye unvisible"></i>
+                                    <i class="ri-eye-off-line eye"></i>
                                 </span>
                             {% endif %}
                         </div>
@@ -56,12 +58,19 @@
     </div>
 
     <script>
+        // переключение пароля
         function togglePasswordVisibility(element) {
             const input = element.previousElementSibling;
+            const eyeOppen = element.querySelector('.ri-eye-line');
+            const eyeClose = element.querySelector('.ri-eye-off-line');
             if (input.type === "password") {
                 input.type = "text";
+                eyeOppen.classList.remove('unvisible');
+                eyeClose.classList.add('unvisible');
             } else {
                 input.type = "password";
+                eyeClose.classList.remove('unvisible');
+                eyeOppen.classList.add('unvisible');
             }
         }
     </script>
