@@ -102,12 +102,12 @@
 
 .footer__right {
     width: 190px;
-    display: flex;
-    justify-content: flex-end;
 }
+
 .footer__right ul {
     display: flex;
     flex-direction: row;
+    gap: .75rem;
 }
 
 .footer__paw {

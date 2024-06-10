@@ -13,6 +13,7 @@
     --light-purple-color: hsl(269, 100%, 86%);
     --white-color: hsl(0, 0%, 100%);
     --hint-color: hsl(0, 0%, 80%);
+    --medium-purple-color: hsl(269, 100%, 67%);
 
     --title-color: var(--dark-purple-color);
     --text-color: var(--black-color);

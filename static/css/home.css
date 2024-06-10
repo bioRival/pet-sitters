@@ -58,7 +58,7 @@
 }
 
 .banner__button:hover {
-    background-color: var(--dark-purple-color);
+    background-color: var(--medium-purple-color);
     color: var(--white-color);
 }
 
@@ -642,11 +642,11 @@
 .about__title {
     padding: 1.5rem;
     border-radius: 2.5rem;
-    border: 2px solid var(--yellow-color);
+    border: 2px solid var(--purple-color);
 
-    color: var(--black-color);
-    font-family: var(--text-font);
-    font-weight: var(--font-semi-bold);
+    color: var(--dark-purple-color);
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
     text-align: center;
 
     transition: opacity .5s;

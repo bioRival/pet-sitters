@@ -80,18 +80,18 @@
     display: flex;
     align-items: center;
     gap: .5rem;
-    background-color: var(--dark-purple-color);
+    background-color: var(--purple-color);
     padding: 1rem 2rem;
     border-radius: 40px;
     transition: background-color .4s;
 
-    font-size: var(--normal-font-size);
-    color: var(--white-color);
+    font-size: var(--h3-font-size);
+    color: var(--dark-purple-color);
     font-weight: var(--font-semi-bold);
 }
 
 .nav__sign-in:hover {
-    background-color: var(--purple-color);
+    background-color: var(--light-purple-color);
 }
 
 .nav__sign-in i {
