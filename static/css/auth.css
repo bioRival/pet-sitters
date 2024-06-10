@@ -119,7 +119,7 @@ input:-webkit-autofill:active {
 
 .auth__toggle-password {
     position: absolute;
-    top: 50%;
+    top: 45%;
     right: 20px;
     transform: translateY(-50%);
     cursor: pointer;

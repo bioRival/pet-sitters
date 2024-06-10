@@ -54,14 +54,17 @@
                     <div class="auth__input-wrapper">
                         <input type="password" class="form-control" name="password1" id="password1" placeholder="Придумайте пароль" required>
                         <span class="auth__toggle-password" onclick="togglePasswordVisibility(this)">
-                            <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide">
+                            <!-- <img src="{% static 'images/login/View_hide_light.svg' %}" alt="show/hide"> -->
+                            <i class="ri-eye-line eye unvisible"></i>
+                            <i class="ri-eye-off-line eye"></i>
                         </span>
                     </div>
 
 
-                    <div class="auth__form__help-button">
+                    <div class="auth__form__help-button" onclick="togglePersonalData(this)">
                         <label>
-                            <input type="checkbox" name="" wfd-id="id4" class="custom-checkbox">
+                            <input type="checkbox" name="" wfd-id="id4" class="unvisible">
+                            <div class="personal-data-checkbox"></div>
                             Даю согласие на обработку персональных данных
                         </label>
                     </div>
@@ -79,15 +82,23 @@
     </div>
 
     <script>
+        // переключение пароля
         function togglePasswordVisibility(element) {
             const input = element.previousElementSibling;
+            const eyeOppen = element.querySelector('.ri-eye-line');
+            const eyeClose = element.querySelector('.ri-eye-off-line');
             if (input.type === "password") {
                 input.type = "text";
+                eyeOppen.classList.remove('unvisible');
+                eyeClose.classList.add('unvisible');
             } else {
                 input.type = "password";
+                eyeClose.classList.remove('unvisible');
+                eyeOppen.classList.add('unvisible');
             }
         }
 
+        // переключение клиент - ситтер
         document.addEventListener('DOMContentLoaded', function() {
             const clientButton = document.getElementById('client-button');
             const sitterButton = document.getElementById('sitter-button');
@@ -105,6 +116,18 @@
                 userTypeSelect.value = 'исполнитель';
             });
         });
+
+        // переключение согласия
+        function togglePersonalData(element) {
+            const checkbox = element.querySelector('input[type="checkbox"]');
+            const checkboxVisual = element.querySelector('.personal-data-checkbox');
+        if (checkbox.checked) {
+            checkboxVisual.classList.remove('personal-data-checked');
+        } else {
+            checkboxVisual.classList.add('personal-data-checked');
+        }
+        checkbox.checked = !checkbox.checked;
+        }
     </script>
 
 </div>
