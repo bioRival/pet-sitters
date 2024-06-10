@@ -45,7 +45,8 @@
 
     /*================= z index =================*/
     --z-back: 0;
-    --z-front: 1;
+    --z-middle: 1;
+    --z-front: 2;
     --z-tooltip: 10;
     --z-fixed: 1001;
     

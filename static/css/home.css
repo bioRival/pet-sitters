@@ -753,7 +753,7 @@
 .sitter__arrow-button-all {
     position: absolute;
     bottom: 1.25rem; left: 1rem;
-    z-index: var(--z-front);
+    z-index: var(--z-middle);
 
     width: fit-content;
     height: fit-content;
