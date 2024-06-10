@@ -560,7 +560,11 @@
 }
 
 .sitter__link {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 2rem;
     border-radius: 2.5rem;
     border: 2px solid var(--purple-color);
     background-color: var(--white-color);
@@ -576,6 +580,12 @@
 
 .sitter__link:hover  .sitter__arrow-button {
     transform: translateX(.5rem);
+}
+
+.sitter__column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .sitter__image-container {
@@ -628,13 +638,6 @@
     max-width: 20px;
     max-height: 20px;
     filter: brightness(0) saturate(100%) invert(10%) sepia(71%) saturate(3248%) hue-rotate(263deg) brightness(91%) contrast(123%);
-}
-
-.sitter__info-container {
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    row-gap: 1rem;
 }
 
 .sitter__name {
@@ -697,7 +700,7 @@
     align-self: flex-end;
     width: fit-content;
     height: fit-content;
-    padding: .3rem 1rem;
+    padding-inline: 1.3rem;
     background-color: var(--purple-color);
     border-radius: 30px;
     color: var(--dark-purple-color);
@@ -705,8 +708,8 @@
     transition: transform .4s;
 }
 
-/* Link to catalogue */
 
+/* Link to catalogue */
 .sitter__link-all {
     position: relative;
     display: block;
@@ -714,7 +717,6 @@
     background-color: var(--purple-color);
     width: 100%;
     padding: 1.25rem;
-    transition: transform .4s;
     min-height: 600px;
 }
 
@@ -736,4 +738,37 @@
     font-family: var(--text-font);
     font-size: var(--h2-font-size);
     font-weight: var(--font-medium);
+}
+
+.sitter__heart-bg {
+    position: absolute;
+    top: -1.3rem; right: -.5rem;
+}
+
+.sitter__cat-bg {
+    position: absolute;
+    bottom: 0; right: 0;
+}
+
+.sitter__arrow-button-all {
+    position: absolute;
+    bottom: 1.25rem; left: 1rem;
+    z-index: var(--z-front);
+
+    width: fit-content;
+    height: fit-content;
+    padding-inline: 1.3rem;
+    background-color: transparent;
+    border: 2px solid var(--dark-purple-color);
+    border-radius: 30px;
+    color: var(--dark-purple-color);
+    font-size: 3rem;
+
+    transition: color 1s, left 1s, background-color 1s;
+}
+
+.sitter__link-all:hover .sitter__arrow-button-all {
+    left: calc(100% - 7rem);
+    background-color: var(--dark-purple-color);
+    color: var(--light-purple-color);
 }
