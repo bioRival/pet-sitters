@@ -204,6 +204,51 @@
         </div>
     </section>
 
+    <!--==================== CUBES ====================-->
+    <section class="cubes section">
+        <div class="container">
+            <h1 class="section__title">
+                Petsitter – это коммьюнити кэт и дог ситтеров,
+                которому легко  доверить своего питомца
+            </h1>
+            <div class="cubes__grid">
+                <div class="cubes__box cubes__purple cubes__item1">
+                    <h2 class="cubes__title">Профессионализм</h2>
+                    <p class="cubes__text">
+                        Ситтеры – самая важная часть нашей команды. Каждый из них проходит тщательный отбор, заполняет
+                        анкету, проходит собеседование, обучение и тестирование
+                    </p>
+                </div>
+                <div class="cubes__box cubes__yellow cubes__item2">
+                    <h2 class="cubes__title">Стандарты</h2>
+                    <p class="cubes__text">
+                        Передержка выполняется в соответствии с регламентом, утвержденном хозяином питомца. Следование
+                        стандартам передержки ситтер подтверждает ежедневными видеоотчетами
+                    </p>
+                </div>
+                <div class="cubes__image-box cubes__item3">
+                    <img src="{% static 'images/home/cubes-image-1.png' %}" alt="">
+                </div>
+                <div class="cubes__image-box cubes__item4">
+                    <img src="{% static 'images/home/cubes-image-2.png' %}" alt="">
+                </div>
+                <div class="cubes__box cubes__purple cubes__item5">
+                    <h2 class="cubes__title">Забота</h2>
+                    <p class="cubes__text">
+                        У нас работают люди, которые любят питомцев и умеют о них заботиться. Индивидуальный подход к
+                        каждому питомцу – отличие нашего сервиса передержки от гостиниц для животных
+                    </p>
+                </div>
+                <div class="cubes__box cubes__yellow cubes__item6">
+                    <h2 class="cubes__title">Ответственность</h2>
+                    <p class="cubes__text">
+                        Берем на себя ответственность за передержку вашего питомца после заключения договора
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!--==================== ABOUT ====================-->
     <section class="about section">
         <div class="container">
@@ -225,7 +270,7 @@
                     <div class="about__text">
                         <div>
                             Вы выбираете идеального ситтера из предложенных
-                            нами вариантов и <b>оплачиваете</b> 
+                            нами вариантов и <b>оплачиваете</b>
                             передержку <b>банковской картой</b>.
                         </div>
                     </div>
@@ -237,12 +282,12 @@
                     <div class="about__text">
                         <div>
                             <p>
-                                <b>Догситтер</b> гуляет с вашим собакеном, моет ему лапы 
+                                <b>Догситтер</b> гуляет с вашим собакеном, моет ему лапы
                                 после прогулки, дает корм согласно вашим
                                 пожеланиям.
-                            </p> 
+                            </p>
                             <p>
-                                <b>Кэтситтер</b> играет с вашим котиком, 
+                                <b>Кэтситтер</b> играет с вашим котиком,
                                 кормит и следит за чистотой лотка.
                             </p>
                         </div>
@@ -254,7 +299,7 @@
                     <h3 class="about__title">Заявка</h3>
                     <div class="about__text">
                         <div>
-                            Во время передержки ситтер отправляет <b>отчеты</b>, 
+                            Во время передержки ситтер отправляет <b>отчеты</b>,
                             чтобы Вы были уверены - с вашим питомцем все
                             хорошо
                         </div>
@@ -268,12 +313,11 @@
     <section class="sitter section">
         <div class="container">
             <h1 class="section__title">Наши ситтеры и выгульщики</h1>
-            <ul class="sitter__list"> 
+            <ul class="sitter__list">
                 <li class="sitter__item">
                     <a href="#" class="sitter__link">
                         <div class="sitter__image-container">
-                            <img src="{% static 'images/home/sitter-1.png' %}"
-                                class="sitter__image" alt="sitter photo">
+                            <img src="{% static 'images/home/sitter-1.png' %}" class="sitter__image" alt="sitter photo">
                             <span class="sitter__tag">
                                 <i class="ri-walk-line"></i>
                                 Выгульщик
@@ -321,12 +365,11 @@
                         </div>
                     </a>
                 </li>
-                
+
                 <li class="sitter__item">
                     <a href="#" class="sitter__link">
                         <div class="sitter__image-container">
-                            <img src="{% static 'images/home/sitter-2.png' %}"
-                                class="sitter__image" alt="sitter photo">
+                            <img src="{% static 'images/home/sitter-2.png' %}" class="sitter__image" alt="sitter photo">
                             <span class="sitter__tag">
                                 <img class="sitter__tag-icon" src="{% static 'images/icons/dog-icon.svg' %}" alt="icon">
                                 Догситтер
@@ -383,8 +426,7 @@
 
                 <li class="sitter__item">
                     <a href="#" class="sitter__link-all">
-                        <img class="sitter__heart-bg" 
-                            src="{% static 'images/home/heart-bg.svg' %}" alt="">
+                        <img class="sitter__heart-bg" src="{% static 'images/home/heart-bg.svg' %}" alt="">
                         <h1>100+</h1>
                         <p>Заботливых и ответственных ситтеров</p>
                         <button class="sitter__arrow-button-all">

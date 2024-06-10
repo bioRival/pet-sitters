@@ -459,6 +459,154 @@
 }
 
 
+/*========================== CUBES ==========================*/
+.cubes__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;  
+    grid-column-gap: 1.25rem;
+    grid-row-gap: 1.25rem;
+    width: 100%;
+}
+
+.cubes__title {
+    font-size: 2rem;
+    font-weight: var(--font-bold);
+    margin-bottom: 2rem;
+}
+
+.cubes__text {
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-medium);
+    line-height: 1.75rem;
+}
+
+.cubes__box {
+    border-radius: 2.5rem;
+    padding: 2rem 2.5rem;
+}
+
+.cubes__purple {
+    background-color: var(--purple-color);
+}
+
+.cubes__yellow {
+    background-color: var(--light-yellow-color);
+}
+
+.cubes__image-box {
+    border-radius: 2.5rem;
+    overflow: hidden;
+}
+
+.cubes__image-box img {
+    height: 100%;
+}
+
+.cubes__item1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.cubes__item2 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.cubes__item3 {
+    grid-area: 1 / 2 / 3 / 3;
+}
+
+.cubes__item4 {
+    grid-area: 3 / 1 / 5 / 2;
+}
+
+.cubes__item5 {
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+.cubes__item6 {
+    grid-area: 4 / 2 / 5 / 3;
+}
+
+/*========================== CUBES BREAKPOINTS ==========================*/
+/* medium devices */
+@media screen and (max-width: 1000px) {
+    .cubes__grid {
+        grid-template-columns: repeat(2, auto);
+    }
+
+    .cubes__image-box img {
+        height: auto;
+        width: 100%;
+    }
+    
+    .cubes__item1 {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+    
+    .cubes__item2 {
+        grid-area: 1 / 2 / 2 / 3;
+    }
+    
+    .cubes__item3 {
+        grid-area: 2 / 1 / 3 / 3;
+    }
+    
+    .cubes__item4 {
+        grid-area: 4 / 1 / 5 / 3;
+    }
+    
+    .cubes__item5 {
+        grid-area: 3 / 1 / 4 / 2;
+    }
+    
+    .cubes__item6 {
+        grid-area: 3 / 2 / 4 / 3;
+    }
+}
+
+/* small devices */
+@media screen and (max-width: 860px) {
+    .cubes__grid {
+        margin-inline: auto;
+        grid-template-columns: repeat(1, 1fr);
+        width: 500px;
+    }
+
+    .cubes__item1 {
+        grid-area: 2;
+    }
+    
+    .cubes__item2 {
+        grid-area: 3;
+    }
+    
+    .cubes__item3 {
+        grid-area: 1;
+    }
+    
+    .cubes__item4 {
+        grid-area: 4;
+    }
+    
+    .cubes__item5 {
+        grid-area: 5;
+    }
+    
+    .cubes__item6 {
+        grid-area: 6;
+    }
+}
+
+/* very small devices */
+@media screen and (max-width: 550px) {
+    .cubes__grid {
+        width: 100%;
+    }
+}
+
+
+
+
 
 
 
