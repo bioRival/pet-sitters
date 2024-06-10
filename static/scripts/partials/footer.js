@@ -24,3 +24,21 @@ function initBasedCat() {
 }
 
 initBasedCat()
+
+
+
+
+/*============================ PAW ============================*/
+function initFooterPaw() {
+    const paw = document.getElementById('footer-paw')
+    console.log(paw)
+
+    // If user at the bottom of the page
+    window.addEventListener('scroll', () => {
+        if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) {
+            paw.play()
+        }
+    })
+}
+
+initFooterPaw()
