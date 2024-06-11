@@ -1,5 +1,5 @@
 
-/*=============================== BANNER SLIDESHOW ===============================*/
+/*========================= BANNER SLIDESHOW =========================*/
 function bannerSlideshow() {
     // Getting array of images
     // let images = [...document.querySelectorAll('.banner__image')]
@@ -32,7 +32,7 @@ bannerSlideshow()
 
 
 
-/*=============================== CAT / DOG FILTER BUTTONS ===============================*/
+/*====================== CAT / DOG FILTER BUTTONS ======================*/
 function initCatDogButtons() {
     let timeout;
     function handleChange(e, pngImg, gifImg) {
@@ -68,5 +68,45 @@ initCatDogButtons()
 
 
 
+/*========================= REVIEW CARUSEL =========================*/
+function initReviewCarusel() {
+    // Grid gap in px
+    const gap = 20;
+
+    const   carousel = document.getElementById("review__carousel"),
+            content = document.getElementById("review__content"),
+            next = document.getElementById("review__next"),
+            prev = document.getElementById("review__prev")
+
+    // Next button 
+    next.addEventListener("click", e => {
+        carousel.scrollBy(width + gap, 0)
+
+        if (carousel.scrollWidth !== 0) {
+            prev.style.display = "flex";
+        }
+
+        if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "none";
+        }
+    })
+
+    // Previous button 
+    prev.addEventListener("click", e => {
+        carousel.scrollBy(-(width + gap), 0)
+        if (carousel.scrollLeft - width - gap <= 0) {
+            prev.style.display = "none"
+        }
+        if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "flex"
+        }
+    })
+
+    let width = carousel.offsetWidth
+    window.addEventListener("resize", e => (width = carousel.offsetWidth))
+
+}
+
+initReviewCarusel()
 
 
