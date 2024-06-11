@@ -126,3 +126,9 @@ class AddService(CreateView):
         form.instance.sitter = self.request.user
         return super().form_valid(form)
 
+
+
+# view для каталога
+def searchView(request):
+    return render(request, "search.html")
+
