@@ -48,7 +48,6 @@ function initCatDogButtons() {
             pngImg.style.display = 'inline-block'
             gifImg.style.display = 'none'
         }
-        console.log("Hello")
     }
 
     document.getElementById('checkbox-dog').addEventListener('change', (e) => handleChange(
@@ -68,7 +67,7 @@ initCatDogButtons()
 
 
 
-/*========================= REVIEW CARUSEL =========================*/
+/*========================= REVIEW CAROUSEL =========================*/
 function initReviewCarusel() {
     // Grid gap in px
     const gap = 20;
@@ -109,4 +108,46 @@ function initReviewCarusel() {
 
 initReviewCarusel()
 
+
+
+
+
+/*========================= ACCORDION =========================*/
+function initAccordion() {
+    const items = document.querySelectorAll('.accordion__item')
+
+    items.forEach((item) => {
+        const header = item.querySelector('.accordion__header')
+
+        header.addEventListener('click', () => {
+            const openItem = document.querySelector('.accordion-open')
+            
+            toggleItem(item)
+
+            // when clicked on the other item, close the previous one
+            if (openItem && openItem !== item) {
+                toggleItem(openItem)
+            }
+        })
+
+
+    })
+
+    function toggleItem(item) {
+        const content = item.querySelector('.accordion__content')
+
+        if (item.classList.contains('accordion-open')) {
+            content.removeAttribute('style')
+            item.classList.remove('accordion-open')
+        } else {
+            content.style.height = content.scrollHeight + 'px'
+            item.classList.add('accordion-open')
+        }
+
+
+    }
+
+}
+
+initAccordion()
 
