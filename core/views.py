@@ -157,5 +157,5 @@ class PetDelete(LoginRequiredMixin, DeleteView):
 
 
 # view для каталога
-def catalogueView(request):
-    return render(request, "catalogue.html")
+def searchView(request):
+    return render(request, "search.html")
