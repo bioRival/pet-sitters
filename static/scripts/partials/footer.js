@@ -31,7 +31,6 @@ initBasedCat()
 /*============================ PAW ============================*/
 function initFooterPaw() {
     const paw = document.getElementById('footer-paw')
-    console.log(paw)
 
     // If user at the bottom of the page
     window.addEventListener('scroll', () => {
