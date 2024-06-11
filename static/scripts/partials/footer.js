@@ -8,7 +8,6 @@ function initBasedCat() {
 
     pawButton.addEventListener('click', () => {
         clickCount += 1
-        console.log("clickCount: " + clickCount)
 
         if (clickCount >= 3) {
             basedCat.classList.toggle('footer__show-based-cat')

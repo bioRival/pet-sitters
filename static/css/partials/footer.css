@@ -3,7 +3,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    overflow: hidden;
 }
 
 .footer__wrapper {
@@ -112,7 +111,7 @@
 
 .footer__paw {
     position: absolute;
-    bottom: -.5rem;
+    bottom: 0;
     right: 0px;
     z-index: var(--z-back);
     width: 444px;
