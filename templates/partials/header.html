@@ -20,6 +20,7 @@
                     <a href="#" class="nav__link">Наши ситтеры</a>
                 </li>
             </ul>
+        </div>
 
             <!-- Close button -->
             <div class="nav__close" id="nav-close">
@@ -49,11 +50,19 @@
                             <a href="{% url 'user_app:customer_profile' username=user.username %} " class="user-dropdown__link">
                                 <i class="ri-profile-line user-dropdown__icon"></i>
                                 <span class="user-dropdown__name">
-                                    Профиль
+                                    Войти как заказчик
                                 </span>
                             </a>
                         </li>
                         <li class="user-dropdown__item">
+                            <a href="{% url 'user_app:sitter_profile' username=user.username %} " class="user-dropdown__link">
+                                <i class="ri-profile-line user-dropdown__icon"></i>
+                                <span class="user-dropdown__name">
+                                    Войти как исполнитель
+                                </span>
+                            </a>
+                        </li>
+                         <li class="user-dropdown__item">
                             <a href="#" class="user-dropdown__link">
                                 <i class="ri-settings-3-line user-dropdown__icon"></i>
                                 <span class="user-dropdown__name">

@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
-from .views import ServicesList, PetCreate, PetUpdate, PetDelete
+from .views import ServicesList, PetCreate, PetUpdate, PetDelete, AddService
 from django.conf.urls.static import static
 
 
@@ -12,7 +12,7 @@ urlpatterns = [
     path('pet_create/', PetCreate.as_view(), name='pet_create'),
     path('<int:pk>/update/', PetUpdate.as_view(), name='pet_update'),
     path('<int:pk>/delete/', PetDelete.as_view(), name='pet_delete'),
-
+    path('add_service/', AddService.as_view(), name='add_service'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

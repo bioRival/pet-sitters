@@ -144,3 +144,51 @@ class UserEditView(LoginRequiredMixin, TemplateView):
                 context['user_profile_form'] = user_profile_form
                 return render(request, self.template_name, context)
 
+
+# страница профиля ситтера
+class SitterProfileView(TemplateView):
+    template_name = 'user_app/sitter_profile_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            user = get_object_or_404(User, username=self.kwargs.get('username'))
+        except User.DoesNotExist:
+            raise Http404("Пользователь не найден")
+        context['sitter_profile'] = user
+        # context['sitter_services'] = Service.objects.filter(user=user)
+        context['title'] = f'Профиль пользователя {user}'
+        return context
+
+
+# редактирование профиля ситтера
+class SitterEditView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_app/sitter_edit_page.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user == get_object_or_404(User, username=self.kwargs.get('username')):
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise HttpResponseForbidden("Вы не имеете доступа к этой странице.")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_info_form'] = forms.CustomInfoForm(instance=self.request.user)
+        context['sitter_profile_form'] = forms.SitterProfileForm(instance=self.request.user.profile)
+        context['title'] = f'Настройки профиля {self.request.user}'
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if 'user_info_form' in request.POST:
+            user_info_form = forms.CustomInfoForm(request.POST, instance=request.user)
+            sitter_profile_form = forms.SitterProfileForm(request.POST, request.FILES, instance=self.request.user.profile)
+            if user_info_form.is_valid() and sitter_profile_form.is_valid():
+                user_info_form.save()
+                sitter_profile_form.save()
+                messages.success(request, 'Данные успешно изменены.')
+                return redirect('user_app:sitter_profile', user_info_form.cleaned_data.get('username'))
+            else:
+                context = self.get_context_data(**kwargs)
+                context['user_info_form'] = user_info_form
+                context['sitter_profile_form'] = sitter_profile_form
+                return render(request, self.template_name, context)

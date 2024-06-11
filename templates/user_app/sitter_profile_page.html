@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+{% block content %}
+    <div class="container mt-3">
+        <button class="auth__btn auth__alt-btn">
+            <a href="{% url 'user_app:sitter_profile' username=user.username %}">Мой профиль</a>
+        </button>
+        <button class="auth__btn auth__alt-btn">
+            <a href="{% url 'home' %}">История заказов</a>
+        </button>
+        <button class="auth__btn auth__alt-btn">
+            <a href="{% url 'home' %}">Сообщения</a>
+        </button>
+        <br>
+        <div class="row">
+            <div class="col-xl-4 col-sm-12 border border-start border-0">
+            <h3 class="mb-3">Мои данные</h3>
+                {% if sitter_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">Редактировать профиль
+                    </a>
+                {% endif %}
+                <p>
+                <div class="col-12 text-center">
+                    <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="300"
+                         height="300" class="img-fluid"><br>
+                </div>
+                    <b>Имя:</b> {{ sitter_profile.first_name }}
+                    <br>
+                    <b>Фамилия:</b> {{ sitter_profile.last_name }}</p>
+                    <br>
+                    {% if sitter_profile.profile.show_email %}
+                    <b>Email:</b> {{ sitter_profile.email }}
+                    {% endif %}
+                    {% if sitter_profile.profile.show_phone %}
+                    <br>
+                    <b>Телефон:</b> {{ sitter_profile.profile.phone }}
+                    <br>
+                    {% endif %}
+                    <b>Город:</b> {{ sitter_profile.profile.location }}</p>
+
+                <br>
+                <h3 class="mb-3">Прайс-лист</h3>
+                    {% for service in services %}
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-12">
+                            <b>Категория</b> {{ service.cat }}
+                            <br>
+                            {{ service.description }}
+                            <br>
+                             {{ service.price }}
+                            <br>
+                            {% if sitter_profile == user %}
+                                <a class="btn btn-primary my-btn me-1"
+                                   href="{% url 'pet_update' pet.id %}">Изменить данные питомца
+                                </a>
+                                <a class="btn btn-primary my-btn me-1"
+                                   href="{% url 'pet_delete' pet.id %}">Удалить данные питомца
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <hr class="m-1">
+                {% endfor %}
+                {% if sitter_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'add_service' %}">Добавить услугу
+                    </a>
+                {% endif %}
+                <h3 class="mb-3">Настройки</h3>
+                {% if sitter_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'user_app:user_profile_settings' username=sitter_profile.username %}">Изменить пароль
+                    </a>
+                {% endif %}
+                <br>
+                <button class="auth__btn auth__alt-btn">
+                    <a href="{% url 'user_app:logout' %}">Выйти</a>
+                </button>
+                <br>
+                <button class="auth__btn auth__alt-btn">
+                    <a href="{% url 'home' %}">Удалить профиль</a>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

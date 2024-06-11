@@ -12,8 +12,8 @@ from django.views.generic import ListView, CreateView, DetailView, TemplateView,
 from rest_framework import generics
 
 from . import models, forms
-from .forms import PetCreateForm, PetForm
-from .models import Services, Customer, Pet
+from .forms import PetCreateForm, PetForm, AddServiceForm
+from .models import Services, Customer, Pet, Service
 from .serializers import ServicesSerializer
 
 # Временное представление для API
@@ -57,48 +57,6 @@ def customer_login(request):
                 thank = True
                 return render(request, "sign/customer_login.html", {"thank": thank})
     return render(request, "sign/customer_login.html")
-
-
-# регистрация заказчика username = email
-def customer_signup(request):
-    if request.method == "POST":
-        username = request.POST['email']
-        # first_name = request.POST['first_name']
-        # last_name = request.POST['last_name']
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        # phone = request.POST['phone']
-        # location = request.POST['location']
-        # image = request.FILES['image']
-        user_type = request.POST['user_type']
-
-        if password1 != password2:
-            messages.error(request, "Неправильный пароль.")
-            return redirect('/customer_signup')
-
-        user = User.objects.create_user(username=username,
-                                        password=password1, email=email)
-        customers = Customer.objects.create(user=user, user_type=user_type)
-
-        # user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
-        #                                 password=password1, email=email)
-        # customers = Customer.objects.create(user=user, phone=phone, location=location, image=image, user_type=user_type)
-        user.save()
-        customers.save()
-        send_mail(
-            subject='Регистрация пройдена успешно',
-            message=f'Здравствуйте! Вы успешно зарегистрированы на сайте petsitters.ru.',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email]
-        )
-        username = request.POST['email']
-        password = request.POST['password1']
-        user = authenticate(username=username, password=password)
-        login(request, user)
-
-        return HttpResponseRedirect("/")
-    return render(request, "sign/customer_signup.html")
 
 
 # создание записи питомца
@@ -153,4 +111,18 @@ class PetDelete(LoginRequiredMixin, DeleteView):
         # if post.host.user != self.request.user:
         #     return render(self.request, template_name='post_lock.html', context=context)
         return super(PetDelete, self).dispatch(request, *args, **kwargs)
+
+
+# добавление услуги
+class AddService(CreateView):
+    form_class = AddServiceForm
+    model = Service
+    template_name = 'add_service.html'
+
+    def get_success_url(self):
+        return reverse('user_app:sitter_profile', kwargs={'username': self.request.user.username})
+
+    def form_valid(self, form):
+        form.instance.sitter = self.request.user
+        return super().form_valid(form)
 

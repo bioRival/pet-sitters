@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from PIL import Image
 from django import forms
@@ -17,17 +17,28 @@ PACKAGES = [
     ('исполнитель', 'Я - ситтер'),
 ]
 
+CAT = [
+    ('передержка', 'Передержка'),
+    ('выгул', 'Выгул'),
+    ('няня', 'Няня'),
+]
+
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    bio = models.TextField(null=True, blank=True)
+    dob = models.DateField(blank=True,
+                           null=True,
+                           verbose_name='Дата рождения')
+    bio = models.TextField(max_length=70, null=True, blank=True)
     phone = models.CharField(max_length=12, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, default='images/profile/user_default.png',
                               upload_to="images/profile/%Y/%m/%d/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
+    area = models.CharField(max_length=254, null=True, blank=True)
+    rating = models.FloatField(default=0.0)
     user_type = models.CharField(choices=PACKAGES, max_length=20)
-
+    # cat_type = models.CharField(default='передержка', choices=CAT, max_length=20)
     show_email = models.BooleanField(default=False,
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,
@@ -63,9 +74,17 @@ class Customer(models.Model):
                 on_site_string += f"{years} лет"
             return on_site_string
 
-    # def __str__(self):
-    #     return f'{self.user}'
+    def get_age(self):
+        if self.dob:
+            today = datetime.today()
+            age = today.year - self.dob.year
 
+            if today.month < self.dob.month:
+                age -= 1
+            elif today.month == self.dob.month and today.day < self.dob.day:
+                age -= 1
+
+            return age
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
 #     def update_rating(self):
@@ -108,8 +127,21 @@ class Services(models.Model):
         return f'{self.title} {self.text}'
 
 
+class Service(models.Model):
+    cat = models.ManyToManyField(Category, through='ServiceCategory',
+                                        related_name='ServiceCategory', verbose_name='Вид услуги')
+    description = models.CharField(max_length=70, null=True, blank=True, verbose_name='Описание')
+    price = models.PositiveIntegerField(verbose_name='Цена')
+    sitter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
+
+
 class ServicesCategory(models.Model):
     postTrough = models.ForeignKey(Services, on_delete=models.CASCADE)
+    categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+
+class ServiceCategory(models.Model):
+    postTrough = models.ForeignKey(Service, on_delete=models.CASCADE)
     categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
@@ -174,4 +206,7 @@ class Pet(models.Model):
     extra_info = models.TextField(null=True, blank=True, verbose_name='Дополнительная информация')
     weight = models.CharField(max_length=25, choices=WEIGHT, default='1-5 кг', verbose_name='Вес')
     host = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pet', verbose_name='Хозяин')
+
+
+
 
