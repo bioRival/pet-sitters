@@ -154,3 +154,8 @@ class PetDelete(LoginRequiredMixin, DeleteView):
         #     return render(self.request, template_name='post_lock.html', context=context)
         return super(PetDelete, self).dispatch(request, *args, **kwargs)
 
+
+
+# view для каталога
+def catalogueView(request):
+    return render(request, "catalogue.html")

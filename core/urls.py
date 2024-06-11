@@ -8,7 +8,10 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', ServicesList.as_view(), name='home'), # домашняя страница
+    # домашняя страница
+    path('', ServicesList.as_view(), name='home'),
+    # каталог страница               
+    path('catalogue/', views.catalogueView, name='catalogue'),    
     path('pet_create/', PetCreate.as_view(), name='pet_create'),
     path('<int:pk>/update/', PetUpdate.as_view(), name='pet_update'),
     path('<int:pk>/delete/', PetDelete.as_view(), name='pet_delete'),
