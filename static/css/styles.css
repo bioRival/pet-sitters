@@ -62,9 +62,9 @@
     box-sizing: border-box;
 }
 
-/* html {
+html {
     scroll-behavior: smooth;
-} */
+}
 
 body {
     font-family: var(--body-font);
