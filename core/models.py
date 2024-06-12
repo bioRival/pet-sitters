@@ -111,6 +111,13 @@ class Category(models.Model):
         return self.name
 
 
+class Service(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='service', verbose_name='Вид услуги')
+    description = models.CharField(max_length=70, null=True, blank=True, verbose_name='Описание')
+    price = models.PositiveIntegerField(verbose_name='Цена')
+    sitter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
+
+
 # Основная модель услуг (!) Не знаю какие категории должны быть, добавила временные
 class Services(models.Model):
     author = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -127,21 +134,9 @@ class Services(models.Model):
         return f'{self.title} {self.text}'
 
 
-class Service(models.Model):
-    cat = models.ManyToManyField(Category, through='ServiceCategory',
-                                        related_name='ServiceCategory', verbose_name='Вид услуги')
-    description = models.CharField(max_length=70, null=True, blank=True, verbose_name='Описание')
-    price = models.PositiveIntegerField(verbose_name='Цена')
-    sitter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
-
 
 class ServicesCategory(models.Model):
     postTrough = models.ForeignKey(Services, on_delete=models.CASCADE)
-    categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-
-class ServiceCategory(models.Model):
-    postTrough = models.ForeignKey(Service, on_delete=models.CASCADE)
     categoryTrough = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 

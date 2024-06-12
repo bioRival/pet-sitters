@@ -46,23 +46,18 @@
 
                 <br>
                 <h3 class="mb-3">Прайс-лист</h3>
-                    {% for service in services %}
+                    {% for service in sitter_services %}
                     <div class="row">
                         <div class="col-lg-9 col-sm-12">
-                            <b>Категория</b> {{ service.cat }}
-                            <br>
+                            {{ service.category }}
                             {{ service.description }}
+                            {{ service.price }} рублей
                             <br>
-                             {{ service.price }}
-                            <br>
-                            {% if sitter_profile == user %}
-                                <a class="btn btn-primary my-btn me-1"
-                                   href="{% url 'pet_update' pet.id %}">Изменить данные питомца
-                                </a>
-                                <a class="btn btn-primary my-btn me-1"
-                                   href="{% url 'pet_delete' pet.id %}">Удалить данные питомца
-                                </a>
-                            {% endif %}
+                {% if sitter_profile == user %}
+                    <a class="btn btn-primary my-btn me-1"
+                       href="{% url 'service_delete' service.id %}">Удалить услугу
+                    </a>
+                {% endif %}
                         </div>
 
                     </div>

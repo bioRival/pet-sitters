@@ -127,6 +127,21 @@ class AddService(CreateView):
         return super().form_valid(form)
 
 
+# удаление услуги
+class ServiceDelete(LoginRequiredMixin, DeleteView):
+    model = Service
+    template_name = 'service_delete.html'
+
+    def get_success_url(self):
+        return reverse('user_app:sitter_profile', kwargs={'username': self.request.user.username})
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        context = {'service_id': post.pk}
+        # if post.host.user != self.request.user:
+        #     return render(self.request, template_name='post_lock.html', context=context)
+        return super(ServiceDelete, self).dispatch(request, *args, **kwargs)
+
 
 # view для каталога
 def searchView(request):

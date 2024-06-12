@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView
 
-from core.models import Customer, Pet
+from core.models import Customer, Pet, Service
 from user_app import forms
 from user_app.forms import LoginForm
 
@@ -156,7 +156,7 @@ class SitterProfileView(TemplateView):
         except User.DoesNotExist:
             raise Http404("Пользователь не найден")
         context['sitter_profile'] = user
-        # context['sitter_services'] = Service.objects.filter(user=user)
+        context['sitter_services'] = Service.objects.filter(sitter=user)
         context['title'] = f'Профиль пользователя {user}'
         return context
 

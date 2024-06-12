@@ -77,7 +77,7 @@ class AddServiceForm(forms.ModelForm):
     class Meta:
         model = Service
         fields = [
-            'cat',
+            'category',
             'description',
             'price',
         ]
