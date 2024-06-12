@@ -8,8 +8,8 @@
 <script src="{% static 'scripts/search.js' %}" defer></script>
 
 <!--==================== Yandex Map Tools ====================-->
-<!-- <script src="https://api-maps.yandex.ru/v3/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU" defer></script> -->
-<!-- <script src="{% static 'scripts/partials/ymap_home.js' %}" defer></script> -->
+<script src="https://api-maps.yandex.ru/v3/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU" defer></script>
+<script src="{% static 'scripts/partials/ymap_home.js' %}" defer></script>
 
 {% endblock head %}
 
@@ -19,11 +19,94 @@
 <main class="main container main-grid" data-static="{% static '' %}">
     <!--==================== MAP ====================-->
     <section class="map">
-        <div class="map__container">hello</div>
+        <div class="map__container" id="map"></div>
     </section>
 
     <!--==================== FILTER ====================-->
-    <section class="filter"></section>
+    <section class="filter">
+        <h1 class="filter__header">Фильтр</h1>
+        <form class="filter__form">
+            <div>
+                <h2 class="filter__label">Вид питомца</h2>
+                <div class="filter__input-box">
+                    <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog"
+                        value="dog">
+                    <label class="filter__button filter__cat-dog" for="checkbox-dog">
+                        <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
+                        <img id="dog-gif" src="{% static 'images/home/btn-dog.gif' %}" alt="">
+                    </label>
+
+                    <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat"
+                        value="cat">
+                    <label class="filter__button filter__cat-dog" for="checkbox-cat">
+                        <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
+                        <img id="cat-gif" src="{% static 'images/home/btn-cat.gif' %}" alt="">
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="filter__label">Вид услуги</h2>
+                <div class="filter__input-box">
+                    <input type="radio" class="filter__radio" id="type1" name="type" value="walk" />
+                    <label class="filter__button" for="type1">Выгул</label>
+
+                    <input type="radio" class="filter__radio" id="type2" name="type" value="walk" />
+                    <label class="filter__button" for="type2">Передержка</label>
+
+                    <input type="radio" class="filter__radio" id="type3" name="type" value="walk" />
+                    <label class="filter__button" for="type3">Дневная няня</label>
+                </div>
+            </div>
+
+            <div>
+                <label class="filter__label" for="date-start">
+                    Даты
+                </label>
+                <div class="filter__input-box">
+                    <input class="filter__input-line" id="date-start" type="date">
+                    <input class="filter__input-line" id="date-end" type="date">
+                </div>
+            </div>
+
+            <div>
+                <label class="filter__label" for="address-input">
+                    Где искать
+                </label>
+                <div class="filter__input-box">
+                    <div class="filter__geosuggest-container" id="filter__geosuggest-container">
+                        <input id="address-input" class="filter__input-line" type="text"
+                            placeholder="Москва, Россия">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="filter__label" for="pet-weight">
+                    Размер питомца
+                </label>
+                <div class="filter__input-box">
+                    <input class="filter__radio" type="radio" id="weight-s" name="weight" value="small" />
+                    <label class="filter__button" for="weight-s">1-5 кг</label>
+
+                    <input class="filter__radio" type="radio" id="weight-m" name="weight" value="medium" />
+                    <label class="filter__button" for="weight-m">6-10 кг</label>
+
+                    <input class="filter__radio" type="radio" id="weight-l" name="weight" value="large" />
+                    <label class="filter__button" for="weight-l">11-20 кг</label>
+
+                    <input class="filter__radio" type="radio" id="weight-xl" name="weight" value="xlarge" />
+                    <label class="filter__button" for="weight-xl">21+ кг</label>
+                </div>
+            </div>
+
+
+            <button class="filter__submit" type="submit">
+                Найти исполнителя
+            </button>
+        </form>
+        <img class="filter__image" src="{% static 'images/search/filter-image.png' %}" alt="">
+    </section>
 
     <!--==================== PEOPLE ====================-->
     <section class="people"></section>

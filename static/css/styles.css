@@ -5,15 +5,21 @@
 
     /*================= Colors =================*/
     /* Color mode HSL(hue, saturation, lightness) */
+    --black-color: hsl(269, 100%, 8%);
+
+    --dark-purple-color: hsl(270, 100%, 20%);
+    --medium-purple-color: hsl(269, 100%, 67%);
     --purple-color: hsl(269, 100%, 79%);
+    --light-purple-color: hsl(269, 100%, 86%);
+    --lighter--purple-color: hsl(269, 100%, 95%);
+
     --yellow-color: hsl(51, 91%, 70%);
     --light-yellow-color: hsl(51, 91%, 87%);
-    --black-color: hsl(269, 100%, 8%);
-    --dark-purple-color: hsl(270, 100%, 20%);
-    --light-purple-color: hsl(269, 100%, 86%);
+
     --white-color: hsl(0, 0%, 100%);
     --hint-color: hsl(0, 0%, 80%);
-    --medium-purple-color: hsl(269, 100%, 67%);
+
+
 
     --title-color: var(--dark-purple-color);
     --text-color: var(--black-color);
@@ -126,7 +132,7 @@ button:focus {
 /*================= REUSABLE CSS CLASSES =================*/
 .container {
     max-width: 1240px;
-    margin-inline: 1.5rem;
+    padding-inline: 1.5rem;
 }
 
 .grid {
@@ -151,7 +157,8 @@ button:focus {
 /* For small devices */
 @media screen and (max-width: 500px) {
     .container {
-        margin-inline: .5rem;
+        /* margin-inline: initial; */
+        padding-inline: .5rem;
     }
 }
 /* For large devices */
