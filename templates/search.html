@@ -29,15 +29,13 @@
             <div>
                 <h2 class="filter__label">Вид питомца</h2>
                 <div class="filter__input-box">
-                    <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog"
-                        value="dog">
+                    <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog" value="dog">
                     <label class="filter__button filter__cat-dog" for="checkbox-dog">
                         <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
                         <img id="dog-gif" src="{% static 'images/home/btn-dog.gif' %}" alt="">
                     </label>
 
-                    <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat"
-                        value="cat">
+                    <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat" value="cat">
                     <label class="filter__button filter__cat-dog" for="checkbox-cat">
                         <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
                         <img id="cat-gif" src="{% static 'images/home/btn-cat.gif' %}" alt="">
@@ -75,8 +73,7 @@
                 </label>
                 <div class="filter__input-box">
                     <div class="filter__geosuggest-container" id="filter__geosuggest-container">
-                        <input id="address-input" class="filter__input-line" type="text"
-                            placeholder="Москва, Россия">
+                        <input id="address-input" class="filter__input-line" type="text" placeholder="Москва, Россия">
                     </div>
                 </div>
             </div>
@@ -108,7 +105,152 @@
         <img class="filter__image" src="{% static 'images/search/filter-image.png' %}" alt="">
     </section>
 
-    <!--==================== PEOPLE ====================-->
-    <section class="people"></section>
+    <!--==================== SITTER ====================-->
+    <section class="sitter">
+        <ul class="sitter__list">
+            <li class="sitter__item">
+                <a href="#" class="sitter__image-container">
+                    <img src="{% static 'images/home/sitter-1.png' %}" class="sitter__image" alt="sitter photo">
+                    <span class="sitter__tag">
+                        <i class="ri-walk-line"></i>
+                        Выгульщик
+                    </span>
+                    <span class="sitter__tag">
+                        <img class="sitter__tag-icon" src="{% static 'images/icons/dog-icon.svg' %}" alt="icon">
+                        Догситтер
+                    </span>
+                </a>
+
+                <div class="sitter__data">
+                    <div class="sitter__column">
+                        <div class="sitter__info">
+                            <span class="sitter__name">
+                                Иван
+                            </span>
+                            <span class="sitter__age">
+                                28 лет
+                            </span>
+                            <div class="sitter__jobs">
+                                <span>3 заказов</span>
+                                |
+                                <span>2 отзывов</span>
+                            </div>
+                        </div>
+                        <div class="sitter__rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <div class="sitter__rating-number">
+                                5.0
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sitter__quote">
+                        <p>
+                            С удовольствием погуляю с вашим питомцем! Вымою лапы и покормлю после прогулки.
+                        </p>
+                    </div>
+
+                    <div class="sitter__address">
+                        <i class="ri-home-2-line"></i>
+                        <span>г.п. Дубровка, Ленинградская область</span>
+                    </div>
+
+                    <div class="sitter__column">
+                        <div class="sitter__price">
+                            800 ₽
+                        </div>
+                        <a class="sitter__link">
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="sitter__item">
+                <a href="#" class="sitter__image-container">
+                    <img src="{% static 'images/home/sitter-2.png' %}" class="sitter__image" alt="sitter photo">
+                    <span class="sitter__tag">
+                        <img class="sitter__tag-icon" src="{% static 'images/icons/dog-icon.svg' %}" alt="icon">
+                        Догситтер
+                    </span>
+                    <span class="sitter__tag">
+                        <img class="sitter__tag-icon" src="{% static 'images/icons/cat-icon.svg' %}" alt="icon">
+                        Кэтситтер
+                    </span>
+                    <span class="sitter__tag">
+                        <i class="ri-home-heart-line"></i>
+                        Бордер
+                    </span>
+                    <span class="sitter__tag">
+                        <i class="ri-hand-heart-line"></i>
+                        Дневная Няня
+                    </span>
+                </a>
+
+                <div class="sitter__data">
+                    <div class="sitter__column">
+                        <div class="sitter__info">
+                            <span class="sitter__name">
+                                Анна
+                            </span>
+                            <span class="sitter__age">
+                                30 лет
+                            </span>
+                            <div class="sitter__jobs">
+                                <span>13 заказов</span>
+                                |
+                                <span>8 отзывов</span>
+                            </div>
+                        </div>
+                        <div class="sitter__rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-line"></i>
+                            <div class="sitter__rating-number">
+                                4.5
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sitter__quote">
+                        <p>
+                            Люблю собак, буду рада взять на передержку вашего питомца!
+                        </p>
+                    </div>
+
+                    <div class="sitter__address">
+                        <i class="ri-building-line"></i>
+                        <span>г. Москва</span>
+                    </div>
+
+                    <div class="sitter__column">
+                        <div class="sitter__price">
+                            750 ₽
+                        </div>
+                        <a class="sitter__link">
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="sitter__pagination">
+            <a href="#"><i class="ri-arrow-left-line"></i></a>
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#"><i class="ri-arrow-right-line"></i></a>
+        </div>
+    </section>
 </main>
 {% endblock content%}
