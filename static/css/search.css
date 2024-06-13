@@ -1,6 +1,8 @@
 /*========================== BASE ==========================*/
 .main-grid {
     width: 100%;
+    padding: 1.5rem;
+    margin-inline: auto;
     margin-bottom: 3rem;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -18,7 +20,7 @@
     grid-area: filter;
 }
 
-section:nth-child(3) {
+.sitter {
     grid-area: sitter;
 }
 

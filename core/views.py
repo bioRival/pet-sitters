@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -15,6 +15,7 @@ from . import models, forms
 from .forms import PetCreateForm, PetForm, AddServiceForm
 from .models import Services, Customer, Pet, Service
 from .serializers import ServicesSerializer
+import json
 
 # Временное представление для API
 class ServicesAPIView(generics.ListAPIView):
@@ -144,6 +145,20 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
 
 
 # view для каталога
-def searchView(request):
-    return render(request, "search.html")
+class SearchSitters(View):
+    def get(self, request):
+        # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        #     number = 10
+        #     return JsonResponse({'number': number})
+        
+        return render(request, 'search.html')
+   
+    def post(self, request):
+        data = json.loads(request.body)
+        date_start = data['date-start']
+        date_end = data['date-end']
+        
+        print(data)
+        return JsonResponse({'text': 'hi mom!'})
+    # return render(request, "search.html")
 

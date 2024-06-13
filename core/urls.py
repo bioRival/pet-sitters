@@ -11,7 +11,7 @@ urlpatterns = [
     # домашняя страница
     path('', ServicesList.as_view(), name='home'),
     # каталог страница               
-    path('search/', views.searchView, name='search'),    
+    path('search/', views.SearchSitters.as_view(), name='search'),    
     path('pet_create/', PetCreate.as_view(), name='pet_create'),
     path('<int:pk>/update/', PetUpdate.as_view(), name='pet_update'),
     path('<int:pk>/delete/', PetDelete.as_view(), name='pet_delete'),

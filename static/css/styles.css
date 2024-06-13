@@ -132,7 +132,8 @@ button:focus {
 /*================= REUSABLE CSS CLASSES =================*/
 .container {
     max-width: 1240px;
-    padding-inline: 1.5rem;
+    /* padding-inline: 1.5rem; */
+    margin-inline: 1.5rem;
 }
 
 .grid {
@@ -157,8 +158,8 @@ button:focus {
 /* For small devices */
 @media screen and (max-width: 500px) {
     .container {
-        /* margin-inline: initial; */
-        padding-inline: .5rem;
+        margin-inline: initial;
+        /* padding-inline: .5rem; */
     }
 }
 /* For large devices */

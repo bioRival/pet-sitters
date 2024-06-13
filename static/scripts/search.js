@@ -39,3 +39,52 @@ function handleEmptyList() {
 }
 
 handleEmptyList()
+
+
+
+/*======================== REQUEST ========================*/
+async function makeRequest(url, method, body) {
+    const headers = {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+    }
+
+    if (body) body = JSON.stringify(body)
+
+    if (method === 'post') {
+        const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value
+        headers['X-CSRFToken'] = csrf
+    }
+
+
+    let response = await fetch(url, {
+        method: method,
+        headers: headers,
+        body: body,
+    })
+
+    return await response.json()
+}
+
+
+/*======================== SUBMIT ========================*/
+function handleFilter() {
+    const form = document.querySelector('.filter__form')
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const formData = new FormData(e.target)
+        formData.forEach((value, key) => {
+            console.log(key + ': ' + value);
+        });
+
+        const data = Object.fromEntries(formData)
+        console.log(JSON.stringify(data))
+        console.log(djangoUrl)
+        
+        makeRequest(djangoUrl, 'post', data)
+    })
+}
+
+handleFilter()
