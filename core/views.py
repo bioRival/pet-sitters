@@ -16,6 +16,7 @@ from .forms import PetCreateForm, PetForm, AddServiceForm
 from .models import Services, Customer, Pet, Service
 from .serializers import ServicesSerializer
 import json
+from django.core import serializers
 
 # Временное представление для API
 class ServicesAPIView(generics.ListAPIView):
@@ -157,8 +158,22 @@ class SearchSitters(View):
         data = json.loads(request.body)
         date_start = data['date-start']
         date_end = data['date-end']
-        
-        print(data)
-        return JsonResponse({'text': 'hi mom!'})
-    # return render(request, "search.html")
+
+        sitters = Customer.objects.filter(user_type = 'исполнитель')
+
+        sitters_data = []
+        for sitter in sitters:
+            sitters_data.append({
+                'name': "Ричард Файнмен",
+                'imageUrl': '',
+                'age': 45,
+                'orders': 26,
+                'reviews': 11,
+                'rating': 4.8,
+                'quote': "I... a universe of atoms, an atom in the universe.",
+                'address': 'Los Alamos, New Mexico',
+                'price': float(1000),
+                'tags': ['walker', 'dogsitter', 'catsitter'],
+            })
+        return JsonResponse(sitters_data, safe=False)
 

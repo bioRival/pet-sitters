@@ -9,6 +9,9 @@
 <script>
     // pass url to search.js
     const djangoUrl = "{% url 'search' %}";
+
+    // pass static url to search.js
+    const staticUrl = "{% static '' %}"
 </script>
 
 <!--==================== Yandex Map Tools ====================-->
@@ -20,8 +23,8 @@
 {% block title %} Petsitters.ru - Каталог {% endblock title %}
 
 {% block content %}
-<main class="main container main-grid" data-static="{% static '' %}">
-    {% csrf_token %}
+{% csrf_token %}
+<main class="main container main-grid">
 
     <!--==================== MAP ====================-->
     <section class="map">

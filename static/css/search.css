@@ -351,6 +351,7 @@
 }
 
 .sitter__age {
+    margin-left: .3rem;
     font-size: var(--h3-font-size);
     font-weight: var(--font-medium);
 }
@@ -358,6 +359,10 @@
 .sitter__rating {
     text-align: right;
     color: var(--yellow-color);
+}
+
+.sitter__rating i {
+    margin: .1rem;
 }
 
 .sitter__rating-number {
