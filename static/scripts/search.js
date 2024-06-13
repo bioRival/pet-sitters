@@ -20,3 +20,22 @@ function initSitterHover() {
 }
 
 initSitterHover()
+
+
+/*======================== HANDLE EMPTY LIST ========================*/
+function handleEmptyList() {
+    const sitterList = document.querySelector('.sitter__list')
+    const paginator = document.querySelector('.sitter__pagination')
+    const emptyMessage = document.querySelector('.sitter__empty')
+
+    // if there is no items in the list
+    if (!sitterList.querySelector('.sitter__item')) {
+        paginator.style.display = 'none'
+        emptyMessage.removeAttribute('style')
+    } else {
+        paginator.removeAttribute('style')
+        emptyMessage.style.display = 'none'
+    }
+}
+
+handleEmptyList()

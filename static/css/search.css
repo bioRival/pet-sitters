@@ -443,6 +443,23 @@ section:nth-child(3) {
     transform: translateX(.5rem);
 }
 
+.sitter__empty {
+    display: block;
+    width: fit-content;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.sitter__empty h1 {
+    color: var(--dark-purple-color);
+    margin-bottom: 1.25rem;
+}
+
+.sitter__empty p {
+    color: var(--hint-color);
+    line-height: 1.5rem;
+}
+
 
 /* Pagination */
 .sitter__pagination {
