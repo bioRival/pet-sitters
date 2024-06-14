@@ -371,20 +371,17 @@
     font-weight: var(--font-semi-bold);
 }
 
-.sitter__jobs {
+.sitter__jobs .sitter__seperator {
     margin-top: .5rem;
     color: var(--hint-color);
 }
 
-.sitter__jobs span {
+.sitter__jobs .sitter__orders {
     font-weight: var(--font-bold);
-}
-
-.sitter__jobs span:nth-child(1) {
     color: var(--purple-color);
 }
 
-.sitter__jobs span:nth-child(2) {
+.sitter__jobs .sitter__reviews {
     color: var(--dark-purple-color);
     font-size: var(--h3-font-size);
     font-weight: var(--font-semi-bold);
@@ -416,14 +413,6 @@
 
 .sitter__quote p {
     position: relative;
-}
-
-.sitter__quote p::before {
-    content: '“';
-}
-
-.sitter__quote p::after {
-    content: '”';
 }
 
 .sitter__price {

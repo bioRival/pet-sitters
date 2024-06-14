@@ -17,6 +17,7 @@ from .models import Services, Customer, Pet, Service
 from .serializers import ServicesSerializer
 import json
 from django.core import serializers
+import random
 
 # Временное представление для API
 class ServicesAPIView(generics.ListAPIView):
@@ -197,11 +198,11 @@ class SearchSitters(View):
                 'age': 45,
                 'orders': 26,
                 'reviews': 11,
-                'rating': 4.8,
+                'rating': random.uniform(0, 5),
                 'quote': "I... a universe of atoms, an atom in the universe.",
-                'address': 'Los Alamos, New Mexico',
+                # 'address': 'Los Alamos, New Mexico',
                 'price': float(1000),
-                'tags': ['walker', 'dogsitter', 'catsitter'],
+                'tags': ['walk', 'dogsitter', 'catsitter'],
             })
         return JsonResponse(sitters_data, safe=False)
 

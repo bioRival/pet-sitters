@@ -192,9 +192,7 @@ async function initMap() {
             .addChild(new YMapGeolocationControl({}))
     )
 
-
-    // Get static path
-    // const staticPath = document.querySelector('main').dataset.static
+    
     // Initilize marker
     PEOPLE.forEach(person => {
         const content = document.createElement('img')
