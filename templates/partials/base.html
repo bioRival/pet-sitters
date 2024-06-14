@@ -17,6 +17,18 @@
     <link rel="stylesheet" href="{% static 'css/partials/footer.css' %}">
     
     <!--================ JS ================-->
+    <!-- Global Variables -->
+    <script>
+        // path to search.html
+        const homeUrl = "{% url 'home' %}";
+        // path to home.html
+        const searchUrl = "{% url 'search' %}";
+    
+        // url for static files
+        const staticUrl = "{% static '' %}"
+    </script>
+
+    <!-- Global JS files -->
     <script src="{% static 'scripts/partials/header.js' %}" defer></script>
     <script src="{% static 'scripts/partials/footer.js' %}" defer></script>
     

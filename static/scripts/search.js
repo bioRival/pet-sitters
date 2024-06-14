@@ -81,9 +81,9 @@ function handleFilter() {
 
         const data = Object.fromEntries(formData)
         console.log(JSON.stringify(data))
-        console.log(djangoUrl)
+        console.log(searchUrl)
         
-        makeRequest(djangoUrl, 'post', data).then(response => console.log(response))
+        makeRequest(searchUrl, 'post', data).then(response => console.log(response))
     })
 }
 

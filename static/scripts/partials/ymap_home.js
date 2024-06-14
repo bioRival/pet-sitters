@@ -194,11 +194,11 @@ async function initMap() {
 
 
     // Get static path
-    const staticPath = document.querySelector('main').dataset.static
+    // const staticPath = document.querySelector('main').dataset.static
     // Initilize marker
     PEOPLE.forEach(person => {
         const content = document.createElement('img')
-        content.src = `${staticPath}images/icons/ymap-marker.svg`
+        content.src = `${staticUrl}images/icons/ymap-marker.svg`
         content.style = `
             width: 50px; 
             height: 50px; 
