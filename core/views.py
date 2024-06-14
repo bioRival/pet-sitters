@@ -156,8 +156,36 @@ class SearchSitters(View):
    
     def post(self, request):
         data = json.loads(request.body)
-        date_start = data['date-start']
-        date_end = data['date-end']
+
+        # Значения полученные в POST запросе
+        # Переменная  ||  Примеры значений
+        # pet_dog           True / False
+        # pet_сat           True / False
+        # date_start        '2024-06-14'
+        # date_end          '2024-06-15'
+        # service           'walk' / 'boarding' / 'daycare'
+        # address           'Москва, Щукинская улица'
+        # weight            'small' / 'medium' / 'large' / 'xlarge'
+        #
+        # Если значение не указано - None
+
+        pet_dog = bool(data.get('pet-dog', None))
+        pet_cat = bool(data.get('pet-cat', None))
+        date_start = data.get('date-start', None) or None
+        date_end = data.get('date-end', None) or None
+        service = data.get('service', None)
+        address = data.get('address', None) or None
+        weight = data.get('weight', None)
+
+        print(f" \
+              pet_dog: {pet_dog}\n \
+              pet_cat: {pet_cat}\n \
+              date_start: {date_start}\n \
+              date_end: {date_end}\n \
+              service: {service}\n \
+              address: {address}\n \
+              weight: {weight} \
+              ")
 
         sitters = Customer.objects.filter(user_type = 'исполнитель')
 
