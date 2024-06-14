@@ -20,6 +20,8 @@
         <div class="row">
             <div class="col-xl-4 col-sm-12 border border-start border-0">
             <h3 class="mb-3">Мои данные</h3>
+                    <b>Рейтинг</b> {{ sitter_profile.profile.rating }}
+                    <br>
                 {% if sitter_profile == user %}
                     <a class="btn btn-primary my-btn me-1"
                        href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">Редактировать профиль
@@ -30,19 +32,29 @@
                     <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="300"
                          height="300" class="img-fluid"><br>
                 </div>
-                    <b>Имя:</b> {{ sitter_profile.first_name }}
+                    <b>Имя</b> {{ sitter_profile.first_name }}
                     <br>
-                    <b>Фамилия:</b> {{ sitter_profile.last_name }}</p>
+                    <b>Фамилия</b> {{ sitter_profile.last_name }}</p>
+                    <br>
+                    <b>Возраст</b> {{ sitter_profile.profile.get_age }} лет
+                    <br>
+                    <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
                     <br>
                     {% if sitter_profile.profile.show_email %}
-                    <b>Email:</b> {{ sitter_profile.email }}
+                    <b>Email</b> {{ sitter_profile.email }}
                     {% endif %}
                     {% if sitter_profile.profile.show_phone %}
                     <br>
-                    <b>Телефон:</b> {{ sitter_profile.profile.phone }}
+                    <b>Телефон</b> {{ sitter_profile.profile.phone }}
                     <br>
                     {% endif %}
-                    <b>Город:</b> {{ sitter_profile.profile.location }}</p>
+                    <b>Моя цитата</b> {{ sitter_profile.profile.bio }}</p>
+                    <br>
+                    <b>Город</b> {{ sitter_profile.profile.location }}</p>
+                    <br>
+                    <b>Ближайший район</b> {{ sitter_profile.profile.area }}</p>
+                    <br>
+                    <b>Профили работы</b> {{ sitter_profile.profile.cat_type }}</p>
 
                 <br>
                 <h3 class="mb-3">Прайс-лист</h3>
@@ -61,7 +73,7 @@
                         </div>
 
                     </div>
-                    <hr class="m-1">
+                    <br>
                 {% endfor %}
                 {% if sitter_profile == user %}
                     <a class="btn btn-primary my-btn me-1"

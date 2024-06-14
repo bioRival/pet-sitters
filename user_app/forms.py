@@ -160,16 +160,6 @@ class ProfileForm(forms.ModelForm):
 
 # допданные профиля ситтера
 class SitterProfileForm(forms.ModelForm):
-    image = forms.FileField(
-        label='Аватарка',
-        required=False,
-        widget=forms.FileInput(
-            attrs={
-                'type': 'file',
-                'class': 'form-control',
-            }
-        )
-    )
 
     dob = forms.DateField(
         label='Дата рождения',
@@ -183,26 +173,6 @@ class SitterProfileForm(forms.ModelForm):
         )
     )
 
-    phone = forms.CharField(
-        max_length=12,
-        label='Телефон',
-        required=False,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Введите номер телефона'
-        })
-    )
-
-    location = forms.CharField(
-        max_length=254,
-        label='Город',
-        required=False,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Укажите свой город'
-        })
-    )
-
     area = forms.CharField(
         max_length=254,
         label='Ближайший район',
@@ -213,25 +183,24 @@ class SitterProfileForm(forms.ModelForm):
         })
     )
 
-    show_email = forms.BooleanField(
-        required=False,
-        widget=forms.CheckboxInput(
-            attrs={
-                'class': 'form-check-input mt-0',
-            }
-        )
-    )
-
-    show_phone = forms.BooleanField(
-        required=False,
-        widget=forms.CheckboxInput(
-            attrs={
-                'class': 'form-check-input mt-0'
-            }
-        )
-    )
-
     class Meta:
         model = models.Customer
-        fields = ['rating', 'image', 'dob', 'phone', 'location', 'area', 'show_email', 'show_phone']
+        fields = ['dob', 'area', 'cat_type']
+
+
+# class CatType(forms.Form):
+#     CAT = [
+#         ('передержка', 'Передержка'),
+#         ('выгул', 'Выгул'),
+#         ('няня', 'Няня'),
+#     ]
+#
+#     cat_type = forms.MultipleChoiceField(
+#         label='Профили работы',
+#         widget=forms.CheckboxSelectMultiple, choices=CAT)
+
+    # class Meta:
+    #     model = models.Customer
+    #     fields = ['cat_type']
+
 

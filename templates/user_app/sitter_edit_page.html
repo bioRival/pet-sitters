@@ -44,7 +44,7 @@
                             {{ user_info_form.email.label }}
                             <div class="input-group">
                                 <div class="input-group-text">
-                                    {{ sitter_profile_form.show_email }}
+                                    {{ user_profile_form.show_email }}
                                     <span class="ms-2">Отображать?</span>
                                 </div>
                                 {{ user_info_form.email }}
@@ -60,31 +60,36 @@
                             {{ user_info_form.last_name }}
 
                         </div>
-                        <div class="col-lg-6 col-sm-12">
+                       <div class="col-lg-6 col-sm-12">
                             <h3 class="mb-3 mt-3">Дополнительная информация:</h3>
-                            {% for error in sitter_profile_form.errors.values %}
+                            {% for error in user_profile_form.errors.values %}
                                 {{ error }}
                             {% endfor %}
+
                             <br>
-                            {{ sitter_profile_form.image.label }}
-                            {{ sitter_profile_form.image }}
+                            {{ user_profile_form.image.label }}
+                            {{ user_profile_form.image }}
                             <br>
+                            {{ sitter_profile_form.dob.label }}
+                            {{ sitter_profile_form.dob }}
                             <br>
-                            {{ sitter_profile_form.location.label }}
-                            {{ sitter_profile_form.location }}
-                            <br>
+                            {{ user_profile_form.location.label }}
+                            {{ user_profile_form.location }}
                             <br>
                             {{ sitter_profile_form.area.label }}
                             {{ sitter_profile_form.area }}
                             <br>
-                            {{ sitter_profile_form.phone.label }}
+                            {{ user_profile_form.phone.label }}
                             <div class="input-group">
                                 <div class="input-group-text">
-                                    {{ sitter_profile_form.show_phone }}
+                                    {{ user_profile_form.show_phone }}
                                     <span class="ms-2">Отображать?</span>
                                 </div>
-                                {{ sitter_profile_form.phone }}
+                                {{ user_profile_form.phone }}
                                 <br>
+                            {{ sitter_profile_form.cat_type.label }}
+                            {{ sitter_profile_form.cat_type }}
+                            <br>
                                 <br>
                             </div>
                         </div>
