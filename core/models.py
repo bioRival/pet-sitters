@@ -39,7 +39,7 @@ class Customer(models.Model):
     area = models.CharField(max_length=254, null=True, blank=True)
     rating = models.FloatField(default=0.0)
     user_type = models.CharField(choices=PACKAGES, max_length=20)
-    cat_type = MultiSelectField(choices=CAT, max_length=20, verbose_name='Профили работы')
+    cat_type = MultiSelectField(choices=CAT, max_choices=3, max_length=100, verbose_name='Профили работы')
     show_email = models.BooleanField(default=False,
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,
