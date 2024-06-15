@@ -50,7 +50,7 @@ class Customer(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return f'{self.user}'
+        return f'{self.user.first_name} {self.get_age()} {self.rating} {self.bio} {self.location} {self.cat_type}'
 
     # def save(self, *args, **kwargs):
     #     img = Image.open(self.image.path)

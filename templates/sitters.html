@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<h3> Всего ситтеров: {{ page_obj.paginator.count }} </h3>
+{% if sitters %}
+{% for sitter in sitters %}
+{% if sitter.cat_type %}
+<table>
+    <tr>
+        <div class="col-12 text-center">
+            <img src="{{ sitter.image.url }}" alt="{{ sitter }}" width="200"
+                 height="200" class="img-fluid"><br>
+        </div>
+        <b> {{ sitter.user.first_name }} </b>
+        {{ sitter.get_age }} лет
+        {{ sitter.rating }}
+    </tr>
+    <br>
+    <tr>
+        <b>Опыт</b> {{sitter.get_on_site }}
+    </tr>
+        <br>
+    <tr>
+        {{sitter.bio }}
+    </tr>
+        <br>
+    <tr>
+        {{sitter.location }}
+    </tr>
+</table>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% endblock content %}
+</body>
+</html>

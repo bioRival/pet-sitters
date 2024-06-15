@@ -146,8 +146,34 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
         return super(ServiceDelete, self).dispatch(request, *args, **kwargs)
 
 
+class SittersList(ListView):
+    model = Customer
+    template_name = 'sitters.html'
+    context_object_name = 'sitters'
+
+
+class SitterCard(DetailView):
+    model = Customer
+    template_name = 'sitter_card.html'
+    context_object_name = 'sitter'
+
+
 # view для каталога
 class SearchSitters(View):
+    model = Customer
+    template_name = 'search.html'
+    context_object_name = 'search'
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     self.filterset = PostFilter(self.request.GET, queryset)
+    #     return self.filterset.qs
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['filterset'] = self.filterset
+    #     return context
+
     def get(self, request):
         # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         #     number = 10
