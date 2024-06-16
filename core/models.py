@@ -12,6 +12,7 @@ from django.urls import reverse
 
 from django.db.models import Sum
 from django.utils import timezone
+from .custom_fields import CoordinateField
 
 PACKAGES = [
     ('заказчик', 'Я - клиент'),
@@ -45,6 +46,7 @@ class Customer(models.Model):
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,
                                      verbose_name='Показывать телефон?')
+    coordinates = CoordinateField(null=True, blank=True, verbose_name='Координаты')
 
     class Meta:
         verbose_name = 'Профиль'
@@ -203,7 +205,5 @@ class Pet(models.Model):
     extra_info = models.TextField(null=True, blank=True, verbose_name='Дополнительная информация')
     weight = models.CharField(max_length=25, choices=WEIGHT, default='1-5 кг', verbose_name='Вес')
     host = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pet', verbose_name='Хозяин')
-
-
 
 

@@ -3,14 +3,15 @@
 {% load static %}
 
 {% block head %}
-
+<!-- css -->
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
-<script src="{% static 'scripts/search.js' %}" defer></script>
-
 
 <!--==================== Yandex Map Tools ====================-->
 <script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
 <script src="{% static 'scripts/partials/ymap_search.js' %}" defer></script>
+
+<!-- js -->
+<script src="{% static 'scripts/search.js' %}" defer></script>
 
 {% endblock head %}
 
@@ -268,6 +269,5 @@
             <p>Или расширить зону поиска на карте.</p>
         </div>
     </section>
-    <ul id="people-list"></ul>
 </main>
 {% endblock content%}
