@@ -185,7 +185,7 @@ class SitterProfileForm(forms.ModelForm):
 
     class Meta:
         model = models.Customer
-        fields = ['dob', 'area', 'cat_type']
+        fields = ['dob', 'area', 'cat_type', 'bio', 'about_me']
 
 
 # class CatType(forms.Form):

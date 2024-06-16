@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Карточка ситтера</title>
 </head>
 <body>
+{% block content %}
+        <div class="col-12 text-center">
+            <img src="{{ sitter.image.url }}" alt="{{ sitter }}" width="200"
+                 height="200" class="img-fluid"><br>
+        </div>
+        <b> {{ sitter.user.first_name }} </b>
+        {{ sitter.get_age|default_if_none:"Нет данных" }} лет
+        {{ sitter.rating }}
+<br>
+        <b>Опыт</b> {{ sitter.get_on_site }}
+<br>
+        <b>Ближайший район</b> {{ sitter.area|default_if_none:"Нет данных" }}
+<br>
 {{ sitter }}
+{% endblock content %}
 </body>
 </html>

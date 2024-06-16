@@ -51,7 +51,6 @@
                             </span>
                         </a>
                     </li>
-                    {% if customer.user_type == 'заказчик' %}
                     <li class="user-dropdown__item">
                         <a href="{% url 'user_app:customer_profile' username=user.username %} "
                             class="user-dropdown__link">
@@ -61,7 +60,6 @@
                             </span>
                         </a>
                     </li>
-                    {% elif customer.cat_type %}
                     <li class="user-dropdown__item">
                         <a href="{% url 'user_app:sitter_profile' username=user.username %} "
                             class="user-dropdown__link">
@@ -71,7 +69,6 @@
                             </span>
                         </a>
                     </li>
-                    {% endif %}
                     <li class="user-dropdown__item">
                         <a href="#" class="user-dropdown__link">
                             <i class="ri-settings-3-line user-dropdown__icon"></i>

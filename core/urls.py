@@ -18,7 +18,7 @@ urlpatterns = [
     path('service/add_service/', AddService.as_view(), name='add_service'),
     path('service/<int:pk>/delete/', ServiceDelete.as_view(), name='service_delete'),
     path('sitters/', (SittersList.as_view()), name='sitters_list'),
-    path('sitters/<int:pk>', SitterCard.as_view()),
+    path('sitters/<int:pk>/', SitterCard.as_view(), name='sitter_card'),
 
 ]
 

@@ -30,7 +30,8 @@ class Customer(models.Model):
     dob = models.DateField(blank=True,
                            null=True,
                            verbose_name='Дата рождения')
-    bio = models.TextField(max_length=70, null=True, blank=True)
+    bio = models.TextField(max_length=70, null=True, blank=True, verbose_name='Моя цитата')
+    about_me = models.TextField(max_length=500, null=True, blank=True, verbose_name='Обо мне')
     phone = models.CharField(max_length=12, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, default='images/profile/user_default.png',
                               upload_to="images/profile/%Y/%m/%d/")
@@ -39,7 +40,7 @@ class Customer(models.Model):
     area = models.CharField(max_length=254, null=True, blank=True)
     rating = models.FloatField(default=0.0)
     user_type = models.CharField(choices=PACKAGES, max_length=20)
-    cat_type = MultiSelectField(choices=CAT, max_choices=3, max_length=100, verbose_name='Профили работы')
+    cat_type = MultiSelectField(choices=CAT, max_choices=3, max_length=100, null=True, verbose_name='Профили работы')
     show_email = models.BooleanField(default=False,
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,

@@ -48,13 +48,15 @@
                     <b>Телефон</b> {{ sitter_profile.profile.phone }}
                     <br>
                     {% endif %}
-                    <b>Моя цитата</b> {{ sitter_profile.profile.bio }}</p>
+                    <b>Моя цитата</b> {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}</p>
                     <br>
-                    <b>Город</b> {{ sitter_profile.profile.location }}</p>
+                    <b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}</p>
                     <br>
-                    <b>Ближайший район</b> {{ sitter_profile.profile.area }}</p>
+                    <b>Город</b> {{ sitter_profile.profile.location|default_if_none:"Нет данных" }}</p>
                     <br>
-                    <b>Профили работы</b> {{ sitter_profile.profile.cat_type }}</p>
+                    <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}</p>
+                    <br>
+                    <b>Профили работы</b> {{ sitter_profile.profile.cat_type|default_if_none:"Нет данных" }}</p>
 
                 <br>
                 <h3 class="mb-3">Прайс-лист</h3>
