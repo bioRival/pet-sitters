@@ -18,7 +18,7 @@ ymaps.ready(initMap)
 function initMap(){
     var myMap = new ymaps.Map("map", {
         center: [55.751574, 37.573856], // Moscow coordinates
-        zoom: 12,
+        zoom: 10,
         controls: [],
     })
 
@@ -55,6 +55,29 @@ function initMap(){
         myMap.geoObjects.add(placemark)
         markers.push({person, placemark})
     })
+
+    
+    // Show only those sitters, who are visible on the map
+    const peopleList = document.getElementById('people-list')
+
+    function updateVisiblePeople() {
+        const bounds = myMap.getBounds()
+        peopleList.innerHTML = ''
+        markers.forEach(function(marker) {
+            const coord = marker.person.coordinates
+            if (bounds[0][0] <= coord[0] && coord[0] <= bounds[1][0] &&
+                bounds[0][1] <= coord[1] && coord[1] <= bounds[1][1]) {
+                const listItem = document.createElement('li')
+                listItem.textContent = marker.person.name
+                peopleList.appendChild(listItem)
+            }
+        })
+    }
+
+    myMap.events.add('boundschange', updateVisiblePeople)
+
+    updateVisiblePeople() // Initial update
+
 
     // Geosuggest
     var suggestView = new ymaps.SuggestView('address-input')
