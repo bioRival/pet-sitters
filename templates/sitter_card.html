@@ -18,7 +18,30 @@
 <br>
         <b>Ближайший район</b> {{ sitter.area|default_if_none:"Нет данных" }}
 <br>
-{{ sitter }}
+        {{ sitter.bio|default_if_none:"Нет данных" }}
+<br>
+                <h3 class="mb-3">Виды услуг</h3>
+                    {% for service in sitter_services %}
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-12">
+                            {{ service.category }}
+                            {{ service.price }} рублей
+                            <br>
+                        </div>
+                    </div>
+                    {% endfor %}
+<br>
+{{ sitter.cat_type }}
+<br>
+<b>Обо мне</b> {{ sitter.about_me|default_if_none:"Нет данных" }}
+<br>
+<b>Детали</b>
+
+<br>
+<b>Отзывы о ситтере</b>
+
+
+
 {% endblock content %}
 </body>
 </html>

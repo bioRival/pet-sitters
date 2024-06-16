@@ -181,18 +181,14 @@ class SitterEditView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         if 'user_info_form' in request.POST:
-            # form = CatType(request.POST)
             user_info_form = forms.CustomInfoForm(request.POST, instance=request.user)
             user_profile_form = forms.ProfileForm(request.POST, request.FILES, instance=self.request.user.profile)
             sitter_profile_form = forms.SitterProfileForm(request.POST, request.FILES, instance=self.request.user.profile)
-            # cat_type_form = forms.CatType(request.POST, instance=self.request.user.profile)
 
             if user_info_form.is_valid() and user_profile_form.is_valid() and sitter_profile_form.is_valid():
-                # cat_type = form.cleaned_data.get('cat_types')
                 user_info_form.save()
                 user_profile_form.save()
                 sitter_profile_form.save()
-                # cat_type_form.save()
                 messages.success(request, 'Данные успешно изменены.')
                 return redirect('user_app:sitter_profile', user_info_form.cleaned_data.get('username'))
             else:
@@ -200,5 +196,4 @@ class SitterEditView(LoginRequiredMixin, TemplateView):
                 context['user_info_form'] = user_info_form
                 context['user_profile_form'] = user_profile_form
                 context['sitter_profile_form'] = sitter_profile_form
-                # context['cat_type_form'] = cat_type_form
                 return render(request, self.template_name, context)

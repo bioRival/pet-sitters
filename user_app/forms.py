@@ -3,6 +3,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ImageField
 
 from core import models
 from core.models import Customer
@@ -158,6 +159,24 @@ class ProfileForm(forms.ModelForm):
         fields = ['image', 'phone', 'location', 'show_email', 'show_phone']
 
 
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+
+class MultipleFileField(forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("widget", MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            result = [single_file_clean(d, initial) for d in data]
+        else:
+            result = single_file_clean(data, initial)
+        return result
+
+
 # допданные профиля ситтера
 class SitterProfileForm(forms.ModelForm):
 
@@ -185,22 +204,11 @@ class SitterProfileForm(forms.ModelForm):
 
     class Meta:
         model = models.Customer
-        fields = ['dob', 'area', 'cat_type', 'bio', 'about_me']
+        fields = ['dob', 'area', 'cat_type', 'bio', 'about_me', 'exp', 'house_type', 'pet_size', 'sit_pet', 'kids']
 
 
-# class CatType(forms.Form):
-#     CAT = [
-#         ('передержка', 'Передержка'),
-#         ('выгул', 'Выгул'),
-#         ('няня', 'Няня'),
-#     ]
-#
-#     cat_type = forms.MultipleChoiceField(
-#         label='Профили работы',
-#         widget=forms.CheckboxSelectMultiple, choices=CAT)
 
-    # class Meta:
-    #     model = models.Customer
-    #     fields = ['cat_type']
+
+
 
 

@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from django.template.defaultfilters import slugify
 from multiselectfield import MultiSelectField
 
 from PIL import Image
@@ -26,6 +28,30 @@ CAT = [
 
 
 class Customer(models.Model):
+    SIZE = [
+        ('любой', 'любой'),
+        ('1-5 кг', '1-5 кг'),
+        ('6-10 кг', '6-10 кг'),
+        ('11-20 кг', '11-20 кг'),
+        ('21+ кг', '21+ кг')
+    ]
+
+    SIT_PET = [
+        ('кошка', 'кошка'),
+        ('собака', 'собака'),
+        ('отсутствуют', 'отсутствуют')
+    ]
+
+    HOUSE_TYPE = [
+        ('квартира', 'квартира'),
+        ('частный дом', 'частный дом')
+    ]
+
+    KIDS = [
+        ('есть', 'есть'),
+        ('нет', 'нет')
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     dob = models.DateField(blank=True,
                            null=True,
@@ -45,6 +71,11 @@ class Customer(models.Model):
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,
                                      verbose_name='Показывать телефон?')
+    exp = models.PositiveIntegerField(default=0)
+    house_type = models.CharField(choices=HOUSE_TYPE, max_length=20, null=True, blank=True)
+    pet_size = models.CharField(choices=SIZE, max_length=20, null=True, blank=True)
+    sit_pet = models.CharField(choices=SIT_PET, max_length=20, null=True, blank=True)
+    kids = models.CharField(choices=KIDS, max_length=20, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Профиль'
@@ -52,14 +83,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return f'{self.user.first_name} {self.get_age()} {self.rating} {self.bio} {self.location} {self.cat_type}'
-
-    # def save(self, *args, **kwargs):
-    #     img = Image.open(self.image.path)
-    #
-    #     if img.height > 300 or img.width > 300:
-    #         output_size = (300, 300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
 
     def get_on_site(self):
         delta = datetime.now() - self.user.date_joined.replace(tzinfo=None)
@@ -134,7 +157,6 @@ class Services(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.text}'
-
 
 
 class ServicesCategory(models.Model):
