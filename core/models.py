@@ -14,6 +14,7 @@ from django.urls import reverse
 
 from django.db.models import Sum
 from django.utils import timezone
+from .custom_fields import CoordinateField
 
 PACKAGES = [
     ('заказчик', 'Я - клиент'),
@@ -76,6 +77,7 @@ class Customer(models.Model):
     pet_size = models.CharField(choices=SIZE, max_length=20, null=True, blank=True)
     sit_pet = models.CharField(choices=SIT_PET, max_length=20, null=True, blank=True)
     kids = models.CharField(choices=KIDS, max_length=20, null=True, blank=True)
+    coordinates = CoordinateField(null=True, blank=True, verbose_name='Координаты')
 
     class Meta:
         verbose_name = 'Профиль'

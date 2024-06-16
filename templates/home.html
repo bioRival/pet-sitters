@@ -8,7 +8,7 @@
 <script src="{% static 'scripts/home.js' %}" defer></script>
 
 <!--==================== Yandex Map Tools ====================-->
-<script src="https://api-maps.yandex.ru/v3/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU" defer></script>
+<script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
 <script src="{% static 'scripts/partials/ymap_home.js' %}" defer></script>
 
 
@@ -175,25 +175,31 @@
                                 <label class="filter__button" for="weight-xl">21+ кг</label>
                             </div>
                         </div>
-                        <div class="filter__input-box">
-                            <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog"
-                                value="dog">
-                            <label class="filter__button filter__cat-dog" for="checkbox-dog">
-                                <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
-                                <img id="dog-gif" src="{% static 'images/home/btn-dog.gif' %}" alt="">
-                            </label>
+                        <div>
+                            <h2 class="filter__label">
+                                Вид питомца
+                            </h2>
+                        
+                            <div class="filter__input-box">
+                                <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog"
+                                    value="dog">
+                                <label class="filter__button filter__cat-dog" for="checkbox-dog">
+                                    <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
+                                    <img id="dog-gif" src="{% static 'images/home/btn-dog.gif' %}" alt="">
+                                </label>
 
-                            <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat"
-                                value="cat">
-                            <label class="filter__button filter__cat-dog" for="checkbox-cat">
-                                <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
-                                <img id="cat-gif" src="{% static 'images/home/btn-cat.gif' %}" alt="">
-                            </label>
-
-                            <button class="filter__submit" type="submit">
-                                Найти исполнителя
-                            </button>
-                        </div>
+                                <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat"
+                                    value="cat">
+                                <label class="filter__button filter__cat-dog" for="checkbox-cat">
+                                    <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
+                                    <img id="cat-gif" src="{% static 'images/home/btn-cat.gif' %}" alt="">
+                                </label>
+                            
+                                <button class="filter__submit" type="submit">
+                                    Найти исполнителя
+                                </button>
+                            </div>
+                    </div>
                     </form>
                     <img src="{% static 'images/home/filter-pic.png' %}" alt="">
                 </div>
@@ -278,7 +284,7 @@
 
                 <div class="about__card">
                     <img src="{% static 'images/home/about-3.png' %}" class="about__img" alt="image">
-                    <h3 class="about__title">Отчеты</h3>
+                    <h3 class="about__title">Ситтинг</h3>
                     <div class="about__text">
                         <div>
                             <p>
@@ -296,7 +302,7 @@
 
                 <div class="about__card">
                     <img src="{% static 'images/home/about-4.png' %}" class="about__img" alt="image">
-                    <h3 class="about__title">Заявка</h3>
+                    <h3 class="about__title">Отчеты</h3>
                     <div class="about__text">
                         <div>
                             Во время передержки ситтер отправляет <b>отчеты</b>,

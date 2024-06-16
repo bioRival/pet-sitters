@@ -186,6 +186,7 @@ class SearchSitters(View):
 
         # Значения полученные в POST запросе
         # Переменная  ||  Примеры значений
+        # id_list           34, 35, 36          Лист id которые найдены на карте
         # pet_dog           True / False
         # pet_сat           True / False
         # date_start        '2024-06-14'
@@ -196,6 +197,13 @@ class SearchSitters(View):
         #
         # Если значение не указано - None
 
+        # Получение параметров фильтра
+        id_list = data.get('idList', None)
+        if id_list: 
+            id_list = id_list.split(',')
+            id_list = [int(num.strip()) for num in id_list]
+        else:
+            id_list = []
         pet_dog = bool(data.get('pet-dog', None))
         pet_cat = bool(data.get('pet-cat', None))
         date_start = data.get('date-start', None) or None
@@ -205,6 +213,7 @@ class SearchSitters(View):
         weight = data.get('weight', None)
 
         print(f" \
+              id_list: {list(id_list)}\n \
               pet_dog: {pet_dog}\n \
               pet_cat: {pet_cat}\n \
               date_start: {date_start}\n \
@@ -214,11 +223,15 @@ class SearchSitters(View):
               weight: {weight} \
               ")
 
+        # Поиск ситтеров
         sitters = Customer.objects.filter(user_type = 'исполнитель')
 
+
+        # Отправка найденных ситтеров
         sitters_data = []
         for sitter in sitters:
             sitters_data.append({
+                'id': sitter.pk,
                 'name': "Ричард Файнмен",
                 'imageUrl': '',
                 'age': 45,
@@ -226,9 +239,11 @@ class SearchSitters(View):
                 'reviews': 11,
                 'rating': random.uniform(0, 5),
                 'quote': "I... a universe of atoms, an atom in the universe.",
-                # 'address': 'Los Alamos, New Mexico',
+                'address': 'Los Alamos, New Mexico',
                 'price': float(1000),
                 'tags': ['walk', 'dogsitter', 'catsitter'],
+                # 'coordinates': [55.751244, 37.618423],
+                'coordinates': sitter.coordinates,
             })
         return JsonResponse(sitters_data, safe=False)
 
