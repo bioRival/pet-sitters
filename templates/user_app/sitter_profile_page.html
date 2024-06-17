@@ -1,117 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Личный кабинет</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block title %} Личный кабинет {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}">
+    <script src="{% static 'scripts/profile.js' %}" defer></script>
+{% endblock head %}
+
 {% block content %}
-    <div class="container mt-3">
-        <button class="auth__btn auth__alt-btn">
-            <a href="{% url 'user_app:sitter_profile' username=user.username %}">Мой профиль</a>
-        </button>
-        <button class="auth__btn auth__alt-btn">
-            <a href="{% url 'home' %}">История заказов</a>
-        </button>
-        <button class="auth__btn auth__alt-btn">
-            <a href="{% url 'home' %}">Сообщения</a>
-        </button>
-        <br>
-        <div class="row">
-            <div class="col-xl-4 col-sm-12 border border-start border-0">
-            <h3 class="mb-3">Мои данные</h3>
-                    <b>Рейтинг</b> {{ sitter_profile.profile.rating }}
-                    <br>
+<div class="profile__main">
+    <div class="profile__wrapper">
+
+        <ul class="profile__nav">
+            <li><a href="{% url 'user_app:sitter_profile' username=user.username %}" class="profile__nav-selected">Мой профиль</a></li>
+            <li><a href="{% url 'home' %}">История заказов</a></li>
+            <li><a href="{% url 'home' %}">Сообщения</a></li>
+        </ul>
+    
+        <div class="profile__content">
+
+            
+            <h2 class="toggle-section" data-target="#profile-info">
+                Мои данные <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="profile-info" class="collapsible">
+
+                <b>Рейтинг</b> {{ sitter_profile.profile.rating }}
+
                 {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">Редактировать профиль
+                    <a class="edit-profile" href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">
+                        <span>Редактировать профиль</span>
+                        <img src="{% static 'images/profile/profile-edit.png' %}" alt="">
                     </a>
                 {% endif %}
-                <p>
-                <div class="col-12 text-center">
-                    <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="300"
-                         height="300" class="img-fluid"><br>
+
+                <div class="profile-info">
+                    <div class="image-wrapper">
+                        <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" class="profile-image">
+                    </div>
+                    
+                    <div class="profile-data">
+                        <div class="data-row">
+                            <div class="data-lable">Имя:</div>
+                            <div class="data-data">{{ sitter_profile.first_name }}</div>
+                        </div> 
+                        {% if sitter_profile.last_name %}
+                            <div class="data-row">
+                                <div class="data-lable">Фамилия:</div>
+                                <div class="data-data">{{ sitter_profile.last_name }}</div>
+                            </div> 
+                        {% endif %}
+                        {% if sitter_profile.profile.show_phone %}
+                            <div class="data-row">
+                                <div class="data-lable">Телефон</div>
+                                <div class="data-data">{{ sitter_profile.profile.phone }}</div>
+                            </div>
+                        {% endif %}
+                        {% if sitter_profile.profile.show_email %}
+                            <div class="data-row">
+                                <div class="data-lable">Email:</div>
+                                <div class="data-data">{{ sitter_profile.email }}</div>
+                            </div> 
+                        {% endif %}
+                    </div>
+                    <div class="profile-data-bottom">
+                        <div class="data-row">
+                            <div class="data-lable">Моя цитата</div>
+                            <div class="data-data">{{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}</div>
+                        </div> 
+                        <div class="data-row">
+                            <div class="data-lable">Город</div>
+                            <div class="data-data">{{ sitter_profile.profile.location|default_if_none:"Нет данных" }}/div>
+                        </div> 
+                        <div class="data-row">
+                            <div class="data-lable">Ближайший район</div>
+                            <div class="data-data">{{ sitter_profile.profile.area|default_if_none:"Нет данных" }}/div>
+                        </div> 
+                        <div class="data-row">
+                            <div class="data-lable">Профили работы</div>
+                            <div class="data-data">{{ sitter_profile.profile.cat_type|default_if_none:"Нет данных" }}/div>
+                        </div> 
+                    </div>
                 </div>
-                    <b>Имя</b> {{ sitter_profile.first_name }}
-                    <br>
-                    <b>Фамилия</b> {{ sitter_profile.last_name }}</p>
-                    <br>
-                    <b>Возраст</b> {{ sitter_profile.profile.get_age }} лет
-                    <br>
-                    <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
-                    <br>
-                    {% if sitter_profile.profile.show_email %}
-                    <b>Email</b> {{ sitter_profile.email }}
-                    {% endif %}
-                    <br>
-                    {% if sitter_profile.profile.show_phone %}
-                    <br>
-                    <b>Телефон</b> {{ sitter_profile.profile.phone }}
-                    <br>
-                    {% endif %}
-                    <b>Моя цитата</b> {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Город</b> {{ sitter_profile.profile.location|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Профили работы</b> {{ sitter_profile.profile.cat_type|default_if_none:"Нет данных" }}</p>
-
-                    <h3 class="mb-3">Галерея</h3>
-
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-12">
-                            {{ sitter_profile.profile.image }}
-                            <br>
-                        </div>
-
-                    </div>
-                    <br>
-
-
-                <br>
-                <h3 class="mb-3">Прайс-лист</h3>
-                    {% for service in sitter_services %}
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-12">
-                            {{ service.category }}
-                            {{ service.description|default_if_none:"Нет данных" }}
-                            {{ service.price }} рублей
-                            <br>
-                {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'service_delete' service.id %}">Удалить услугу
-                    </a>
-                {% endif %}
-                        </div>
-
-                    </div>
-                    <br>
-                {% endfor %}
-                {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'add_service' %}">Добавить услугу
-                    </a>
-                {% endif %}
-                <h3 class="mb-3">Настройки</h3>
-                {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'user_app:user_profile_settings' username=sitter_profile.username %}">Изменить пароль
-                    </a>
-                {% endif %}
-                <br>
-                <button class="auth__btn auth__alt-btn">
-                    <a href="{% url 'user_app:logout' %}">Выйти</a>
-                </button>
-                <br>
-                <button class="auth__btn auth__alt-btn">
-                    <a href="{% url 'home' %}">Удалить профиль</a>
-                </button>
             </div>
+    
+
+
+            <h2 class="toggle-section" data-target="#price">
+                Прайс-лист <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="price" class="collapsible">
+                {% for pet in customer_pets %}
+                    <div class="pet-info">
+                        <div class="image-wrapper">
+                            {% if pet.image.url %}
+                            <img src="{{ pet.image.url }}" alt="{{ pet }}" class="pet-image">
+                        </div>
+                        
+                        <div class="pet-data">
+                            <div class="data-row">
+                                <div class="data-lable"></div>
+                                <div class="pet-type-buttons">
+                                    <div class="pet__cat-button {% if pet.pet_type == 'кошка' %}highlight{% endif %}">
+                                        <img src="{% static 'images/profile/CAT.png' %}" alt="">
+                                    </div>
+                                    <div class="pet__cat-button {% if pet.pet_type == 'собака' %}highlight{% endif %}">
+                                        <img src="{% static 'images/profile/DOG.png' %}" alt="">
+                                    </div>
+                                </div>
+                            </div> 
+
+                            {% if pet.pet_type == 'кошка' %}
+                            {% endif %}
+
+                            <div class="data-row">
+                                <div class="data-lable">Имя:</div>
+                                <div class="data-data">{{ pet.name }}</div>
+                            </div> 
+                            <div class="data-row">
+                                <div class="data-lable">Порода:</div>
+                                <div class="data-data">{{ pet.breed }}</div>
+                            </div> 
+                            <div class="data-row">
+                                <div class="data-lable">Возраст:</div>
+                                <div class="data-data">{{ pet.age }}</div>
+                            </div> 
+                            <div class="data-row">
+                                <div class="data-lable">Вес:</div>
+                                <div class="data-data">{{ pet.weight }}</div>
+                            </div> 
+                            <div class="data-row">
+                                <div class="data-lable">Дополнительная информация:</div>
+                                <div class="data-data">{{ pet.extra_info }}</div>
+                            </div> 
+                            {% if customer_profile == user %}
+                                <div class="data-row">
+                                    <a class="pet-edit-button" href="{% url 'pet_update' pet.id %}">Изменить данные питомца</a>
+                                    <a class="pet-edit-button" href="{% url 'pet_delete' pet.id %}">Удалить данные питомца</a>
+                                </div> 
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% if customer_profile == user %}
+                    <div class="add-pet__button">
+                        <i class="ri-add-line add-pet__symbol"></i>
+                        <a href="{% url 'pet_create' %}">Добавить питомца</a>
+                    </div>
+                {% endif %}
+            </div>
+    
+            <h2 class="toggle-section" data-target="#settings">
+                Настройки <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="settings" class="collapsible collapsible-settings">
+                {% if customer_profile == user %}
+                    <a class="pet-edit-button" href="{% url 'user_app:user_profile_settings' username=customer_profile.username %}">Изменить пароль</a>
+                {% endif %}
+            </div>
+    
+            <h2 class="toggle-section" data-target="#help">
+                Помощь <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="help" class="collapsible">
+                <!-- Контент для помощи -->
+            </div>
+    
+            <a class="profile-dop-button" href="{% url 'user_app:logout' %}">Выйти</a>
+            <a class="profile-dop-button" href="profile-dop-button">Удалить профиль</a>
         </div>
+
+
     </div>
-{% endblock %}
-</body>
-</html>
+</div>
+<div class="profile-container">
+
+</div>
+        </div>
+{% endblock content %}

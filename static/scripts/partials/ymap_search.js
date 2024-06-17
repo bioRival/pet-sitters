@@ -7,6 +7,72 @@ let PEOPLE = []
 // list of ids of sitters visible on the map
 let idList = []
 
+// current map states
+let CENTER, ZOOM
+
+
+
+
+/*======================== FILL FORM ========================*/
+// handle data transfer from home page if home form was used
+fillTheForm()
+function fillTheForm() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.toString() !== '') {
+        // set dog checkbox
+        if (urlParams.get('checkbox-dog')) {
+            document.getElementById('checkbox-dog').checked = true
+        }
+        // set cat checkbox
+        if (urlParams.get('checkbox-cat')) {
+            document.getElementById('checkbox-cat').checked = true
+        }
+        // set type of service
+        const serviceInputs = document.getElementsByName('service')
+        if (urlParams.get('type')) {
+            for (let input of serviceInputs) {
+                if (input.value === urlParams.get('type')) {
+                    input.checked = true
+                }
+            }
+        }
+        // set start date
+        if (urlParams.get('date-start')) {
+            document.getElementById('date-start').value = urlParams.get('date-start')
+        }
+        // set end date
+        if (urlParams.get('date-end')) {
+            document.getElementById('date-end').value = urlParams.get('date-end')
+        }
+        //set weight
+        const weightInputs = document.getElementsByName('weight')
+        if (urlParams.get('weight')) {
+            for (let input of weightInputs) {
+                if (input.value === urlParams.get('weight')) {
+                    input.checked = true
+                }
+            }
+        }
+        //set address
+        if (urlParams.get('address')) {
+            document.getElementById('address-input').value = urlParams.get('address')
+        }
+        // set map states
+        if (urlParams.get('zoom') && urlParams.get('center')) {
+            let cords = urlParams.get('center').split(',')
+            cords = cords.map(Number)
+            
+            CENTER = cords
+            ZOOM = parseInt(urlParams.get('zoom'))
+        }
+    }
+}
+
+
+
+
+
+
 
 
 // =========================================================
@@ -15,8 +81,8 @@ let idList = []
 ymaps.ready(initMap)
 async function initMap(){
     myMap = new ymaps.Map("map", {
-        center: [55.7605173, 37.6185126], // Moscow coordinates
-        zoom: 11,
+        center: CENTER || [55.7605173, 37.6185126], // Moscow coordinates
+        zoom: ZOOM || 11,
         controls: [],
     })
 
