@@ -59,6 +59,18 @@
                     <br>
                     <b>Профили работы</b> {{ sitter_profile.profile.cat_type|default_if_none:"Нет данных" }}</p>
 
+                    <h3 class="mb-3">Галерея</h3>
+
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-12">
+                            {{ sitter_profile.profile.image }}
+                            <br>
+                        </div>
+
+                    </div>
+                    <br>
+
+
                 <br>
                 <h3 class="mb-3">Прайс-лист</h3>
                     {% for service in sitter_services %}

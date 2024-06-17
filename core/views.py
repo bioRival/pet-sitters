@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
@@ -253,12 +254,12 @@ class SearchSitters(View):
             sitters_data.append({
                 'id': sitter.pk,
                 'name': sitter.user.first_name,
-                'imageUrl': '',
+                'imageUrl': sitter.image.url,
                 'age': get_age(sitter.dob),
                 'orders': 26,
                 'reviews': 11,
                 'rating': sitter.rating,
-                'quote': sitter.about_me,
+                'quote': sitter.bio,
                 'address': sitter.location,
                 'price': random.randint(500, 1000),
                 # 'tags': ['walk', 'dogsitter', 'catsitter'],
