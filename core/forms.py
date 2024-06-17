@@ -1,7 +1,7 @@
 from django import forms
 
 from core import models
-from core.models import Pet
+from core.models import Pet, Service
 
 
 class PetCreateForm(forms.ModelForm):
@@ -73,3 +73,11 @@ class PetForm(forms.ModelForm):
         fields = ['image', 'age', 'weight', 'extra_info']
 
 
+class AddServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = [
+            'category',
+            'description',
+            'price',
+        ]

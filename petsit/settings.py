@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'multiselectfield',
+
     # Third Party Apps
     'rest_framework',
 

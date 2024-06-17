@@ -9,74 +9,90 @@
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li>
-                    <a href="#" class="nav__link">О сервисе</a>
+                    <a href="{% url 'home' %}#cubes" class="nav__link">
+                        О сервисе
+                    </a>
                 </li>
 
                 <li>
-                    <a href="{% url 'home' %}#services" class="nav__link">Услуги</a>
+                    <a href="{% url 'home' %}#services" class="nav__link">
+                        Услуги
+                    </a>
                 </li>
 
                 <li>
-                    <a href="#" class="nav__link">Наши ситтеры</a>
+                    <a href="{% url 'search' %}" class="nav__link">
+                        Наши ситтеры
+                    </a>
                 </li>
             </ul>
-
             <!-- Close button -->
             <div class="nav__close" id="nav-close">
                 <i class="ri-close-large-line"></i>
             </div>
         </div>
+
         <div class="nav__top-menu">
             {% if user.is_authenticated %}
-                <div class="user-dropdown" id="user-dropdown-content">
-                    <button class="user-dropdown__button" id="user-dropdown-button">
-                        <div class="user-dropdown__icons">
-                            <i class="ri-user-line user-dropdown__account"></i>
-                            <i class="ri-close-line user-dropdown__close"></i>
-                        </div>
-                    </button>
+            <div class="user-dropdown" id="user-dropdown-content">
+                <button class="user-dropdown__button" id="user-dropdown-button">
+                    <div class="user-dropdown__icons">
+                        <i class="ri-user-line user-dropdown__account"></i>
+                        <i class="ri-close-line user-dropdown__close"></i>
+                    </div>
+                </button>
 
-                    <ul class="user-dropdown__menu">
-                        <li class="user-dropdown__item">
-                            <a href="#" class="user-dropdown__link">
-                                <i class="ri-message-3-line user-dropdown__icon"></i>
-                                <span class="user-dropdown__name">
-                                    Сообщения
-                                </span>
-                            </a>
-                        </li>
-                        <li class="user-dropdown__item">
-                            <a href="{% url 'user_app:customer_profile' username=user.username %} " class="user-dropdown__link">
-                                <i class="ri-profile-line user-dropdown__icon"></i>
-                                <span class="user-dropdown__name">
-                                    Профиль
-                                </span>
-                            </a>
-                        </li>
-                        <li class="user-dropdown__item">
-                            <a href="#" class="user-dropdown__link">
-                                <i class="ri-settings-3-line user-dropdown__icon"></i>
-                                <span class="user-dropdown__name">
-                                    Настройки
-                                </span>
-                            </a>
-                        </li>
-                        <li class="user-dropdown__item">
-                            <a href="{% url 'user_app:logout' %}" class="user-dropdown__link">
-                                <i class="ri-logout-box-line user-dropdown__icon"></i>
-                                <span class="user-dropdown__name">
-                                    Выход
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="user-dropdown__menu">
+                    <li class="user-dropdown__item">
+                        <a href="#" class="user-dropdown__link">
+                            <i class="ri-message-3-line user-dropdown__icon"></i>
+                            <span class="user-dropdown__name">
+                                Сообщения
+                            </span>
+                        </a>
+                    </li>
+                    <li class="user-dropdown__item">
+                        <a href="{% url 'user_app:customer_profile' username=user.username %} "
+                            class="user-dropdown__link">
+                            <i class="ri-profile-line user-dropdown__icon"></i>
+                            <span class="user-dropdown__name">
+                                Профиль заказчика
+                            </span>
+                        </a>
+                    </li>
+                    <li class="user-dropdown__item">
+                        <a href="{% url 'user_app:sitter_profile' username=user.username %} "
+                            class="user-dropdown__link">
+                            <i class="ri-profile-line user-dropdown__icon"></i>
+                            <span class="user-dropdown__name">
+                                Профиль исполнителя
+                            </span>
+                        </a>
+                    </li>
+                    <li class="user-dropdown__item">
+                        <a href="#" class="user-dropdown__link">
+                            <i class="ri-settings-3-line user-dropdown__icon"></i>
+                            <span class="user-dropdown__name">
+                                Настройки
+                            </span>
+                        </a>
+                    </li>
+                    <li class="user-dropdown__item">
+                        <a href="{% url 'user_app:logout' %}" class="user-dropdown__link">
+                            <i class="ri-logout-box-line user-dropdown__icon"></i>
+                            <span class="user-dropdown__name">
+                                Выход
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
             {% else %}
-                <!-- Singin button -->
-                <a href="{% url 'user_app:login' %}" class="nav__sign-in">
-                    <i class="ri-login-circle-line"></i>
-                    Войти
-                </a>
+            <!-- Singin button -->
+            <a href="{% url 'user_app:login' %}" class="nav__sign-in">
+                <i class="ri-login-circle-line"></i>
+                Войти
+            </a>
             {% endif %}
 
             <!-- Toggle button -->

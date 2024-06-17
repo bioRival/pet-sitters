@@ -3,16 +3,26 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
-from .views import ServicesList, PetCreate, PetUpdate, PetDelete
+from .views import ServicesList, PetCreate, PetUpdate, PetDelete, AddService, ServiceDelete, SittersList, SitterCard
 from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', ServicesList.as_view(), name='home'), # домашняя страница
-    path('pet_create/', PetCreate.as_view(), name='pet_create'),
-    path('<int:pk>/update/', PetUpdate.as_view(), name='pet_update'),
-    path('<int:pk>/delete/', PetDelete.as_view(), name='pet_delete'),
+    # домашняя страница
+    path('', ServicesList.as_view(), name='home'),
+    # каталог страница               
+    path('search/', views.SearchSitters.as_view(), name='search'),        
+    path('pets/pet_create/', PetCreate.as_view(), name='pet_create'),
+    path('pets/<int:pk>/update/', PetUpdate.as_view(), name='pet_update'),
+    path('pets/<int:pk>/delete/', PetDelete.as_view(), name='pet_delete'),
+    path('service/add_service/', AddService.as_view(), name='add_service'),
+    path('service/<int:pk>/delete/', ServiceDelete.as_view(), name='service_delete'),
+    path('sitters/', (SittersList.as_view()), name='sitters_list'),
+    path('sitters/<int:pk>/', SitterCard.as_view(), name='sitter_card'),
 
+    #== Json запросы ==
+    # Все ситтеры
+    path('search/all', views.get_all_sitters),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

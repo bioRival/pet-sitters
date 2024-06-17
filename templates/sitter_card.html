@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Карточка ситтера</title>
+</head>
+<body>
+{% block content %}
+        <div class="col-12 text-center">
+            <img src="{{ sitter.image.url }}" alt="{{ sitter }}" width="200"
+                 height="200" class="img-fluid"><br>
+        </div>
+        <b> {{ sitter.user.first_name }} </b>
+        {{ sitter.get_age|default_if_none:"Нет данных" }} лет
+        {{ sitter.rating }}
+<br>
+        <b>Опыт</b> {{ sitter.get_on_site }}
+<br>
+        <b>Ближайший район</b> {{ sitter.area|default_if_none:"Нет данных" }}
+<br>
+        {{ sitter.bio|default_if_none:"Нет данных" }}
+<br>
+                <h3 class="mb-3">Виды услуг</h3>
+                    {% for service in sitter_services %}
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-12">
+                            {{ service.category }}
+                            {{ service.price }} рублей
+                            <br>
+                        </div>
+                    </div>
+                    {% endfor %}
+<br>
+{{ sitter.cat_type }}
+<br>
+<b>Обо мне</b> {{ sitter.about_me|default_if_none:"Нет данных" }}
+<br>
+<b>Детали</b>
+
+<br>
+<b>Отзывы о ситтере</b>
+
+
+
+{% endblock content %}
+</body>
+</html>

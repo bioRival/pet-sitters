@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
 }
+
 .footer__wrapper {
     position: relative;
     z-index: var(--z-front);
@@ -42,6 +43,8 @@
 
 
 .footer__middle {
+    position: relative;
+    z-index: var(--z-middle);
     width: 32rem;
     margin-left: 8px;
 }
@@ -86,6 +89,8 @@
 }
 
 .footer__bottom {
+    position: relative;
+    z-index: var(--z-middle);
     text-align: center;
     margin-top: 100px;
     font-size: 1.25rem;
@@ -96,20 +101,24 @@
 
 .footer__right {
     width: 190px;
-    display: flex;
-    justify-content: flex-end;
 }
+
 .footer__right ul {
     display: flex;
     flex-direction: row;
+    gap: .75rem;
 }
 
 .footer__paw {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     right: 0px;
+    z-index: var(--z-back);
     width: 444px;
     height: auto;
+    mask-image:  linear-gradient(to bottom, 
+               hsla(269, 100%, 79%) 80%, 
+                 transparent 100%);
 }
 
 .footer__based-cat {
@@ -193,11 +202,11 @@
     }
     .footer__paw {
         bottom: 100px;
-        mask-image: linear-gradient(to bottom, 
-                    hsla(269, 100%, 79%) 60%, 
-                    transparent 100%);
     }
     .footer__bottom {
         font-size: 1rem;
+    }
+    .footer__based-cat {
+        width: 300px;
     }
 }

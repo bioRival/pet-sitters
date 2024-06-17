@@ -1,0 +1,273 @@
+{% extends 'partials/base.html' %}
+
+{% load static %}
+
+{% block head %}
+<!-- css -->
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
+
+<!--==================== Yandex Map Tools ====================-->
+<script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
+<script src="{% static 'scripts/partials/ymap_search.js' %}" defer></script>
+
+<!-- js -->
+<script src="{% static 'scripts/search.js' %}" defer></script>
+
+{% endblock head %}
+
+{% block title %} Petsitters.ru - Каталог {% endblock title %}
+
+{% block content %}
+{% csrf_token %}
+<main class="main container main-grid">
+
+    <!--==================== MAP ====================-->
+    <section class="map">
+        <div class="map__container" id="map"></div>
+    </section>
+
+    <!--==================== FILTER ====================-->
+    <section class="filter">
+        <h1 class="filter__header">Фильтр</h1>
+        <form class="filter__form">
+            <div>
+                <h2 class="filter__label">Вид питомца</h2>
+                <div class="filter__input-box">
+                    <input class="filter__radio" type="checkbox" id="checkbox-dog" name="pet-dog" value=true>
+                    <label class="filter__button filter__cat-dog" for="checkbox-dog">
+                        <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
+                    </label>
+        
+                    <input class="filter__radio" type="checkbox" id="checkbox-cat" name="pet-cat" value=true>
+                    <label class="filter__button filter__cat-dog" for="checkbox-cat">
+                        <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
+                    </label>
+                </div>
+            </div>
+        
+            <div>
+                <h2 class="filter__label">Вид услуги</h2>
+                <div class="filter__input-box">
+                    <input type="radio" class="filter__radio" id="type1" name="service" value="walk" />
+                    <label class="filter__button" for="type1">Выгул</label>
+        
+                    <input type="radio" class="filter__radio" id="type2" name="service" value="boarding" />
+                    <label class="filter__button" for="type2">Передержка</label>
+        
+                    <input type="radio" class="filter__radio" id="type3" name="service" value="daycare" />
+                    <label class="filter__button" for="type3">Дневная няня</label>
+                </div>
+            </div>
+        
+            <div>
+                <label class="filter__label" for="date-start">
+                    Даты
+                </label>
+                <div class="filter__input-box">
+                    <input class="filter__input-line" id="date-start" name="date-start" type="date">
+                    <input class="filter__input-line" id="date-end" name="date-end" type="date">
+                </div>
+            </div>
+        
+            <div>
+                <label class="filter__label" for="address-input">
+                    Где искать
+                </label>
+                <div class="filter__input-box">
+                    <div class="filter__geosuggest-container" id="filter__geosuggest-container">
+                        <input id="address-input" class="filter__input-line" name="address" type="text" placeholder="Москва, Россия">
+                    </div>
+                </div>
+            </div>
+        
+            <div>
+                <label class="filter__label">
+                    Размер питомца
+                </label>
+                <div class="filter__input-box">
+                    <input class="filter__radio" type="radio" id="weight-s" name="weight" value="small" />
+                    <label class="filter__button" for="weight-s">1-5 кг</label>
+        
+                    <input class="filter__radio" type="radio" id="weight-m" name="weight" value="medium" />
+                    <label class="filter__button" for="weight-m">6-10 кг</label>
+        
+                    <input class="filter__radio" type="radio" id="weight-l" name="weight" value="large" />
+                    <label class="filter__button" for="weight-l">11-20 кг</label>
+        
+                    <input class="filter__radio" type="radio" id="weight-xl" name="weight" value="xlarge" />
+                    <label class="filter__button" for="weight-xl">21+ кг</label>
+                </div>
+            </div>
+        
+            <button class="filter__submit" type="submit">
+                Найти исполнителя
+            </button>
+        </form>
+        
+        <img class="filter__image" src="{% static 'images/search/filter-image.png' %}" alt="">
+    </section>
+
+    <!--==================== SITTER ====================-->
+    <section class="sitter">
+        <ul class="sitter__list">
+            <!-- <li class="sitter__item">
+                <a href="#" class="sitter__image-container">
+                    <img src="{% static 'images/home/sitter-1.png' %}" class="sitter__image" alt="sitter photo">
+                    <span class="sitter__tag">
+                        <i class="ri-walk-line"></i>
+                        Выгульщик
+                    </span>
+                    <span class="sitter__tag">
+                        <img class="sitter__tag-icon" src="{% static 'images/icons/dog-icon.svg' %}" alt="icon">
+                        Догситтер
+                    </span>
+                </a>
+
+                <div class="sitter__data">
+                    <div class="sitter__column">
+                        <div class="sitter__info">
+                            <span class="sitter__name">
+                                Иван
+                            </span>
+                            <span class="sitter__age">
+                                28 лет
+                            </span>
+                            <div class="sitter__jobs">
+                                <span class="sitter__orders">
+                                    3 заказов
+                                </span>
+                                <span class="sitter__seperator"> | </span>
+                                <span class="sitter__reviews">
+                                    2 отзывов
+                                </span>
+                            </div>
+                        </div>
+                        <div class="sitter__rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <div class="sitter__rating-number">
+                                5.0
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sitter__quote">
+                        <p>
+                            С удовольствием погуляю с вашим питомцем! Вымою лапы и покормлю после прогулки.
+                        </p>
+                    </div>
+
+                    <div class="sitter__address">
+                        <i class="ri-home-2-line"></i>
+                        <span>г.п. Дубровка, Ленинградская область</span>
+                    </div>
+
+                    <div class="sitter__column">
+                        <div class="sitter__price">
+                            800 ₽
+                        </div>
+                        <a class="sitter__link">
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="sitter__item">
+                <a href="#" class="sitter__image-container">
+                    <img src="{% static 'images/home/sitter-2.png' %}" class="sitter__image" alt="sitter photo">
+                    <span class="sitter__tag">
+                        <img class="sitter__tag-icon" src="{% static 'images/icons/dog-icon.svg' %}" alt="icon">
+                        Догситтер
+                    </span>
+                    <span class="sitter__tag">
+                        <img class="sitter__tag-icon" src="{% static 'images/icons/cat-icon.svg' %}" alt="icon">
+                        Кэтситтер
+                    </span>
+                    <span class="sitter__tag">
+                        <i class="ri-home-heart-line"></i>
+                        Бордер
+                    </span>
+                    <span class="sitter__tag">
+                        <i class="ri-hand-heart-line"></i>
+                        Дневная Няня
+                    </span>
+                </a>
+
+                <div class="sitter__data">
+                    <div class="sitter__column">
+                        <div class="sitter__info">
+                            <span class="sitter__name">
+                                Анна
+                            </span>
+                            <span class="sitter__age">
+                                30 лет
+                            </span>
+                            <div class="sitter__jobs">
+                                <span class="sitter__orders">
+                                    13 заказов
+                                </span>
+                                <span class="sitter__seperator"> | </span>
+                                <span class="sitter__reviews">
+                                    8 отзывов
+                                </span>
+                            </div>
+                        </div>
+                        <div class="sitter__rating">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-line"></i>
+                            <div class="sitter__rating-number">
+                                4.5
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sitter__quote">
+                        <p>
+                            Люблю собак, буду рада взять на передержку вашего питомца!
+                        </p>
+                    </div>
+
+                    <div class="sitter__address">
+                        <i class="ri-building-line"></i>
+                        <span>г. Москва</span>
+                    </div>
+
+                    <div class="sitter__column">
+                        <div class="sitter__price">
+                            750 ₽
+                        </div>
+                        <a class="sitter__link">
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+
+        <div class="sitter__pagination">
+            <a href="#"><i class="ri-arrow-left-line"></i></a>
+            <a class="active" href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#"><i class="ri-arrow-right-line"></i></a>
+        </div>
+
+        <div class="sitter__empty">
+            <h1>Пустенько... 😢</h1>
+            <p>По вашему запросу не нашлось ситтеров.</p>
+            <p>Попробуйте поменять значения в фильтре.</p>
+            <p>Или расширить зону поиска на карте.</p>
+        </div>
+    </section>
+</main>
+{% endblock content%}

@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -12,9 +12,13 @@ from django.views.generic import ListView, CreateView, DetailView, TemplateView,
 from rest_framework import generics
 
 from . import models, forms
-from .forms import PetCreateForm, PetForm
-from .models import Services, Customer, Pet
+from .forms import PetCreateForm, PetForm, AddServiceForm
+from .models import Services, Customer, Pet, Service
 from .serializers import ServicesSerializer
+import json
+from django.core import serializers
+import random
+from datetime import date
 
 # Временное представление для API
 class ServicesAPIView(generics.ListAPIView):
@@ -57,48 +61,6 @@ def customer_login(request):
                 thank = True
                 return render(request, "sign/customer_login.html", {"thank": thank})
     return render(request, "sign/customer_login.html")
-
-
-# регистрация заказчика username = email
-def customer_signup(request):
-    if request.method == "POST":
-        username = request.POST['email']
-        # first_name = request.POST['first_name']
-        # last_name = request.POST['last_name']
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
-        # phone = request.POST['phone']
-        # location = request.POST['location']
-        # image = request.FILES['image']
-        user_type = request.POST['user_type']
-
-        if password1 != password2:
-            messages.error(request, "Неправильный пароль.")
-            return redirect('/customer_signup')
-
-        user = User.objects.create_user(username=username,
-                                        password=password1, email=email)
-        customers = Customer.objects.create(user=user, user_type=user_type)
-
-        # user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username,
-        #                                 password=password1, email=email)
-        # customers = Customer.objects.create(user=user, phone=phone, location=location, image=image, user_type=user_type)
-        user.save()
-        customers.save()
-        send_mail(
-            subject='Регистрация пройдена успешно',
-            message=f'Здравствуйте! Вы успешно зарегистрированы на сайте petsitters.ru.',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email]
-        )
-        username = request.POST['email']
-        password = request.POST['password1']
-        user = authenticate(username=username, password=password)
-        login(request, user)
-
-        return HttpResponseRedirect("/")
-    return render(request, "sign/customer_signup.html")
 
 
 # создание записи питомца
@@ -154,3 +116,188 @@ class PetDelete(LoginRequiredMixin, DeleteView):
         #     return render(self.request, template_name='post_lock.html', context=context)
         return super(PetDelete, self).dispatch(request, *args, **kwargs)
 
+
+# добавление услуги
+class AddService(CreateView):
+    form_class = AddServiceForm
+    model = Service
+    template_name = 'add_service.html'
+
+    def get_success_url(self):
+        return reverse('user_app:sitter_profile', kwargs={'username': self.request.user.username})
+
+    def form_valid(self, form):
+        form.instance.sitter = self.request.user
+        return super().form_valid(form)
+
+
+# удаление услуги
+class ServiceDelete(LoginRequiredMixin, DeleteView):
+    model = Service
+    template_name = 'service_delete.html'
+
+    def get_success_url(self):
+        return reverse('user_app:sitter_profile', kwargs={'username': self.request.user.username})
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        context = {'service_id': post.pk}
+        # if post.host.user != self.request.user:
+        #     return render(self.request, template_name='post_lock.html', context=context)
+        return super(ServiceDelete, self).dispatch(request, *args, **kwargs)
+
+
+class SittersList(ListView):
+    model = Customer
+    template_name = 'sitters.html'
+    context_object_name = 'sitters'
+
+
+class SitterCard(DetailView):
+    model = Customer
+    template_name = 'sitter_card.html'
+    context_object_name = 'sitter'
+
+
+# view для каталога
+class SearchSitters(View):
+    model = Customer
+    template_name = 'search.html'
+    context_object_name = 'search'
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     self.filterset = PostFilter(self.request.GET, queryset)
+    #     return self.filterset.qs
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['filterset'] = self.filterset
+    #     return context
+
+    def get(self, request):
+        # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        #     number = 10
+        #     return JsonResponse({'number': number})
+        
+        return render(request, 'search.html')
+   
+    def post(self, request):
+        data = json.loads(request.body)
+
+        # Значения полученные в POST запросе
+        # Переменная  ||  Примеры значений
+        # id_list           34, 35, 36          Лист id которые найдены на карте
+        # pet_dog           True / False
+        # pet_сat           True / False
+        # date_start        '2024-06-14'
+        # date_end          '2024-06-15'
+        # service           'walk' / 'boarding' / 'daycare'
+        # address           'Москва, Щукинская улица'
+        # weight            'small' / 'medium' / 'large' / 'xlarge'
+        #
+        # Если значение не указано - None
+
+        # Получение параметров фильтра
+        id_list = data.get('idList', None)
+        if id_list: 
+            id_list = id_list.split(',')
+            id_list = [int(num.strip()) for num in id_list]
+        else:
+            id_list = []
+        pet_dog = bool(data.get('pet-dog', None))
+        pet_cat = bool(data.get('pet-cat', None))
+        date_start = data.get('date-start', None) or None
+        date_end = data.get('date-end', None) or None
+        service = data.get('service', None)
+        address = data.get('address', None) or None
+        weight = data.get('weight', None)
+
+        print(f" \
+              id_list: {list(id_list)}\n \
+              pet_dog: {pet_dog}\n \
+              pet_cat: {pet_cat}\n \
+              date_start: {date_start}\n \
+              date_end: {date_end}\n \
+              service: {service}\n \
+              address: {address}\n \
+              weight: {weight} \
+              ")
+
+        #============== Поиск ситтеров ==============
+        sitters = Customer.objects \
+            .filter(user_type = 'исполнитель') \
+            .filter(pk__in = id_list)
+        
+        # Фильтр по виду питомца
+        if pet_dog and not pet_cat:
+            sitters = sitters.filter(sit_pet='собака')
+        elif pet_cat and not pet_dog:
+            sitters = sitters.filter(sit_pet='кошка')
+
+        # Фильтр по виду услуги
+        if service:
+            if service == 'walk':
+                sitters = sitters.filter(cat_type__contains='выгул')
+            elif service == 'boarding':
+                sitters = sitters.filter(cat_type__contains='передержка')
+            elif service == 'daycare':
+                sitters = sitters.filter(cat_type__contains='няня')
+            
+
+        tag_list = ['walk', 'boarding', 'daycare', 'dogsitter', 'catsitter']
+
+        #============== Отправка найденных ситтеров ==============
+        sitters_data = []
+        for sitter in sitters:
+            sitters_data.append({
+                'id': sitter.pk,
+                'name': sitter.user.first_name,
+                'imageUrl': '',
+                'age': get_age(sitter.dob),
+                'orders': 26,
+                'reviews': 11,
+                'rating': sitter.rating,
+                'quote': sitter.about_me,
+                'address': sitter.location,
+                'price': random.randint(500, 1000),
+                # 'tags': ['walk', 'dogsitter', 'catsitter'],
+                'tags': random.choices(tag_list, k=random.randint(1, 3)),
+                'coordinates': sitter.coordinates,
+            })
+        return JsonResponse(sitters_data, safe=False)
+
+
+
+
+
+# Инфо на всех ситтеров в json формате
+def get_all_sitters(request):
+    # Поиск ситтеров
+    sitters = Customer.objects \
+        .filter(user_type = 'исполнитель')
+
+
+    # Отправка найденных ситтеров
+    sitters_data = []
+    for sitter in sitters:
+        sitters_data.append({
+            'id': sitter.pk,
+            'name': sitter.user.first_name,
+            'coordinates': sitter.coordinates,
+        })
+    return JsonResponse(sitters_data, safe=False)
+
+
+
+
+
+
+
+# Given a date of birth, returns age in full years
+def get_age(dob):
+    if dob is None:
+        return None
+    today = date.today()
+    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    return age

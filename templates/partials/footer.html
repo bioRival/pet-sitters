@@ -8,8 +8,8 @@
                 <img class="footer__paw-icon" src="{% static 'images/icons/paw.svg' %}" alt="">
                 <nav class="footer__nav">
                     <ul>
-                        <li><a class="footer__link" href="">О сервисе</a></li>
-                        <li><a class="footer__link" href="">Услуги</a></li>
+                        <li><a class="footer__link" href="{% url 'home' %}#cubes">О сервисе</a></li>
+                        <li><a class="footer__link" href="{% url 'home' %}#services">Услуги</a></li>
                         <li><a class="footer__link" href="">Наши ситтеры</a></li>
                         <li><a class="footer__link" href="">Стать ситтером</a></li>
                         <li><a class="footer__link" href="">Чек-лист подготовки к передержке</a></li>
@@ -27,24 +27,26 @@
                 <ul>
                     <li>
                         <a class="footer__social-link" href="#">
-                            <img src="{% static 'images/footer/Telegram.png' %}" alt="Telegram logo">
+                            <img src="{% static 'images/footer/vk.svg' %}" alt="VK logo">
                         </a>
                     </li>
 
                     <li>
                         <a class="footer__social-link" href="#">
-                            <img src="{% static 'images/footer/Whatsapp.png' %}" alt="Whatsapp logo">
+                            <img src="{% static 'images/footer/telegram.svg' %}" alt="Telegram logo">
                         </a>
                     </li>
 
                     <li>
                         <a class="footer__social-link" href="#">
-                            <img src="{% static 'images/footer/inst.png' %}" alt="inst logo">
+                            <img src="{% static 'images/footer/whatsapp.svg' %}" alt="Whatsapp logo">
                         </a>
                     </li>
                 </ul>
             </div>
-            <img src="{% static 'images/footer/paw.png' %}" alt="paw picture" class="footer__paw">
+            <video class="footer__paw" id="footer-paw" muted>
+                <source src="{% static 'images/footer/paw.mp4' %}" type="video/mp4">
+            </video>
         </div>
         <div class="footer__bottom">
             <span>© 2024 PetSitters. Все права защищены.</span>

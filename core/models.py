@@ -1,4 +1,7 @@
-import datetime
+from datetime import datetime
+
+from django.template.defaultfilters import slugify
+from multiselectfield import MultiSelectField
 
 from PIL import Image
 from django import forms
@@ -11,42 +14,77 @@ from django.urls import reverse
 
 from django.db.models import Sum
 from django.utils import timezone
+from .custom_fields import CoordinateField
 
 PACKAGES = [
     ('заказчик', 'Я - клиент'),
     ('исполнитель', 'Я - ситтер'),
 ]
 
+CAT = [
+    ('передержка', 'Передержка'),
+    ('выгул', 'Выгул'),
+    ('няня', 'Няня'),
+]
+
 
 class Customer(models.Model):
+    SIZE = [
+        ('любой', 'любой'),
+        ('1-5 кг', '1-5 кг'),
+        ('6-10 кг', '6-10 кг'),
+        ('11-20 кг', '11-20 кг'),
+        ('21+ кг', '21+ кг')
+    ]
+
+    SIT_PET = [
+        ('кошка', 'кошка'),
+        ('собака', 'собака'),
+        ('отсутствуют', 'отсутствуют')
+    ]
+
+    HOUSE_TYPE = [
+        ('квартира', 'квартира'),
+        ('частный дом', 'частный дом')
+    ]
+
+    KIDS = [
+        ('есть', 'есть'),
+        ('нет', 'нет')
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    bio = models.TextField(null=True, blank=True)
+    dob = models.DateField(blank=True,
+                           null=True,
+                           verbose_name='Дата рождения')
+    bio = models.TextField(max_length=70, null=True, blank=True, verbose_name='Моя цитата')
+    about_me = models.TextField(max_length=500, null=True, blank=True, verbose_name='Обо мне')
     phone = models.CharField(max_length=12, null=True, blank=True)
     image = models.ImageField(null=True, blank=True, default='images/profile/user_default.png',
                               upload_to="images/profile/%Y/%m/%d/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
+    area = models.CharField(max_length=254, null=True, blank=True)
+    rating = models.FloatField(default=0.0)
     user_type = models.CharField(choices=PACKAGES, max_length=20)
-
+    cat_type = MultiSelectField(choices=CAT, max_choices=3, max_length=100, null=True, verbose_name='Профили работы')
     show_email = models.BooleanField(default=False,
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,
                                      verbose_name='Показывать телефон?')
+    exp = models.PositiveIntegerField(default=0)
+    house_type = models.CharField(choices=HOUSE_TYPE, max_length=20, null=True, blank=True)
+    pet_size = models.CharField(choices=SIZE, max_length=20, null=True, blank=True)
+    sit_pet = models.CharField(choices=SIT_PET, max_length=20, null=True, blank=True)
+    kids = models.CharField(choices=KIDS, max_length=20, null=True, blank=True)
+    coordinates = CoordinateField(null=True, blank=True, verbose_name='Координаты')
 
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return f'{self.user}'
-
-    # def save(self, *args, **kwargs):
-    #     img = Image.open(self.image.path)
-    #
-    #     if img.height > 300 or img.width > 300:
-    #         output_size = (300, 300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
+        return f'{self.user.first_name} {self.get_age()} {self.rating} {self.bio} {self.location} {self.cat_type}'
 
     def get_on_site(self):
         delta = datetime.now() - self.user.date_joined.replace(tzinfo=None)
@@ -63,9 +101,17 @@ class Customer(models.Model):
                 on_site_string += f"{years} лет"
             return on_site_string
 
-    # def __str__(self):
-    #     return f'{self.user}'
+    def get_age(self):
+        if self.dob:
+            today = datetime.today()
+            age = today.year - self.dob.year
 
+            if today.month < self.dob.month:
+                age -= 1
+            elif today.month == self.dob.month and today.day < self.dob.day:
+                age -= 1
+
+            return age
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
 #     def update_rating(self):
@@ -90,6 +136,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Service(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='service', verbose_name='Вид услуги')
+    description = models.CharField(max_length=70, null=True, blank=True, verbose_name='Описание')
+    price = models.PositiveIntegerField(verbose_name='Цена')
+    sitter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
 
 
 # Основная модель услуг (!) Не знаю какие категории должны быть, добавила временные
@@ -174,4 +227,7 @@ class Pet(models.Model):
     extra_info = models.TextField(null=True, blank=True, verbose_name='Дополнительная информация')
     weight = models.CharField(max_length=25, choices=WEIGHT, default='1-5 кг', verbose_name='Вес')
     host = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pet', verbose_name='Хозяин')
+
+
+
 

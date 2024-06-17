@@ -1,5 +1,5 @@
 
-/*=============================== BANNER SLIDESHOW ===============================*/
+/*========================= BANNER SLIDESHOW =========================*/
 function bannerSlideshow() {
     // Getting array of images
     // let images = [...document.querySelectorAll('.banner__image')]
@@ -32,7 +32,7 @@ bannerSlideshow()
 
 
 
-/*=============================== CAT / DOG FILTER BUTTONS ===============================*/
+/*====================== CAT / DOG FILTER BUTTONS ======================*/
 function initCatDogButtons() {
     let timeout;
     function handleChange(e, pngImg, gifImg) {
@@ -48,7 +48,6 @@ function initCatDogButtons() {
             pngImg.style.display = 'inline-block'
             gifImg.style.display = 'none'
         }
-        console.log("Hello")
     }
 
     document.getElementById('checkbox-dog').addEventListener('change', (e) => handleChange(
@@ -68,5 +67,87 @@ initCatDogButtons()
 
 
 
+/*========================= REVIEW CAROUSEL =========================*/
+function initReviewCarusel() {
+    // Grid gap in px
+    const gap = 20;
 
+    const   carousel = document.getElementById("review__carousel"),
+            content = document.getElementById("review__content"),
+            next = document.getElementById("review__next"),
+            prev = document.getElementById("review__prev")
+
+    // Next button 
+    next.addEventListener("click", e => {
+        carousel.scrollBy(width + gap, 0)
+
+        if (carousel.scrollWidth !== 0) {
+            prev.style.display = "flex";
+        }
+
+        if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "none";
+        }
+    })
+
+    // Previous button 
+    prev.addEventListener("click", e => {
+        carousel.scrollBy(-(width + gap), 0)
+        if (carousel.scrollLeft - width - gap <= 0) {
+            prev.style.display = "none"
+        }
+        if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+            next.style.display = "flex"
+        }
+    })
+
+    let width = carousel.offsetWidth
+    window.addEventListener("resize", e => (width = carousel.offsetWidth))
+
+}
+
+initReviewCarusel()
+
+
+
+
+
+/*========================= ACCORDION =========================*/
+function initAccordion() {
+    const items = document.querySelectorAll('.accordion__item')
+
+    items.forEach((item) => {
+        const header = item.querySelector('.accordion__header')
+
+        header.addEventListener('click', () => {
+            const openItem = document.querySelector('.accordion-open')
+            
+            toggleItem(item)
+
+            // when clicked on the other item, close the previous one
+            if (openItem && openItem !== item) {
+                toggleItem(openItem)
+            }
+        })
+
+
+    })
+
+    function toggleItem(item) {
+        const content = item.querySelector('.accordion__content')
+
+        if (item.classList.contains('accordion-open')) {
+            content.removeAttribute('style')
+            item.classList.remove('accordion-open')
+        } else {
+            content.style.height = content.scrollHeight + 'px'
+            item.classList.add('accordion-open')
+        }
+
+
+    }
+
+}
+
+initAccordion()
 

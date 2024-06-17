@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}" />
+
     <!--================ REMIXICON ================-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.min.css">
 
@@ -15,7 +17,19 @@
     <link rel="stylesheet" href="{% static 'css/partials/footer.css' %}">
     
     <!--================ JS ================-->
-    <script src="{% static 'scripts/main.js' %}" defer></script>
+    <!-- Global Variables -->
+    <script>
+        // path to search.html
+        const homeUrl = "{% url 'home' %}";
+        // path to home.html
+        const searchUrl = "{% url 'search' %}";
+    
+        // url for static files
+        const staticUrl = "{% static '' %}"
+    </script>
+
+    <!-- Global JS files -->
+    <script src="{% static 'scripts/partials/global.js' %}" defer></script>
     <script src="{% static 'scripts/partials/header.js' %}" defer></script>
     <script src="{% static 'scripts/partials/footer.js' %}" defer></script>
     
