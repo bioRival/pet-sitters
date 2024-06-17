@@ -18,6 +18,7 @@ from .serializers import ServicesSerializer
 import json
 from django.core import serializers
 import random
+from datetime import date
 
 # Временное представление для API
 class ServicesAPIView(generics.ListAPIView):
@@ -223,27 +224,80 @@ class SearchSitters(View):
               weight: {weight} \
               ")
 
-        # Поиск ситтеров
-        sitters = Customer.objects.filter(user_type = 'исполнитель')
+        #============== Поиск ситтеров ==============
+        sitters = Customer.objects \
+            .filter(user_type = 'исполнитель') \
+            .filter(pk__in = id_list)
+        
+        # Фильтр по виду питомца
+        if pet_dog and not pet_cat:
+            sitters = sitters.filter(sit_pet='собака')
+        elif pet_cat and not pet_dog:
+            sitters = sitters.filter(sit_pet='кошка')
 
+        # Фильтр по виду услуги
+        if service:
+            if service == 'walk':
+                sitters = sitters.filter(cat_type__contains='выгул')
+            elif service == 'boarding':
+                sitters = sitters.filter(cat_type__contains='передержка')
+            elif service == 'daycare':
+                sitters = sitters.filter(cat_type__contains='няня')
+            
 
-        # Отправка найденных ситтеров
+        tag_list = ['walk', 'boarding', 'daycare', 'dogsitter', 'catsitter']
+
+        #============== Отправка найденных ситтеров ==============
         sitters_data = []
         for sitter in sitters:
             sitters_data.append({
                 'id': sitter.pk,
-                'name': "Ричард Файнмен",
+                'name': sitter.user.first_name,
                 'imageUrl': '',
-                'age': 45,
+                'age': get_age(sitter.dob),
                 'orders': 26,
                 'reviews': 11,
-                'rating': random.uniform(0, 5),
-                'quote': "I... a universe of atoms, an atom in the universe.",
-                'address': 'Los Alamos, New Mexico',
-                'price': float(1000),
-                'tags': ['walk', 'dogsitter', 'catsitter'],
-                # 'coordinates': [55.751244, 37.618423],
+                'rating': sitter.rating,
+                'quote': sitter.about_me,
+                'address': sitter.location,
+                'price': random.randint(500, 1000),
+                # 'tags': ['walk', 'dogsitter', 'catsitter'],
+                'tags': random.choices(tag_list, k=random.randint(1, 3)),
                 'coordinates': sitter.coordinates,
             })
         return JsonResponse(sitters_data, safe=False)
 
+
+
+
+
+# Инфо на всех ситтеров в json формате
+def get_all_sitters(request):
+    # Поиск ситтеров
+    sitters = Customer.objects \
+        .filter(user_type = 'исполнитель')
+
+
+    # Отправка найденных ситтеров
+    sitters_data = []
+    for sitter in sitters:
+        sitters_data.append({
+            'id': sitter.pk,
+            'name': sitter.user.first_name,
+            'coordinates': sitter.coordinates,
+        })
+    return JsonResponse(sitters_data, safe=False)
+
+
+
+
+
+
+
+# Given a date of birth, returns age in full years
+def get_age(dob):
+    if dob is None:
+        return None
+    today = date.today()
+    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    return age

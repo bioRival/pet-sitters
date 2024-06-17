@@ -7,18 +7,16 @@ let PEOPLE = []
 // list of ids of sitters visible on the map
 let idList = []
 
-refreshSitters()
-
 
 
 // =========================================================
 // YANDEX MAP INITIATION
 // =========================================================
 ymaps.ready(initMap)
-function initMap(){
+async function initMap(){
     myMap = new ymaps.Map("map", {
-        center: [55.751574, 37.573856], // Moscow coordinates
-        zoom: 10,
+        center: [55.7605173, 37.6185126], // Moscow coordinates
+        zoom: 11,
         controls: [],
     })
 
@@ -40,6 +38,11 @@ function initMap(){
     })
     
     const markers = []
+
+    // Get all sitters
+    await makeRequest(`${searchUrl}all`, 'get').then(
+        response => PEOPLE = response
+    )
 
     // Place sitters markers on the map
     PEOPLE.forEach(person => {
@@ -72,13 +75,12 @@ function initMap(){
                 idList.push(marker.person.id)
             }
         })
-        console.log(idList)
+        refreshSitters() // show sitters in a list
     }
 
     myMap.events.add('boundschange', updateVisiblePeople)
 
     updateVisiblePeople() // Initial update
-
 
     // Geosuggest
     var suggestView = new ymaps.SuggestView('address-input')
@@ -145,57 +147,13 @@ function handleEmptyList() {
 handleEmptyList()
 
 
-
-/*======================== REQUEST ========================*/
-async function makeRequest(url, method, body) {
-    const headers = {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json'
-    }
-
-    if (body) body = JSON.stringify(body)
-
-    if (method === 'post') {
-        const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value
-        headers['X-CSRFToken'] = csrf
-    }
-
-
-    let response = await fetch(url, {
-        method: method,
-        headers: headers,
-        body: body,
-    })
-
-    return await response.json()
-}
-
-
-/*======================== SUBMIT ========================*/
-function handleFilter() {
-    const form = document.querySelector('.filter__form')
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault()
-        refreshSitters()
-    })
-}
-
-handleFilter()
-
-
 /*======================== REFRESH SITTERS ========================*/
 function refreshSitters() {
     const form = document.querySelector('.filter__form')
     const formData = new FormData(form)
-    formData.forEach((value, key) => {
-        console.log(key + ': ' + value);
-    })
     formData.append('idList', idList)
 
     const data = Object.fromEntries(formData)
-    console.log(JSON.stringify(data))
-    console.log(searchUrl)
 
     makeRequest(searchUrl, 'post', data)
     .then(response => {
@@ -239,26 +197,55 @@ function renderSitterList(sitters) {
             : img.src = `${staticUrl}images/global/default-avatar.png`
         img.className = 'sitter__image'
         img.alt = 'sitter photo'
-
-        let spanTag1 = document.createElement('span')
-        spanTag1.className = 'sitter__tag'
-        let iWalk = document.createElement('i')
-        iWalk.className = 'ri-walk-line'
-        spanTag1.appendChild(iWalk)
-        spanTag1.appendChild(document.createTextNode('Выгульщик'))
-
-        let spanTag2 = document.createElement('span')
-        spanTag2.className = 'sitter__tag'
-        let imgIcon = document.createElement('img')
-        imgIcon.className = 'sitter__tag-icon'
-        imgIcon.src = `${staticUrl}images/icons/dog-icon.svg`
-        imgIcon.alt = 'icon'
-        spanTag2.appendChild(imgIcon)
-        spanTag2.appendChild(document.createTextNode('Догситтер'))
-
         a.appendChild(img)
-        a.appendChild(spanTag1)
-        a.appendChild(spanTag2)
+
+        // Tags
+        if (sitter?.tags) {
+            sitter.tags.forEach(tagName => {
+                let imgIcon, iWalk;
+                let spanTag = document.createElement('span')
+                spanTag.className = 'sitter__tag'
+                switch (tagName) {
+                    case 'dogsitter':
+                        imgIcon = document.createElement('img')
+                        imgIcon.className = 'sitter__tag-icon'
+                        imgIcon.src = `${staticUrl}images/icons/dog-icon.svg`
+                        imgIcon.alt = 'icon'
+                        spanTag.appendChild(imgIcon)
+                        spanTag.appendChild(document.createTextNode('Догситтер'))
+                        break
+                    case 'catsitter':
+                        imgIcon = document.createElement('img')
+                        imgIcon.className = 'sitter__tag-icon'
+                        imgIcon.src = `${staticUrl}images/icons/cat-icon.svg`
+                        imgIcon.alt = 'icon'
+                        spanTag.appendChild(imgIcon)
+                        spanTag.appendChild(document.createTextNode('Кэтситтер'))
+                        break
+                    case 'walk':
+                        iWalk = document.createElement('i')
+                        iWalk.className = 'ri-walk-line'
+                        spanTag.appendChild(iWalk)
+                        spanTag.appendChild(document.createTextNode('Выгульщик'))
+                        break
+                    case 'boarding':
+                        iWalk = document.createElement('i')
+                        iWalk.className = 'ri-home-heart-line'
+                        spanTag.appendChild(iWalk)
+                        spanTag.appendChild(document.createTextNode('Бордер'))
+                        break
+                    case 'daycare':
+                        iWalk = document.createElement('i')
+                        iWalk.className = 'ri-hand-heart-line'
+                        spanTag.appendChild(iWalk)
+                        spanTag.appendChild(document.createTextNode('Дневная Няня'))
+                        break
+                    default: 
+                        spanTag.appendChild(document.createTextNode(tagName))
+                }
+                a.appendChild(spanTag)
+            })
+        }
 
         let divData = document.createElement('div')
         divData.className = 'sitter__data'
@@ -376,9 +363,11 @@ function renderSitterList(sitters) {
         let divColumn2 = document.createElement('div')
         divColumn2.className = 'sitter__column'
 
+        // Price
         let divPrice = document.createElement('div')
         divPrice.className = 'sitter__price'
-        divPrice.textContent = '800 ₽'
+        if (sitter?.price)
+            divPrice.textContent = `${sitter.price} ₽`
 
         let aLink = document.createElement('a')
         aLink.className = 'sitter__link'
