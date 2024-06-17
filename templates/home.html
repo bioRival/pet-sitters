@@ -8,7 +8,9 @@
 <script src="{% static 'scripts/home.js' %}" defer></script>
 
 <!--==================== Yandex Map Tools ====================-->
-<script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
+<script
+    src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231"
+    type="text/javascript" defer></script>
 <script src="{% static 'scripts/partials/ymap_home.js' %}" defer></script>
 
 
@@ -127,10 +129,10 @@
                                 <input type="radio" class="filter__radio" id="type1" name="type" value="walk" />
                                 <label class="filter__button" for="type1">Выгул</label>
 
-                                <input type="radio" class="filter__radio" id="type2" name="type" value="walk" />
+                                <input type="radio" class="filter__radio" id="type2" name="type" value="boarding" />
                                 <label class="filter__button" for="type2">Передержка</label>
 
-                                <input type="radio" class="filter__radio" id="type3" name="type" value="walk" />
+                                <input type="radio" class="filter__radio" id="type3" name="type" value="daycare" />
                                 <label class="filter__button" for="type3">Дневная няня</label>
                             </div>
                         </div>
@@ -142,7 +144,7 @@
                                 <div class="filter__input-box">
                                     <div class="filter__geosuggest-container" id="filter__geosuggest-container">
                                         <input id="address-input" class="filter__input-line" type="text"
-                                            placeholder="Москва, Россия">
+                                            placeholder="Москва, Россия" name="address">
                                     </div>
                                 </div>
                             </div>
@@ -152,8 +154,8 @@
                                     Даты
                                 </label>
                                 <div class="filter__input-box">
-                                    <input class="filter__input-line" id="date-start" type="date">
-                                    <input class="filter__input-line" id="date-end" type="date">
+                                    <input class="filter__input-line" name="date-start" id="date-start" type="date">
+                                    <input class="filter__input-line" name="date-end" id="date-end" type="date">
                                 </div>
                             </div>
                         </div>
@@ -179,27 +181,27 @@
                             <h2 class="filter__label">
                                 Вид питомца
                             </h2>
-                        
+
                             <div class="filter__input-box">
                                 <input class="filter__radio" type="checkbox" id="checkbox-dog" name="checkbox-dog"
-                                    value="dog">
+                                    value="true">
                                 <label class="filter__button filter__cat-dog" for="checkbox-dog">
                                     <img id="dog-png" src="{% static 'images/home/btn-dog.png' %}" alt="">
                                     <img id="dog-gif" src="{% static 'images/home/btn-dog.gif' %}" alt="">
                                 </label>
 
                                 <input class="filter__radio" type="checkbox" id="checkbox-cat" name="checkbox-cat"
-                                    value="cat">
+                                    value="true">
                                 <label class="filter__button filter__cat-dog" for="checkbox-cat">
                                     <img id="cat-png" src="{% static 'images/home/btn-cat.png' %}" alt="">
                                     <img id="cat-gif" src="{% static 'images/home/btn-cat.gif' %}" alt="">
                                 </label>
-                            
+
                                 <button class="filter__submit" type="submit">
                                     Найти исполнителя
                                 </button>
                             </div>
-                    </div>
+                        </div>
                     </form>
                     <img src="{% static 'images/home/filter-pic.png' %}" alt="">
                 </div>
@@ -677,10 +679,12 @@
                     <div class="accordion__content">
                         <p class="accordion__description">
                             Опытные люди, которые не просто любят собак и кошек, но и знают, как с ними обращаться.
-                            Петситтеры могут взять Вашего  любимца к себе на время Вашего отсутствия,  выгуливать его в то
+                            Петситтеры могут взять Вашего  любимца к себе на время Вашего отсутствия,  выгуливать его в
+                            то
                             время, когда вы скажете, кормить по расписанию,  помогать дрессировать его. Основным
                             преимуществом нашего сервиса  является индивидуальный подход: условия оговариваются лично,
-                            вдобавок Вам всегда смогут выслать фото- и видеоотчет, чтобы вы убедились, что собака или кот
+                            вдобавок Вам всегда смогут выслать фото- и видеоотчет, чтобы вы убедились, что собака или
+                            кот
                             находятся в хорошем настроении.
                         </p>
                     </div>
@@ -694,7 +698,10 @@
 
                     <div class="accordion__content">
                         <p class="accordion__description">
-                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
+                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter
+                            tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta
+                            ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round
+                            ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
                         </p>
                     </div>
                 </li>
@@ -707,7 +714,10 @@
 
                     <div class="accordion__content">
                         <p class="accordion__description">
-                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
+                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter
+                            tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta
+                            ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round
+                            ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
                         </p>
                     </div>
                 </li>
@@ -720,7 +730,10 @@
 
                     <div class="accordion__content">
                         <p class="accordion__description">
-                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
+                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter
+                            tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta
+                            ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round
+                            ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
                         </p>
                     </div>
                 </li>
@@ -733,7 +746,10 @@
 
                     <div class="accordion__content">
                         <p class="accordion__description">
-                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
+                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter
+                            tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta
+                            ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round
+                            ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
                         </p>
                     </div>
                 </li>
@@ -746,7 +762,10 @@
 
                     <div class="accordion__content">
                         <p class="accordion__description">
-                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
+                            Bacon ipsum dolor amet rump fatback turducken t-bone biltong spare ribs frankfurter
+                            tenderloin beef ground round chuck picanha burgdoggen pork belly. Doner alcatra porchetta
+                            ham cow. Flank alcatra doner swine spare ribs. Tail chislic brisket, kevin ground round
+                            ribeye shank t-bone picanha swine frankfurter. Turkey pork loin picanha jowl beef ribs.
                         </p>
                     </div>
                 </li>

@@ -131,6 +131,11 @@ class Customer(models.Model):
 #         return self.user.username
 
 
+class Gallery(models.Model):
+    image = models.ImageField(upload_to='images/gallery/%Y/%m/%d/')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='images')
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
