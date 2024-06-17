@@ -16,7 +16,7 @@
 
 /* навигация профиля */
 .profile__nav {
-    width: 62%;
+    width: 67%;
     display: flex;
     justify-content: space-between;
     list-style: none;

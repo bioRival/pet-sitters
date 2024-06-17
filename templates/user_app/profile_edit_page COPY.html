@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+    <div class="container mt-3">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-lg-10 col-sm-12">
+                <h2>Настройки профиля {{ user }}</h2>
+            </div>
+            <div class="col-lg-2 col-sm-12 text-right">
+                <a class="btn btn-primary my-btn h-100"
+                   href="{% url 'user_app:customer_profile' username=user.username %}">Вернуться в профиль</a>
+            </div>
+        </div>
+        <hr>
+        <div class="row d-flex justify-content-evenly">
+            <div class="row text-center">
+                {% if messages %}
+                    <p class="alert alert-success">
+                        {% for message in messages %}
+                            {{ message }}<br>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+            </div>
+           <div class="col-lg-8 col-sm-12">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <h3 class="mb-3 mt-3">Основная информация:</h3>
+                            {% csrf_token %}
+                            {% for error in user_info_form.errors.values %}
+                                {{ error }}
+                            {% endfor %}
+
+                            {{ user_info_form.username.label }}
+                            {{ user_info_form.username }}
+
+                            <br>
+                            {{ user_info_form.email.label }}
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    {{ user_profile_form.show_email }}
+                                    <span class="ms-2">Отображать?</span>
+                                </div>
+                                {{ user_info_form.email }}
+                            </div>
+
+                            <br>
+                            {{ user_info_form.first_name.label }}
+                            {{ user_info_form.first_name }}
+
+                            <br>
+                            <br>
+                            {{ user_info_form.last_name.label }}
+                            {{ user_info_form.last_name }}
+
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <h3 class="mb-3 mt-3">Дополнительная информация:</h3>
+                            {% for error in user_profile_form.errors.values %}
+                                {{ error }}
+                            {% endfor %}
+
+                            <br>
+                            {{ user_profile_form.image.label }}
+                            {{ user_profile_form.image }}
+                            <br>
+                            <br>
+                            {{ user_profile_form.location.label }}
+                            {{ user_profile_form.location }}
+                            <br>
+                            {{ user_profile_form.phone.label }}
+                            <div class="input-group">
+                                <div class="input-group-text">
+                                    {{ user_profile_form.show_phone }}
+                                    <span class="ms-2">Отображать?</span>
+                                </div>
+                                {{ user_profile_form.phone }}
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary my-btn text-center mt-1" type="submit" name="user_info_form">
+                                Отправить
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

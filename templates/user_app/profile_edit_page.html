@@ -1,102 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block title %} Личный кабинет {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile/profile_edit.css' %}">
+{% endblock head %}
+
 {% block content %}
-    <div class="container mt-3">
-        <div class="row d-flex justify-content-between align-items-center">
-            <div class="col-lg-10 col-sm-12">
-                <h2>Настройки профиля {{ user }}</h2>
-            </div>
-            <div class="col-lg-2 col-sm-12 text-right">
-                <a class="btn btn-primary my-btn h-100"
-                   href="{% url 'user_app:customer_profile' username=user.username %}">Вернуться в профиль</a>
-            </div>
-        </div>
-        <hr>
-        <div class="row d-flex justify-content-evenly">
-            <div class="row text-center">
-                {% if messages %}
-                    <p class="alert alert-success">
-                        {% for message in messages %}
-                            {{ message }}<br>
-                        {% endfor %}
-                    </p>
-                {% endif %}
-            </div>
-           <div class="col-lg-8 col-sm-12">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-12">
-                            <h3 class="mb-3 mt-3">Основная информация:</h3>
-                            {% csrf_token %}
-                            {% for error in user_info_form.errors.values %}
-                                {{ error }}
-                            {% endfor %}
+<div class="profile__main">
+    <div class="profile__wrapper">
+        <div class="profile__content">
 
-                            {{ user_info_form.username.label }}
-                            {{ user_info_form.username }}
+            <a class="back__button" href="{% url 'user_app:customer_profile' username=user.username %}">
+                <i class="ri-arrow-left-s-fill"></i>
+                Вернуться в профиль
+            </a>
+            <h2 class="edit__title">Редактирование профиля {{ user.first_name }} {{ user.last_name }}</h2>
 
-                            <br>
-                            {{ user_info_form.email.label }}
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    {{ user_profile_form.show_email }}
-                                    <span class="ms-2">Отображать?</span>
-                                </div>
+
+
+            {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}<br>
+                    {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for error in user_info_form.errors.values %}
+                    {{ error }}
+                {% endfor %}
+
+                <div style="display: none;">{{ user_info_form.username }}</div>
+                
+
+                <div class="profile-info">
+                    <div class="image-wrapper">
+                        <img src="{{ user.profile.image.url }}" alt="{{ customer_profile }}" class="profile-image">
+                        <!-- <img src="{% static 'images\profile\user_default.png' %}" alt="" class="profile-image"> -->
+                        {{ user_profile_form.image }}
+                    </div>
+                    
+                    <div class="profile-data-edit">
+                        <div class="data-row">
+                            <div class="data-lable">Имя:</div>
+                            <div class="data-data-edit">{{ user_info_form.first_name }}</div>
+                        </div> 
+
+                        <div class="data-row">
+                            <div class="data-lable">Фамилия:</div>
+                            <div class="data-data-edit">{{ user_info_form.last_name }}</div>
+                        </div> 
+
+
+                        <div class="data-row">
+                            <div class="data-lable">Город:</div>
+                            <div class="data-data-edit">{{ user_profile_form.location }}</div>
+                        </div> 
+
+
+                        <div class="data-row">
+                            <div class="data-lable">Email:</div>
+                            <div class="data-data-edit">
                                 {{ user_info_form.email }}
-                            </div>
-
-                            <br>
-                            {{ user_info_form.first_name.label }}
-                            {{ user_info_form.first_name }}
-
-                            <br>
-                            <br>
-                            {{ user_info_form.last_name.label }}
-                            {{ user_info_form.last_name }}
-
-                        </div>
-                        <div class="col-lg-6 col-sm-12">
-                            <h3 class="mb-3 mt-3">Дополнительная информация:</h3>
-                            {% for error in user_profile_form.errors.values %}
-                                {{ error }}
-                            {% endfor %}
-
-                            <br>
-                            {{ user_profile_form.image.label }}
-                            {{ user_profile_form.image }}
-                            <br>
-                            <br>
-                            {{ user_profile_form.location.label }}
-                            {{ user_profile_form.location }}
-                            <br>
-                            {{ user_profile_form.phone.label }}
-                            <div class="input-group">
-                                <div class="input-group-text">
-                                    {{ user_profile_form.show_phone }}
-                                    <span class="ms-2">Отображать?</span>
+                                <div class="checkbox-wrapper">
+                                    {{ user_profile_form.show_email }}
+                                    <label for="id_show_email">Отображать?</label>
                                 </div>
+                            </div>
+                        </div> 
+
+
+                        <div class="data-row">
+                            <div class="data-lable">Телефон:</div>
+                            <div class="data-data-edit">
                                 {{ user_profile_form.phone }}
-                                <br>
-                                <br>
+                                <div class="checkbox-wrapper">
+                                    {{ user_profile_form.show_phone }}
+                                    <label for="id_show_phone">Отображать?</label>
+                                </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <button class="btn btn-primary my-btn text-center mt-1" type="submit" name="user_info_form">
-                                Отправить
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+
+                <button class="save-button" type="submit" name="user_info_form">
+                    Сохранить
+                </button>
+
+            </form>
+
         </div>
     </div>
+</div>
 {% endblock content %}
-</body>
-</html>
