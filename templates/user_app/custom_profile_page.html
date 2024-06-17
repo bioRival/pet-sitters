@@ -75,29 +75,26 @@
             <h2 class="toggle-section" data-target="#pets-info">
                 Мой питомец <i class="ri-arrow-down-s-line arrow"></i>
             </h2>
-            <div id="pets-info" class="collapsible pet-collapsible">
+            <div id="pets-info" class="collapsible">
                 {% for pet in customer_pets %}
+
+                    <div class="data-row">
+                        <div class="pet-type-buttons">
+                            <div class="pet-type-button {% if pet.pet_type == 'кошка' %}highlight{% endif %}">
+                                <img src="{% static 'images/profile/CAT.png' %}" alt="">
+                            </div>
+                            <div class="pet-type-button {% if pet.pet_type == 'собака' %}highlight{% endif %}">
+                                <img src="{% static 'images/profile/DOG.png' %}" alt="">
+                            </div>
+                        </div>
+                    </div> 
+
                     <div class="pet-info">
                         <div class="image-wrapper">
                             <img src="{{ pet.image.url }}" alt="{{ pet }}" class="pet-image">
                         </div>
                         
                         <div class="pet-data">
-                            <div class="data-row">
-                                <div class="data-lable"></div>
-                                <div class="pet-type-buttons">
-                                    <div class="pet__cat-button {% if pet.pet_type == 'кошка' %}highlight{% endif %}">
-                                        <img src="{% static 'images/profile/CAT.png' %}" alt="">
-                                    </div>
-                                    <div class="pet__cat-button {% if pet.pet_type == 'собака' %}highlight{% endif %}">
-                                        <img src="{% static 'images/profile/DOG.png' %}" alt="">
-                                    </div>
-                                </div>
-                            </div> 
-
-                            {% if pet.pet_type == 'кошка' %}
-                            {% endif %}
-
                             <div class="data-row">
                                 <div class="data-lable">Имя:</div>
                                 <div class="data-data">{{ pet.name }}</div>
@@ -119,7 +116,7 @@
                                 <div class="data-data">{{ pet.extra_info }}</div>
                             </div> 
                             {% if customer_profile == user %}
-                                <div class="data-row">
+                                <div class="pet-edit-buttons">
                                     <a class="pet-edit-button" href="{% url 'pet_update' pet.id %}">Изменить данные питомца</a>
                                     <a class="pet-edit-button" href="{% url 'pet_delete' pet.id %}">Удалить данные питомца</a>
                                 </div> 

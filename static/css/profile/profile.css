@@ -6,7 +6,7 @@
 .profile__wrapper {
     max-width: 1440px;
     width: 100%;
-    padding: 60px 100px;
+    padding: 60px 100px 60px 120px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -20,7 +20,6 @@
     display: flex;
     justify-content: space-between;
     list-style: none;
-    margin-bottom: 20px;
 }
 .profile__nav a {
     display: inline-block;
@@ -28,7 +27,7 @@
     text-decoration: none;
     width: 15rem;
     padding: 16px;
-    border-radius: 50px;
+    border-radius: 14px;
     border: 2px solid #FCF3BE;
     transition: background-color 0.3s;
 
@@ -50,7 +49,7 @@
 
 .profile__content {
     width: 100%;
-    margin-top: 155px;
+    margin-top: 42px;
 }
 
 
@@ -60,15 +59,15 @@
 
 /* заголовки секций */
 .toggle-section {
-    width: 50%;
+    width: 51%;
     margin-bottom: 20px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background-color: #4a148c;
-    border-radius: 50px;
+    background-color: #8A4FC5;
+    border-radius: 14px;
 
     color: #FFF;
     font-family: Montserrat;
@@ -78,7 +77,7 @@
     line-height: 2rem;
 }
 .toggle-section:hover {
-    background-color: #7c1bf3;
+    background-color: rgb(116, 74, 168);
 }
 .toggle-section .arrow {
     transition: transform 0.3s;
@@ -89,19 +88,17 @@
 .collapsible {
     display: none;
     position: relative;
-    margin-top: 106px;
 }
 
 .image-wrapper {
-    width: 32%;
-    overflow: hidden;
-    border-radius: 50px;
-    margin: auto 0;
+    width: 31%;
 }
 .profile-image, .pet-image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    max-height: 526px;
     object-fit: cover;
+    border-radius: 14px;
 }
 
 
@@ -113,7 +110,7 @@
 
 /* блок с информацией профиля */
 .profile-info {
-    padding: 84px 0 289px 0;
+    padding: 84px 0 30px 0;
     display: flex;
     justify-content: space-between;
 }
@@ -125,9 +122,9 @@
     top: 0;
     right: 0;
     background-color: #D9B6FF;
-    padding: 14px 31px;
+    padding: 11px 21px 11px 35px;
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 14px;
     transition: background-color 0.3s;
 
     display: flex;
@@ -151,7 +148,7 @@
 /* блок с данными профиля */
 .profile-data {
     width: 58%;
-    margin-top: 60px;
+    margin-top: 26px;
 }
 .pet-data {
     width: 58%;
@@ -159,14 +156,9 @@
 
 .data-row {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 42px;
+    margin-bottom: 12px;
 }
 .data-lable {
-    width: 37%;
-    display: flex;
-    align-items: center;
     color: var(--Dark-purple, #320064);
     font-family: Montserrat;
     font-size: 1.5rem;
@@ -175,10 +167,11 @@
     line-height: 2rem;
 }
 .data-data {
-    width: 61%;
+    margin-top: 11px;
+    width: 100%;
     border: 2px solid #D9B6FF;
-    border-radius: 40px;
-    padding: 2% 5%;
+    border-radius: 14px;
+    padding: 17px 36px;
 
     color: var(--Black, #140029);
     font-family: Montserrat;
@@ -194,13 +187,8 @@
 /* стили питомца */
 /* ------------ */
 
-.pet-collapsible {
-    margin-top: 40px !important;
-}
-
 /* блок с инф о питомцах */
 .pet-info {
-    padding-top: 26px;
     display: flex;
     justify-content: space-between;
 }
@@ -208,20 +196,21 @@
 /* кнопки кошка \ собака */
 .pet-type-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 10px;
-    width: 61%;
+    width: 100%;
+    padding-left: 71%;
 }
-.pet__cat-button, .pet__dog-button {
+.pet-type-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 32%;
+    width: 40%;
     height: 60px;
     border: 2px solid #D9B6FF;
     border-radius: 40px;
 }
-.pet__cat-button img, .pet__dog-button img {
+.pet-type-button img {
     max-width: 100%;
     max-height: 100%;
 }
@@ -229,13 +218,18 @@
     background-color: #D9B6FF;
 }
 
-
+.pet-edit-buttons {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
 .pet-edit-button {
     background-color: #C896FF;
     color: #320064;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 25px;
+    border-radius: 14px;
     display: inline-block;
     transition: background-color 0.3s;
 
