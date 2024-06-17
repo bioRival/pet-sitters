@@ -59,19 +59,13 @@
                     <br>
                     <b>Профили работы</b> {{ sitter_profile.profile.cat_type|default_if_none:"Нет данных" }}</p>
 
-                <h3>Дополнительная информация</h3>
-                <b>Опыт ухода за животными:</b> {{ sitter_profile.profile.exp }} лет
-                <br>
-                <b>Тип жилья:</b> {{ sitter_profile.profile.house_type|default_if_none:"Нет данных" }}
-                <br>
-
                 <br>
                 <h3 class="mb-3">Прайс-лист</h3>
                     {% for service in sitter_services %}
                     <div class="row">
                         <div class="col-lg-9 col-sm-12">
                             {{ service.category }}
-                            {{ service.description }}
+                            {{ service.description|default_if_none:"Нет данных" }}
                             {{ service.price }} рублей
                             <br>
                 {% if sitter_profile == user %}
