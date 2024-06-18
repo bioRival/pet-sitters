@@ -15,8 +15,8 @@ let CENTER, ZOOM
 ymaps.ready(initMap)
 async function initMap(){
     var myMap = new ymaps.Map("map", {
-        center: [55.751574, 37.573856], // Moscow coordinates
-        zoom: 12,
+        center: [55.7605173, 37.6185126], // Moscow coordinates
+        zoom: 11,
         controls: [],
     })
 

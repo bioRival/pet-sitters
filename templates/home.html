@@ -8,6 +8,7 @@
 <script src="{% static 'scripts/home.js' %}" defer></script>
 
 <!--==================== Yandex Map Tools ====================-->
+<link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
 <script
     src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231"
     type="text/javascript" defer></script>
@@ -142,10 +143,8 @@
                                     Где искать
                                 </label>
                                 <div class="filter__input-box">
-                                    <div class="filter__geosuggest-container" id="filter__geosuggest-container">
-                                        <input id="address-input" class="filter__input-line" type="text"
-                                            placeholder="Москва, Россия" name="address">
-                                    </div>
+                                    <input id="address-input" class="filter__input-line" type="text"
+                                        placeholder="Москва, Россия" name="address">
                                 </div>
                             </div>
 
