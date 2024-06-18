@@ -199,14 +199,25 @@ function handleEmptyList() {
     const sitterList = document.querySelector('.sitter__list')
     const paginator = document.querySelector('.sitter__pagination')
     const emptyMessage = document.querySelector('.sitter__empty')
-
-    // if there is no items in the list
+    const lazyCat = document.querySelector('.sitter__lazy-cat')
+    let lazyInterval
+    // if there is no sitters found
     if (!sitterList.querySelector('.sitter__item')) {
+        // show empty message
         paginator.style.display = 'none'
         emptyMessage.removeAttribute('style')
+
+        // play lazy cat animation every 3 seconds
+        lazyCat.play()
+        lazyInterval = setInterval(() => lazyCat.play(), 3000)
     } else {
+        // hide empty message
         paginator.removeAttribute('style')
         emptyMessage.style.display = 'none'
+
+        // stop lazy cat animation
+        lazyCat.load()
+        clearInterval(lazyInterval)
     }
 }
 
