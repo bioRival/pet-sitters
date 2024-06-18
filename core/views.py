@@ -154,25 +154,19 @@ class SittersList(ListView):
     context_object_name = 'sitters'
 
 
-class SitterServiceList(ListView):
-    model = Service
-    template_name = 'sitter_service_list.html'
-    context_object_name = 'sitter_service'
-
-    def get_queryset(self):
-        return Service.objects.filter(sitter=39)
-
-
-class SitterCard(DetailView):
-    model = Customer
+# публичный профиль ситтера
+class SitterCardView(TemplateView):
     template_name = 'sitter_card.html'
-    context_object_name = 'sitter'
 
-    def service(request):
-        context = {
-            'services': Service.objects.all()
-        }
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            user = get_object_or_404(User, username=self.kwargs.get('username'))
+        except User.DoesNotExist:
+            raise Http404("Пользователь не найден")
+        context['sitter_profile'] = user
+        context['sitter_services'] = Service.objects.filter(sitter=user)
+        context['title'] = f'Профиль пользователя {user}'
         return context
 
 

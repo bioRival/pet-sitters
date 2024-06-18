@@ -7,25 +7,24 @@
 <body>
 {% block content %}
         <div class="col-12 text-center">
-            <img src="{{ sitter.image.url }}" alt="{{ sitter }}" width="200"
+            <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="200"
                  height="200" class="img-fluid"><br>
         </div>
-        <b> {{ sitter.user.first_name }} </b>
-        {{ sitter.get_age|default_if_none:"Нет данных" }} лет
-        {{ sitter.rating }}
+        <b> {{ sitter_profile.first_name }} </b>
+        {{ sitter_profile.profile.get_age|default_if_none:"Нет данных" }} лет
+        {{ sitter_profile.profile.rating }}
 <br>
-        <b>Опыт</b> {{ sitter.get_on_site }}
+        <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
 <br>
-        <b>Ближайший район</b> {{ sitter.area|default_if_none:"Нет данных" }}
+        <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}
 <br>
-        {{ sitter.bio|default_if_none:"Нет данных" }}
+        {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}
 <br>
                 <h3 class="mb-3">Виды услуг</h3>
-                    {% for service in services %}
+                    {% for service in sitter_services %}
                     <div class="row">
                         <div class="col-lg-9 col-sm-12">
                             {{ service.category }}
-                            {{ service.description }}
                             {{ service.price }} рублей
                             <br>
                         </div>
@@ -34,12 +33,35 @@
                     <br>
                 {% endfor %}
 <br>
-{{ sitter.cat_type }}
-<br>
-<b>Обо мне</b> {{ sitter.about_me|default_if_none:"Нет данных" }}
+<b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}
 <br>
 <b>Детали</b>
-
+<br>
+{% if sitter_profile.profile.exp %}
+Опыт ухода за животными -
+{{ sitter_profile.profile.exp }}
+<br>
+{% endif %}
+{% if sitter_profile.profile.house_type %}
+Тип жилья -
+{{ sitter_profile.profile.house_type }}
+<br>
+{% endif %}
+{% if sitter_profile.profile.pet_size %}
+Размер питомца, принимаемого на передержку -
+{{ sitter_profile.profile.pet_size }}
+<br>
+{% endif %}
+{% if sitter_profile.profile.sit_pet %}
+Животные, имеющиеся в доме -
+{{ sitter_profile.profile.sit_pet }}
+<br>
+{% endif %}
+{% if sitter_profile.profile.kids %}
+Дети до 10 лет в доме -
+{{ sitter_profile.profile.kids }}
+<br>
+{% endif %}
 <br>
 <b>Отзывы о ситтере</b>
 

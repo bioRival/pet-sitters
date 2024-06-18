@@ -3,8 +3,8 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 from . import views
-from .views import ServicesList, PetCreate, PetUpdate, PetDelete, AddService, ServiceDelete, SittersList, SitterCard, \
-    SitterServiceList
+from .views import ServicesList, PetCreate, PetUpdate, PetDelete, AddService, ServiceDelete, SittersList, \
+    SitterCardView
 from django.conf.urls.static import static
 
 
@@ -19,8 +19,8 @@ urlpatterns = [
     path('service/add_service/', AddService.as_view(), name='add_service'),
     path('service/<int:pk>/delete/', ServiceDelete.as_view(), name='service_delete'),
     path('sitters/', (SittersList.as_view()), name='sitters_list'),
-    path('sitters/<int:pk>/', SitterCard.as_view(), name='sitter_card'),
-    path('sitters/services/', SitterServiceList.as_view(), name='sitter_service'),
+    path('sitters/<str:username>/', SitterCardView.as_view(), name='sitter_card'),
+
 
     #== Json запросы ==
     # Все ситтеры
