@@ -8,6 +8,7 @@
 <script src="{% static 'scripts/home.js' %}" defer></script>
 
 <!--==================== Yandex Map Tools ====================-->
+<link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
 <script
     src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231"
     type="text/javascript" defer></script>
@@ -35,8 +36,8 @@
                         навестить родителей или съездить в командировку
                     </p>
                     <div class="banner__buttons-container">
-                        <a href="#" class="banner__button">Найти ситтера</a>
-                        <a href="#" class="banner__button">Стать ситтером</a>
+                        <a href="{% url 'search' %}" class="banner__button">Найти ситтера</a>
+                        <a href="{% url 'user_app:signup' %}" class="banner__button">Стать ситтером</a>
                     </div>
                 </div>
 
@@ -63,7 +64,7 @@
             <h1 class="section__title">Наши услуги</h1>
             <ul class="services__list">
                 <li class="services__item">
-                    <a href="#" class="services__wrapper">
+                    <a href="{% url 'search' %}?type=walk" class="services__wrapper">
                         <img class="services__image" src="{% static 'images/home/service-img-1.png' %}"
                             alt="services image">
                         <h2 class="services__name">Выгул</h2>
@@ -72,7 +73,7 @@
                         </p>
                         <div class="services__bottom">
                             <span class="services__price">от 600 ₽</span>
-                            <div href="#" class="services__arrow-button">
+                            <div class="services__arrow-button">
                                 <i class="ri-arrow-right-line services__icon"></i>
                             </div>
                         </div>
@@ -80,7 +81,7 @@
                 </li>
 
                 <li class="services__item">
-                    <a href="#" class="services__wrapper">
+                    <a href="{% url 'search' %}?type=boarding" class="services__wrapper">
                         <img class="services__image" src="{% static 'images/home/service-img-2.png' %}"
                             alt="services image">
                         <h2 class="services__name">Передержка</h2>
@@ -89,7 +90,7 @@
                         </p>
                         <div class="services__bottom">
                             <span class="services__price">от 800 ₽</span>
-                            <div href="#" class="services__arrow-button">
+                            <div class="services__arrow-button">
                                 <i class="ri-arrow-right-line services__icon"></i>
                             </div>
                         </div>
@@ -97,7 +98,7 @@
                 </li>
 
                 <li class="services__item">
-                    <a href="#" class="services__wrapper">
+                    <a href="{% url 'search' %}?type=daycare" class="services__wrapper">
                         <img class="services__image" src="{% static 'images/home/service-img-3.png' %}"
                             alt="services image">
                         <h2 class="services__name">Няня</h2>
@@ -106,7 +107,7 @@
                         </p>
                         <div class="services__bottom">
                             <span class="services__price">от 1000 ₽</span>
-                            <div href="#" class="services__arrow-button">
+                            <div class="services__arrow-button">
                                 <i class="ri-arrow-right-line services__icon"></i>
                             </div>
                         </div>
@@ -142,10 +143,8 @@
                                     Где искать
                                 </label>
                                 <div class="filter__input-box">
-                                    <div class="filter__geosuggest-container" id="filter__geosuggest-container">
-                                        <input id="address-input" class="filter__input-line" type="text"
-                                            placeholder="Москва, Россия" name="address">
-                                    </div>
+                                    <input id="address-input" class="filter__input-line" type="text"
+                                        placeholder="Москва, Россия" name="address">
                                 </div>
                             </div>
 
@@ -433,7 +432,7 @@
                 </li>
 
                 <li class="sitter__item">
-                    <a href="#" class="sitter__link-all">
+                    <a href="{% url 'search' %}" class="sitter__link-all">
                         <img class="sitter__heart-bg" src="{% static 'images/home/heart-bg.svg' %}" alt="">
                         <h1>100+</h1>
                         <p>Заботливых и ответственных ситтеров</p>

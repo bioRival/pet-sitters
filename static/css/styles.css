@@ -171,8 +171,3 @@ button:focus {
 
 
 
-/*================= YANDEX MAP =================*/
-.ymaps-2-1-79-listbox, 
-.ymaps-2-1-79-map-copyrights-promo {
-    display: none !important;
-}

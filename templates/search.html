@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{% static 'css/search.css' %}">
 
 <!--==================== Yandex Map Tools ====================-->
+<link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
 <script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
 <script src="{% static 'scripts/partials/ymap_search.js' %}" defer></script>
 
@@ -74,9 +75,7 @@
                     Где искать
                 </label>
                 <div class="filter__input-box">
-                    <div class="filter__geosuggest-container" id="filter__geosuggest-container">
-                        <input id="address-input" class="filter__input-line" name="address" type="text" placeholder="Москва, Россия">
-                    </div>
+                    <input id="address-input" class="filter__input-line" name="address" type="text" placeholder="Москва, Россия">
                 </div>
             </div>
         
