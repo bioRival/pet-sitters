@@ -154,10 +154,26 @@ class SittersList(ListView):
     context_object_name = 'sitters'
 
 
+class SitterServiceList(ListView):
+    model = Service
+    template_name = 'sitter_service_list.html'
+    context_object_name = 'sitter_service'
+
+    def get_queryset(self):
+        return Service.objects.filter(sitter=39)
+
+
 class SitterCard(DetailView):
     model = Customer
     template_name = 'sitter_card.html'
     context_object_name = 'sitter'
+
+    def service(request):
+        context = {
+            'services': Service.objects.all()
+        }
+
+        return context
 
 
 # view для каталога
@@ -227,23 +243,26 @@ class SearchSitters(View):
 
         #============== Поиск ситтеров ==============
         sitters = Customer.objects \
-            .filter(user_type = 'исполнитель') \
-            .filter(pk__in = id_list)
+            .filter(user_type='исполнитель') \
+            .filter(pk__in=id_list)
+
+        services = Service.objects \
+            .filter(sitter_id__in=id_list)
         
         # Фильтр по виду питомца
         if pet_dog and not pet_cat:
-            sitters = sitters.filter(sit_pet='собака')
+            sitters = sitters.filter(cat_type__contains='dogsitter')
         elif pet_cat and not pet_dog:
-            sitters = sitters.filter(sit_pet='кошка')
+            sitters = sitters.filter(cat_type__contains='catsitter')
 
         # Фильтр по виду услуги
         if service:
             if service == 'walk':
-                sitters = sitters.filter(cat_type__contains='выгул')
+                sitters = sitters.filter(cat_type__contains='walk')
             elif service == 'boarding':
-                sitters = sitters.filter(cat_type__contains='передержка')
+                sitters = sitters.filter(cat_type__contains='boarding')
             elif service == 'daycare':
-                sitters = sitters.filter(cat_type__contains='няня')
+                sitters = sitters.filter(cat_type__contains='daycare')
             
 
         tag_list = ['walk', 'boarding', 'daycare', 'dogsitter', 'catsitter']
@@ -261,10 +280,16 @@ class SearchSitters(View):
                 'rating': sitter.rating,
                 'quote': sitter.bio,
                 'address': sitter.location,
-                'price': random.randint(500, 1000),
+                # 'price': sitter.service_sitter,
+                # 'price': random.randint(500, 1000),
+                'tags': sitter.cat_type,
                 # 'tags': ['walk', 'dogsitter', 'catsitter'],
-                'tags': random.choices(tag_list, k=random.randint(1, 3)),
+                # 'tags': random.choices(tag_list, k=random.randint(1, 3)),
                 'coordinates': sitter.coordinates,
+            })
+        for service in services:
+            sitters_data.append({
+                'price': random.randint(500, 1000),
             })
         return JsonResponse(sitters_data, safe=False)
 

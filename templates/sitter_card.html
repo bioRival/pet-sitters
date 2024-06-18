@@ -21,15 +21,18 @@
         {{ sitter.bio|default_if_none:"Нет данных" }}
 <br>
                 <h3 class="mb-3">Виды услуг</h3>
-                    {% for service in sitter_services %}
+                    {% for service in services %}
                     <div class="row">
                         <div class="col-lg-9 col-sm-12">
                             {{ service.category }}
+                            {{ service.description }}
                             {{ service.price }} рублей
                             <br>
                         </div>
+
                     </div>
-                    {% endfor %}
+                    <br>
+                {% endfor %}
 <br>
 {{ sitter.cat_type }}
 <br>

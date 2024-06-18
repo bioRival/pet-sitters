@@ -22,9 +22,11 @@ PACKAGES = [
 ]
 
 CAT = [
-    ('передержка', 'Передержка'),
-    ('выгул', 'Выгул'),
-    ('няня', 'Няня'),
+    ('boarding', 'Передержка'),
+    ('walk', 'Выгул'),
+    ('daycare', 'Няня'),
+    ('dogsitter', 'Собака'),
+    ('catsitter', 'Кошка'),
 ]
 
 
@@ -67,7 +69,8 @@ class Customer(models.Model):
     area = models.CharField(max_length=254, null=True, blank=True)
     rating = models.FloatField(default=0.0)
     user_type = models.CharField(choices=PACKAGES, max_length=20)
-    cat_type = MultiSelectField(choices=CAT, max_choices=3, max_length=100, null=True, verbose_name='Профили работы')
+    cat_type = MultiSelectField(choices=CAT, max_choices=5, max_length=100, null=True,
+                                verbose_name='Выберите вид оказываемой услуги и вид питомца, с которым хотели бы заниматься')
     show_email = models.BooleanField(default=False,
                                      verbose_name='Показывать Email?')
     show_phone = models.BooleanField(default=False,
@@ -75,7 +78,7 @@ class Customer(models.Model):
     exp = models.PositiveIntegerField(default=0)
     house_type = models.CharField(choices=HOUSE_TYPE, max_length=20, null=True, blank=True)
     pet_size = models.CharField(choices=SIZE, max_length=20, null=True, blank=True)
-    sit_pet = models.CharField(choices=SIT_PET, max_length=20, null=True, blank=True)
+    sit_pet = MultiSelectField(choices=SIT_PET, max_choices=2, max_length=50, null=True, blank=True)
     kids = models.CharField(choices=KIDS, max_length=20, null=True, blank=True)
     coordinates = CoordinateField(null=True, blank=True, verbose_name='Координаты')
 
@@ -112,6 +115,7 @@ class Customer(models.Model):
                 age -= 1
 
             return age
+
 
 # Формирование рейтинга пользователя (!) Пока не знаю из чего он должен формироваться
 #     def update_rating(self):
