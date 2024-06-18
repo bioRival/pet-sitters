@@ -161,7 +161,7 @@ class SitterCardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            user = get_object_or_404(User, username=self.kwargs.get('username'))
+            user = get_object_or_404(User, id=self.kwargs.get('id'))
         except User.DoesNotExist:
             raise Http404("Пользователь не найден")
         context['sitter_profile'] = user
@@ -280,6 +280,7 @@ class SearchSitters(View):
                 # 'tags': ['walk', 'dogsitter', 'catsitter'],
                 # 'tags': random.choices(tag_list, k=random.randint(1, 3)),
                 'coordinates': sitter.coordinates,
+                'price': random.randint(500, 1000),
             })
         for service in services:
             sitters_data.append({

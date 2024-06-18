@@ -134,6 +134,9 @@ class Customer(models.Model):
 #     def __str__(self):
 #         return self.user.username
 
+    def get_absolute_url(self):
+        return reverse('sitter_card', args=[str(self.id)])
+
 
 class Gallery(models.Model):
     image = models.ImageField(upload_to='images/gallery/%Y/%m/%d/')
