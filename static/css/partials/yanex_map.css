@@ -1,0 +1,10 @@
+/*================= YANDEX MAP =================*/
+.ymaps-2-1-79-listbox, 
+.ymaps-2-1-79-map-copyrights-promo {
+    display: none !important;
+}
+
+.ymaps-2-1-79-search__suggest {
+    border-radius: 10px !important;
+    color: var(--dark-purple-color) !important;
+}
