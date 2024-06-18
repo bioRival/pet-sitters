@@ -876,7 +876,7 @@
     position: absolute;
     bottom: 1.25rem;
     left: 1rem;
-    z-index: var(--z-middle);
+    z-index: var(--z-front);
 
     width: fit-content;
     height: fit-content;
@@ -896,7 +896,26 @@
     color: var(--light-purple-color);
 }
 
+.sitter__fade-text {
+    opacity: 0;
+    position: absolute;
+    bottom: 2.2rem;
+    left: 1.25rem;
+    z-index: var(--z-middle);
 
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+    color: var(--white-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    
+    transition: opacity .3s, transform 1.5s;
+}
+
+.sitter__link-all:hover .sitter__fade-text {
+    opacity: 1;
+    transform: translateX(1rem);
+    transition: opacity 1.5s, transform 1.5s;
+}
 
 
 
@@ -1092,14 +1111,41 @@
     overflow: hidden;
     height: 0;
     transition: all .25s ease;
-}
-
-.accordion__description {
-    padding: 0 1.25rem 1.25rem 3rem;
 
     font-size: var(--h2-font-size);
     font-weight: var(--font-medium);
     line-height: 1.75rem; /* 140% */
+}
+
+.accordion__content b {
+    color: var(--dark-purple-color);
+}
+
+.accordion__description {
+    padding: 0 1.25rem 1.25rem 3rem;
+    max-width: 900px;
+}
+
+.accordion__content ul, ol {
+    padding: 0 1.25rem 1.25rem 6rem;
+    max-width: 700px;
+}
+
+.accordion__content ul {
+    list-style: disc;
+}
+
+.accordion__content ol {
+    list-style: decimal;
+}
+
+.accordion__content ul li,
+.accordion__content ol li {
+    padding-block: .5rem;
+}
+
+.accordion__content ul li::marker {
+    color: var(--dark-purple-color);
 }
 
 /* When item is opened */
