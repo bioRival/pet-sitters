@@ -12,6 +12,10 @@
 
 
 /*========================== BANNER ==========================*/
+.banner {
+    overflow-x: hidden;
+}
+
 .banner__card {
     position: relative;
     background-color: var(--purple-color);
