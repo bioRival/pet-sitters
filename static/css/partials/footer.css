@@ -198,7 +198,6 @@
     }
     .footer__middle {
         order: 1;
-        /* display: none; */
     }
     .footer__paw {
         bottom: 100px;
@@ -208,5 +207,8 @@
     }
     .footer__based-cat {
         width: 300px;
+    }
+    .footer__show-based-cat {
+        top: -10rem;
     }
 }
