@@ -12,8 +12,10 @@
 <table>
     <tr>
         <div class="col-12 text-center">
+            {% if sitter.image %}
             <img src="{{ sitter.image.url }}" alt="{{ sitter }}" width="200"
                  height="200" class="img-fluid"><br>
+            {% endif %}
         </div>
         <b> {{ sitter.user.first_name }} </b>
         {{ sitter.get_age|default_if_none:"Нет данных" }} лет

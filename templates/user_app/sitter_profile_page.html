@@ -29,8 +29,10 @@
                 {% endif %}
                 <p>
                 <div class="col-12 text-center">
+                {% if sitter_profile.profile.image %}
                     <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="300"
                          height="300" class="img-fluid"><br>
+                {% endif %}
                 </div>
                     <b>Имя</b> {{ sitter_profile.first_name }}
                     <br>

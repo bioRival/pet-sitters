@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models.functions import Coalesce
 from django.template.defaultfilters import slugify
 from multiselectfield import MultiSelectField
 
@@ -12,7 +13,7 @@ from django.db import models
 from django.urls import reverse
 
 
-from django.db.models import Sum
+from django.db.models import Sum, Min
 from django.utils import timezone
 from .custom_fields import CoordinateField
 
@@ -25,9 +26,23 @@ CAT = [
     ('boarding', 'Передержка'),
     ('walk', 'Выгул'),
     ('daycare', 'Няня'),
-    ('dogsitter', 'Собака'),
-    ('catsitter', 'Кошка'),
+    ('dogsitter', 'Собаки'),
+    ('catsitter', 'Кошки'),
 ]
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Service(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='service', verbose_name='Вид услуги')
+    description = models.CharField(max_length=70, null=True, blank=True, verbose_name='Описание')
+    price = models.PositiveIntegerField(verbose_name='Цена')
+    sitter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
 
 
 class Customer(models.Model):
@@ -62,7 +77,7 @@ class Customer(models.Model):
     bio = models.TextField(max_length=70, null=True, blank=True, verbose_name='Моя цитата')
     about_me = models.TextField(max_length=500, null=True, blank=True, verbose_name='Обо мне')
     phone = models.CharField(max_length=12, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True, default='images/profile/user_default.png',
+    image = models.ImageField(null=True, blank=True, default="images/profile/user_default.png",
                               upload_to="images/profile/%Y/%m/%d/")
     # last_visit = models.DateField(default=timezone.now, blank=True) # пока не поняла, как его запихнуть
     location = models.CharField(max_length=254, null=True, blank=True)
@@ -81,6 +96,7 @@ class Customer(models.Model):
     sit_pet = MultiSelectField(choices=SIT_PET, max_choices=2, max_length=50, null=True, blank=True)
     kids = models.CharField(choices=KIDS, max_length=20, null=True, blank=True)
     coordinates = CoordinateField(null=True, blank=True, verbose_name='Координаты')
+    lowest_price = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name = 'Профиль'
@@ -143,18 +159,13 @@ class Gallery(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='images')
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+class GalleryImage(models.Model):
+    image = models.ImageField(upload_to='gallery/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='images')
 
     def __str__(self):
-        return self.name
-
-
-class Service(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='service', verbose_name='Вид услуги')
-    description = models.CharField(max_length=70, null=True, blank=True, verbose_name='Описание')
-    price = models.PositiveIntegerField(verbose_name='Цена')
-    sitter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='services')
+        return str(self.image)
 
 
 # Основная модель услуг (!) Не знаю какие категории должны быть, добавила временные

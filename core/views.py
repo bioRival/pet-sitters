@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.db.models import Min
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse, Http404
 from django.contrib.auth.models import User
@@ -14,7 +15,7 @@ from rest_framework import generics
 
 from . import models, forms
 from .forms import PetCreateForm, PetForm, AddServiceForm
-from .models import Services, Customer, Pet, Service
+from .models import Services, Customer, Pet, Service, Gallery
 from .serializers import ServicesSerializer
 import json
 from django.core import serializers
@@ -164,8 +165,11 @@ class SitterCardView(TemplateView):
             user = get_object_or_404(User, id=self.kwargs.get('id'))
         except User.DoesNotExist:
             raise Http404("Пользователь не найден")
+        my_customer = Customer()
+        print(user.id)
         context['sitter_profile'] = user
         context['sitter_services'] = Service.objects.filter(sitter=user)
+        context['sitter_gallery'] = Gallery.objects.all()
         context['title'] = f'Профиль пользователя {user}'
         return context
 
@@ -176,15 +180,6 @@ class SearchSitters(View):
     template_name = 'search.html'
     context_object_name = 'search'
 
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     self.filterset = PostFilter(self.request.GET, queryset)
-    #     return self.filterset.qs
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['filterset'] = self.filterset
-    #     return context
 
     def get(self, request):
         # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
@@ -240,8 +235,8 @@ class SearchSitters(View):
             .filter(user_type='исполнитель') \
             .filter(user_id__in=id_list)
 
-        services = Service.objects \
-            .filter(sitter_id__in=id_list)
+        # services = Service.objects \
+        #     .filter(sitter_id__in=id_list)
         
         # Фильтр по виду питомца
         if pet_dog and not pet_cat:
@@ -264,32 +259,42 @@ class SearchSitters(View):
         #============== Отправка найденных ситтеров ==============
         sitters_data = []
         for sitter in sitters:
+            try:
+                sitter_image = sitter.image.url
+            except:
+                sitter_image = None
+            services_prices = []
+            services = Service.objects.filter(sitter_id=sitter.user.id)
+
+            if service:
+                if service == 'walk':
+                    services = services.filter(category__name='Выгул')
+                elif service == 'boarding':
+                    services = services.filter(category__name='Передержка')
+                elif service == 'daycare':
+                    services = services.filter(category__name='Дневная няня')
+            for item in services:
+                services_prices.append(item.price)
+            if services_prices:
+                sitter_price = min(services_prices)
+            else:
+                sitter_price = None
             sitters_data.append({
                 'id': sitter.user.pk,
                 'name': sitter.user.first_name,
-                'imageUrl': sitter.image.url,
+                'imageUrl': sitter_image,
                 'age': get_age(sitter.dob),
                 'orders': 26,
                 'reviews': 11,
                 'rating': sitter.rating,
                 'quote': sitter.bio,
                 'address': sitter.location,
-                # 'price': sitter.service_sitter,
-                # 'price': random.randint(500, 1000),
+                'price': sitter_price,
                 'tags': sitter.cat_type,
-                # 'tags': ['walk', 'dogsitter', 'catsitter'],
-                # 'tags': random.choices(tag_list, k=random.randint(1, 3)),
                 'coordinates': sitter.coordinates,
-                'price': random.randint(500, 1000),
             })
-        for service in services:
-            sitters_data.append({
-                'price': random.randint(500, 1000),
-            })
+
         return JsonResponse(sitters_data, safe=False)
-
-
-
 
 
 # Инфо на всех ситтеров в json формате
@@ -308,11 +313,6 @@ def get_all_sitters(request):
             'coordinates': sitter.coordinates,
         })
     return JsonResponse(sitters_data, safe=False)
-
-
-
-
-
 
 
 # Given a date of birth, returns age in full years
