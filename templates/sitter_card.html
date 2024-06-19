@@ -1,17 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Карточка ситтера</title>
-</head>
-<body>
+{% extends 'partials/base.html' %}
+
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/sitter.css' %}">
+<script src="{% static 'scripts/sitter.js' %}" defer></script>
+
+<!--==================== Yandex Map Tools ====================-->
+<link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
+
+{% endblock head %}
+
+{% block title %} Petsitters.ru - {{ sitter_profile.first_name }} {% endblock title %}
+
 {% block content %}
-        <div class="col-12 text-center">
-            {% if sitter_profile.profile.image %}
-            <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="200"
-                 height="200" class="img-fluid"><br>
-            {% endif %}
+<main class="main">
+    <!--======= BACK BUTTON =======-->
+    <section class="back container">
+        <a class="back__link" href="{% url 'search' %}">
+            <i class="ri-arrow-left-line"></i>
+            <h2>Вернуться к списку ситтеров</h2>
+        </a>
+    </section>
+
+    <!--==================== MAIN CONTENT ====================-->
+    <div class="grid content container">
+        <div class="left-column">
+            <!--==================== SITTER ====================-->
+            <section class="sitter block">
+                <div class="sitter__image-container">
+                    <img src="{{ sitter_profile.profile.image.url }}" class="sitter__image" alt="sitter photo">
+                </div>
+
+                <div class="sitter__column">
+                    <div class="sitter__info">
+                        <span class="sitter__name">
+                            {{ sitter_profile.first_name }}
+                        </span>
+                        <span class="sitter__age">
+                            {{ sitter_profile.profile.get_age }} лет
+                        </span>
+                        <div class="sitter__jobs">
+                            <span>3 заказов</span>
+                            |
+                            <span>2 отзывов</span>
+                        </div>
+                    </div>
+                    <div class="sitter__rating">
+                        <div class='sitter__stars'></div>
+                        <div class="sitter__rating-number">
+                            {{ sitter_profile.profile.rating }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitter__address">
+                    <i class="ri-building-line"></i>
+                    <span>{{ sitter_profile.profile.location }}</span>
+                </div>
+            </section>
         </div>
+        <div class="right-column"></div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <b> {{ sitter_profile.first_name }} </b>
         {{ sitter_profile.profile.get_age|default_if_none:"Нет данных" }} лет
         {{ sitter_profile.profile.rating }}
@@ -82,7 +163,5 @@
 <b>Отзывы о ситтере</b>
 
 
-
+</main>
 {% endblock content %}
-</body>
-</html>
