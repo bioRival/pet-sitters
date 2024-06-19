@@ -1,11 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Карточка ситтера</title>
-</head>
-<body>
+{% extends 'partials/base.html' %}
+
+{% load static %}
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/sitter.css' %}">
+<script src="{% static 'scripts/sitter.js' %}" defer></script>
+
+<!--==================== Yandex Map Tools ====================-->
+<link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
+
+
+
+
+{% endblock head %}
+
+{% block title %} Petsitters.ru - {{ sitter_profile.first_name }} {% endblock title %}
+
 {% block content %}
+<main class="main">
+    <!--======= BACK BUTTON =======-->
+    <section class="back container">
+        <a class="back__link" href="{% url 'search' %}">
+            <i class="ri-arrow-left-line"></i>
+            <h2>Вернуться к списку ситтеров</h2>
+        </a>
+    </section>
+
+    <!--==================== MAIN CONTENT ====================-->
+    <div class="grid content container">
+        <div></div>
+        <div></div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="col-12 text-center">
             <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="200"
                  height="200" class="img-fluid"><br>
@@ -66,7 +114,5 @@
 <b>Отзывы о ситтере</b>
 
 
-
+</main>
 {% endblock content %}
-</body>
-</html>

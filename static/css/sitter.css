@@ -1,0 +1,47 @@
+/*========================== BASE ==========================*/
+.content {
+    grid-template-columns: 1fr 2fr;
+    height: 1000px;
+}
+
+.content > *:nth-child(1) {
+    background-color: blue;
+}
+
+.content > *:nth-child(2) {
+    background-color: red;
+}
+
+/*========================== BACK ==========================*/
+.back {
+    padding-block: 1.25rem;
+}
+
+.back__link {
+    display: block;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: transform .6s;
+}
+
+.back__link i {
+    font-size: 3rem;
+    color: var(--dark-purple-color);
+    transition: color .4s;
+}
+
+.back__link h2 {
+    font-weight: var(--font-semi-bold);
+    transition: color .4s;
+}
+
+.back__link:hover h2,
+.back__link:hover i {
+    filter: brightness(1.5);
+}
+
+.back__link:hover {
+    transform: translateX(-.5rem);
+}
