@@ -263,8 +263,10 @@ function renderSitterList(sitters) {
         let li = document.createElement('li')
         li.className = 'sitter__item'
 
+        // Sitter link
         let a = document.createElement('a')
-        a.href = '#';
+        if (sitter?.id) 
+            a.href = `${homeUrl}sitters/${sitter.id}`
         a.className = 'sitter__image-container'
 
         // Avatar image
@@ -446,8 +448,11 @@ function renderSitterList(sitters) {
         if (sitter?.price)
             divPrice.textContent = `${sitter.price} ₽`
 
+        // Sitter link 2
         let aLink = document.createElement('a')
         aLink.className = 'sitter__link'
+        if (sitter?.id) 
+            aLink.href = `${homeUrl}sitters/${sitter.id}`
         let iArrow = document.createElement('i')
         iArrow.className = 'ri-arrow-right-line'
         aLink.appendChild(iArrow)

@@ -238,7 +238,7 @@ class SearchSitters(View):
         #============== Поиск ситтеров ==============
         sitters = Customer.objects \
             .filter(user_type='исполнитель') \
-            .filter(pk__in=id_list)
+            .filter(user_id__in=id_list)
 
         services = Service.objects \
             .filter(sitter_id__in=id_list)
@@ -265,7 +265,7 @@ class SearchSitters(View):
         sitters_data = []
         for sitter in sitters:
             sitters_data.append({
-                'id': sitter.pk,
+                'id': sitter.user.pk,
                 'name': sitter.user.first_name,
                 'imageUrl': sitter.image.url,
                 'age': get_age(sitter.dob),
@@ -303,7 +303,7 @@ def get_all_sitters(request):
     sitters_data = []
     for sitter in sitters:
         sitters_data.append({
-            'id': sitter.pk,
+            'id': sitter.user.pk,
             'name': sitter.user.first_name,
             'coordinates': sitter.coordinates,
         })
