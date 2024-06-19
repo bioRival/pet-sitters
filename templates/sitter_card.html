@@ -10,9 +10,6 @@
 <!--==================== Yandex Map Tools ====================-->
 <link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
 
-
-
-
 {% endblock head %}
 
 {% block title %} Petsitters.ru - {{ sitter_profile.first_name }} {% endblock title %}
@@ -29,8 +26,42 @@
 
     <!--==================== MAIN CONTENT ====================-->
     <div class="grid content container">
-        <div></div>
-        <div></div>
+        <div class="left-column">
+            <!--==================== SITTER ====================-->
+            <section class="sitter block">
+                <div class="sitter__image-container">
+                    <img src="{{ sitter_profile.profile.image.url }}" class="sitter__image" alt="sitter photo">
+                </div>
+
+                <div class="sitter__column">
+                    <div class="sitter__info">
+                        <span class="sitter__name">
+                            {{ sitter_profile.first_name }}
+                        </span>
+                        <span class="sitter__age">
+                            {{ sitter_profile.profile.get_age }} лет
+                        </span>
+                        <div class="sitter__jobs">
+                            <span>3 заказов</span>
+                            |
+                            <span>2 отзывов</span>
+                        </div>
+                    </div>
+                    <div class="sitter__rating">
+                        <div class='sitter__stars'></div>
+                        <div class="sitter__rating-number">
+                            {{ sitter_profile.profile.rating }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sitter__address">
+                    <i class="ri-building-line"></i>
+                    <span>{{ sitter_profile.profile.location }}</span>
+                </div>
+            </section>
+        </div>
+        <div class="right-column"></div>
     </div>
 
 
@@ -54,10 +85,7 @@
 
 
 
-        <div class="col-12 text-center">
-            <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="200"
-                 height="200" class="img-fluid"><br>
-        </div>
+
         <b> {{ sitter_profile.first_name }} </b>
         {{ sitter_profile.profile.get_age|default_if_none:"Нет данных" }} лет
         {{ sitter_profile.profile.rating }}

@@ -380,38 +380,9 @@ function renderSitterList(sitters) {
         let divRatingNumber = document.createElement('div')
         divRatingNumber.className = 'sitter__rating-number'
         if (sitter?.rating) {
-            let fullStars = Math.floor(sitter.rating)
-            let hollowStars = 5 - Math.floor(sitter.rating)
-            let remainder = sitter.rating - Math.floor(sitter.rating)
-            // print full stars first
-            for (let i = 0; i < fullStars; i++) {
-                let iStar = document.createElement('i')
-                iStar.className = 'ri-star-fill'
-                divRating.appendChild(iStar)
-            }
-            // if remainder above 0.5 - print half star
-            if (remainder >= 0.5) {
-                let iStar = document.createElement('i')
-                iStar.className = 'ri-star-half-line'
-                divRating.appendChild(iStar)
-                hollowStars -= 1
-            }
-            // print hollow stars last
-            for (let i = 0; i < hollowStars; i++) {
-                let iStar = document.createElement('i')
-                iStar.className = 'ri-star-line'
-                divRating.appendChild(iStar)
-            }
+            renderStars(divRating, sitter.rating)
             divRatingNumber.textContent = sitter.rating.toFixed(1)
-        } else {
-            for (let i = 0; i < 5; i++) {
-                let iStar = document.createElement('i')
-                iStar.className = 'ri-star-line'
-                divRating.appendChild(iStar)
-            }
-            divRatingNumber.textContent = '0.0'
         }
-
         divRating.appendChild(divRatingNumber)
 
         divColumn1.appendChild(divInfo)
