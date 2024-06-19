@@ -9,18 +9,21 @@
 
 <!--==================== Yandex Map Tools ====================-->
 <link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
+<script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
+<script src="{% static 'scripts/partials/ymap_sitter.js' %}" defer></script>
 
 {% endblock head %}
 
 {% block title %} Petsitters.ru - {{ sitter_profile.first_name }} {% endblock title %}
 
 {% block content %}
-<main class="main">
+{% csrf_token %}
+<main class="main" data-coords="{{ sitter_profile.profile.coordinates }}">
     <!--======= BACK BUTTON =======-->
     <section class="back container">
         <a class="back__link" href="{% url 'search' %}">
             <i class="ri-arrow-left-line"></i>
-            <h2>Вернуться к списку ситтеров</h2>
+            <span>Вернуться к списку ситтеров</span>
         </a>
     </section>
 
@@ -59,6 +62,65 @@
                     <i class="ri-building-line"></i>
                     <span>{{ sitter_profile.profile.location }}</span>
                 </div>
+            </section>
+            <!-- HIRE BUTTON -->
+            <a class="hire-button" href="#">
+                Отправить запрос
+            </a>
+
+            <!--==================== RANK ====================-->
+            <section class="rank block">
+                <header class="rank__header">
+                    <i class="ri-star-fill rank__star"></i>
+                    <div class="rank__rating-number">
+                        {{ sitter_profile.profile.rating }}
+                    </div>
+                    <div class="rank__review-count">23 отзыва</div>
+                </header>
+                <ul class="rank__list">
+                    <li class="rank__item">
+                        <i class="ri-check-line check-icon"></i>
+                        <div class="rank__content">
+                            Выполнено <mark>45</mark> заказов
+                        </div>
+                    </li>
+                    <li class="rank__item">
+                        <i class="ri-check-line check-icon"></i>
+                        <div class="rank__content">
+                            <mark>12</mark> повторных заказов
+                        </div>
+                    </li>
+                    <li class="rank__item">
+                        <i class="ri-check-line check-icon"></i>
+                        <div class="rank__content">
+                            Верифицирован <mark>24.10.2022</mark>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!--==================== PRELIMINARY ====================-->
+            <section class="preliminary block">
+                Вы можете договориться о <b>предварительной встрече</b>, чтобы познакомить собаку с догситтером и посмотреть на условия проживания
+            </section>
+
+            <!--==================== SPECIAL SKILLS ====================-->
+            <section class="special block">
+                <h2>Особые навыки</h2>
+                <ul class="special__list">
+                    <li class="special__item">
+                        <i class="ri-check-line check-icon"></i>
+                        <div class="rank__content">
+                            Выполнено <mark>45</mark> заказов
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!--==================== MAP ====================-->
+            <section class="map block">
+                <h2>Местоположение</h2>
+                <div id="map"></div>
             </section>
         </div>
         <div class="right-column"></div>

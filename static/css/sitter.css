@@ -1,11 +1,19 @@
 /*========================== BASE ==========================*/
+.main {
+    color: var(--Black, #140029);
+    font-size: 1.25rem;
+    font-weight: var(--font-medium);
+    line-height: 1.75rem; /* 140% */
+}
+
 .content {
     grid-template-columns: 1fr 2fr;
-    height: 1000px;
 }
 
 .left-column {
-    background-color: hsl(0, 0%, 80%);    
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;  
 }
 
 .right-column {
@@ -15,8 +23,29 @@
 .block {
     border-radius: 2.5rem;
     border: 2px solid var(--yellow-color);
+    padding: 1.25rem;
+    background-color: var(--white-color);
 }
 
+/* marked to edit later - delete in final */
+mark {
+    background-color: red;
+    color: white;
+}
+
+.check-icon {
+    color: var(--medium-purple-color);
+    font-size: 2rem;
+}
+
+h2 {
+    margin-bottom: 1rem;
+
+    color: var(--dark-purple-color);
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+    line-height: 2rem; /* 133.333% */
+}
 /*========================== BACK ==========================*/
 .back {
     padding-block: 1.25rem;
@@ -37,7 +66,8 @@
     transition: color .4s;
 }
 
-.back__link h2 {
+.back__link span {
+    font-size: var(--h2-font-size);
     font-weight: var(--font-semi-bold);
     transition: color .4s;
 }
@@ -66,7 +96,6 @@
     gap: 2rem;
     background-color: var(--white-color);
     width: 100%;
-    padding: 1.25rem;
     transition: transform .4s;
 }
 
@@ -200,4 +229,102 @@
     color: var(--dark-purple-color);
     font-size: 3rem;
     transition: transform .4s;
+}
+
+
+/*========================== HIRE BUTTON ==========================*/
+.hire-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: 1.25rem;
+
+    border-radius: 2.5rem;
+    background: var(--purple-color);
+
+    color: var(--dark-purple-color);
+    font-family: Montserrat;
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+    transition: color .4s, background-color .4s;
+}
+
+.hire-button:hover {
+    color: var(--black-color);
+    background-color: var(--light-purple-color);
+}
+
+
+
+
+/*========================== RANK ==========================*/
+.rank__header {
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+}
+
+.rank__star {
+    color: var(--yellow-color);
+    font-size: 2rem;
+}
+
+.rank__rating-number {
+    color: var(--dark-purple-color);
+    font-size: 1.5rem;
+    font-weight: var(--font-bold);
+}
+
+.rank__review-count {
+    padding-left: 1.25rem;
+    display: inline;
+    color: var(--medium-purple-color);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+    text-decoration-line: underline;
+}
+
+.rank__list {
+    margin-top: 1.25rem;
+}
+
+.rank__item {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.rank__content {
+    color: var(--black-color);
+    font-size: var(--h2-font-size);
+    font-weight: var(--font-medium);
+}
+
+
+/*========================== SPECIAL SKILLS ==========================*/
+.special {
+    background-color: var(--light-yellow-color);
+}
+
+.special__item {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+
+/*========================== MAP ==========================*/
+.map {
+    padding: 0;
+    overflow: hidden;
+}
+
+.map h2 {
+    margin: 1.25rem;
+}
+
+#map {
+    width: 100%;
+    height: 340px;
+    pointer-events: none;
 }
