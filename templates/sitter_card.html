@@ -29,6 +29,7 @@
 
     <!--==================== MAIN CONTENT ====================-->
     <div class="grid content container">
+         <!--==================== LEFT COLUMN ====================-->
         <div class="left-column">
             <!--==================== SITTER ====================-->
             <section class="sitter block">
@@ -41,13 +42,15 @@
                         <span class="sitter__name">
                             {{ sitter_profile.first_name }}
                         </span>
-                        <span class="sitter__age">
-                            {{ sitter_profile.profile.get_age }} лет
-                        </span>
+                        {% if sitter_profile.profile.get_age %}
+                            <span class="sitter__age">
+                                {{ sitter_profile.profile.get_age }} лет
+                            </span>
+                        {% endif %}
                         <div class="sitter__jobs">
-                            <span>3 заказов</span>
+                            <span><mark>3</mark> заказов</span>
                             |
-                            <span>2 отзывов</span>
+                            <span><mark>2</mark> отзывов</span>
                         </div>
                     </div>
                     <div class="sitter__rating">
@@ -75,7 +78,7 @@
                     <div class="rank__rating-number">
                         {{ sitter_profile.profile.rating }}
                     </div>
-                    <div class="rank__review-count">23 отзыва</div>
+                    <div class="rank__review-count"><mark>23</mark> отзыва</div>
                 </header>
                 <ul class="rank__list">
                     <li class="rank__item">
@@ -111,7 +114,7 @@
                     <li class="special__item">
                         <i class="ri-check-line check-icon"></i>
                         <div class="rank__content">
-                            Выполнено <mark>45</mark> заказов
+                            <mark>Опыт ухода за собаками 4 года</mark>
                         </div>
                     </li>
                 </ul>
@@ -122,8 +125,117 @@
                 <h2>Местоположение</h2>
                 <div id="map"></div>
             </section>
+
+            <!--==================== BOOKING ====================-->
+            <section class="booking block">
+                <h2>
+                    Бронирование на сайте –
+                    безопастность для вас 
+                    и вашего любимца
+                </h2>
+                <ul class="booking__list">
+                    <li class="booking__item">
+                        <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                        <span class="booking__text">
+                            Поддержка 24/7
+                        </span>
+                    </li>
+
+                    <li class="booking__item">
+                        <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                        <span class="booking__text">
+                            Бесплатная онлайн - консультация ветеринара для каждой передержки
+                        </span>
+                    </li>
+
+                    <li class="booking__item">
+                        <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                        <span class="booking__text">
+                            Гарантия бронирования - без неожиданностей перед вылетом
+                        </span>
+                    </li>
+                </ul>
+            </section>
         </div>
-        <div class="right-column"></div>
+
+        <!--==================== RIGHT COLUMN ====================-->
+        <div class="right-column">
+            <section class="about block">
+                <h1>
+                    {{sitter_profile.profile.bio|default:""}}
+                </h1>
+
+                <!-- <div class="about__album"></div> -->
+
+                <div class="about__service">
+                    <ul class="about__service-list">
+                        {% for service in sitter_services %}
+                            {% if service.category.name == "Выгул" %}
+                                <li class="about__service-item">
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">Выгул</div>
+                                        <div class="about__service-subtext">в вашем районе</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">{{ service.price }} ₽</div>
+                                        <div class="about__service-subtext">30 мин.</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">{% widthratio service.price 1 2 %} ₽</div>
+                                        <div class="about__service-subtext">1 час</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">+{{ service.price }} ₽</div>
+                                        <div class="about__service-subtext">+ еще 30 мин.</div>
+                                    </div>
+                                </li>
+                            {% elif service.category.name == "Передержка" %}
+                                <li class="about__service-item">
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">Передержка</div>
+                                        <div class="about__service-subtext">дома у ситтера</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">{{ service.price }} ₽</div>
+                                        <div class="about__service-subtext">в сутки</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-subtext">Выгулы входят в стоимость</div>
+                                    </div>
+                                </li>
+                            {% elif service.category.name == "Дневная няня" %}
+                                <li class="about__service-item">
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">Дневная няня</div>
+                                        <div class="about__service-subtext">у вас дома</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">{{ service.price }} ₽</div>
+                                        <div class="about__service-subtext">30 мин.</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">{% widthratio service.price 1 2 %} ₽</div>
+                                        <div class="about__service-subtext">1 час.</div>
+                                    </div>
+
+                                    <div class="about__service-column">
+                                        <div class="about__service-text">+{{ service.price }} ₽</div>
+                                        <div class="about__service-subtext">+ еще 1 час</div>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </div>
     </div>
 
 
