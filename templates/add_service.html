@@ -1,21 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Добавление услуги</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+
+{% block title %} Добавление услуги {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile/add_service.css' %}">
+{% endblock head %}
+
 {% block content %}
+<div class="auth__main">
+    <div class="auth__wrapper">
+        <div class="auth__content">
+
             <button onclick="history.back();" class="auth__back-button">
+                <img src="{% static 'images/login/back_button.svg' %}" alt="Back">
                 <span>Вернуться</span>
             </button>
-<h2>Добавить услугу</h2>
-<hr>
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Добавить" />
-</form>
+
+            <h2 class="auth__title">Добавить услугу</h2>
+            <div class="auth__form-group">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="data-row dis-fl">
+                        <div class="data-lable">{{ form.category.label }}</div>
+                        <div class="select-field">{{ form.category }}</div>
+                    </div> 
+
+                    <div class="data-row dis-fl">
+                        <div class="data-lable price-lable">{{ form.price.label }}</div>
+                        <div class="data-data-edit price-edit">{{ form.price }}</div>
+                    </div> 
+
+                    <div class="data-row">
+                        <div class="data-lable">{{ form.description.label }}</div>
+                        <div class="data-data-edit">{{ form.description }}</div>
+                    </div> 
+
+                    <button class="auth__btn auth__main-btn" type="submit">
+                        Добавить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-</body>
-</html>

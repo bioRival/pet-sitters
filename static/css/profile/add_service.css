@@ -1,0 +1,60 @@
+.dis-fl {
+    display: flex;
+}
+
+.data-row {
+    width: 100%;
+    margin-bottom: 12px;
+}
+.data-lable {
+    color: var(--Dark-purple, #320064);
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2rem;
+}
+.data-data {
+    margin-top: 11px;
+    width: 100%;
+    border: 2px solid #D9B6FF;
+    border-radius: 14px;
+    padding: 17px 36px;
+
+    color: var(--Black, #140029);
+    font-family: Montserrat;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.data-data-edit input {
+    margin-top: 11px;
+    width: 100%;
+    border: 2px solid #D9B6FF;
+    border-radius: 14px;
+    padding: 17px 36px;
+
+    color: var(--Black, #140029);
+    font-family: Montserrat;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+.data-data-edit input:focus {
+    border-color: #3f057c;
+}
+
+
+.price-lable {
+    display: flex; 
+    align-items: center;
+}
+.price-edit {
+    margin-left: 6rem;
+}
+.price-edit input {
+    padding: 5px;
+}

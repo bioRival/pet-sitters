@@ -1,43 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+
+{% block title %} Изменение пароля {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile/add_service.css' %}">
+    <style>
+        .description {
+            margin: 20px 0;
+            color: #9A949F;
+            font-family: Montserrat;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 24px;
+        }
+        .description p {
+            margin: 10px 0;
+        }
+    </style>
+{% endblock head %}
+
 {% block content %}
-    <div class="container mt-3">
-        <div class="row d-flex justify-content-between align-items-center">
-            <div class="col-lg-10 col-sm-12">
-                <h2>Настройки профиля {{ user }}</h2>
-            </div>
-           <div class="col-lg-2 col-sm-12 text-right">
-                <a class="btn btn-primary my-btn h-100"
-                   href="{% url 'home' %}">На главную</a>
-        </div>
-        </div>
-        <hr>
-        <div class="row d-flex justify-content-evenly">
-            <div class="row text-center">
-                {% if messages %}
-                    <p class="alert alert-success">
-                        {% for message in messages %}
-                            {{ message }}<br>
-                        {% endfor %}
-                    </p>
-                {% endif %}
-            </div>
-            <div class="col-lg-4 col-sm-12">
-                <h3 class="mb-3 mt-3">Изменить пароль:</h3>
+<div class="auth__main">
+    <div class="auth__wrapper">
+        <div class="auth__content">
+
+            <button onclick="history.back();" class="auth__back-button">
+                <img src="{% static 'images/login/back_button.svg' %}" alt="Back">
+                <span>Вернуться</span>
+            </button>
+
+            <h2 class="auth__title">Изменение пароля {{ user }}</h2>
+
+            {% if messages %}
+                <p class="alert alert-success">
+                    {% for message in messages %}
+                        {{ message }}<br>
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            <div class="auth__form-group">
                 <form method="post">
                     {% csrf_token %}
-                    {{ user_password_form.as_p }}
-                    <button class="btn btn-primary my-btn mt-2" type="submit" name="user_password_form">Отправить
+                    <div class="description">
+                        <p>Пароль не должен быть слишком похож на другую вашу личную информацию.</p>
+                        <p>Ваш пароль должен содержать как минимум 8 символов.</p>
+                        <p>Пароль не должен быть слишком простым и распространенным.</p>
+                        <p>Пароль не может состоять только из цифр.</p>
+                    </div>
+                    {% for field in user_password_form %}
+                        <div class="data-row">
+                            <div class="data-lable">{{ field.label }}</div>
+                            <div class="data-data-edit">{{ field }}</div>
+                        </div> 
+                    {% endfor %}
+
+                    <button class="auth__btn auth__main-btn" type="submit" name="user_password_form">
+                        Сохранить
                     </button>
                 </form>
             </div>
         </div>
     </div>
-{% endblock %}
-</body>
-</html>
+</div>
+{% endblock content %}

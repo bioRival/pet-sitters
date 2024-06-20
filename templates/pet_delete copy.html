@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление данных о питомце</title>
+</head>
+<body>
+{% block content %}
+            <button onclick="history.back();" class="auth__back-button">
+                <span>Вернуться</span>
+            </button>
+<h2>Удалить данные о питомце</h2>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Удаляем "{{ object.name }}"?</p>
+    <input type="submit" value="Подтвердить" />
+</form>
+{% endblock content %}
+</body>
+</html>

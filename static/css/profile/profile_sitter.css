@@ -1,0 +1,102 @@
+.rate {
+    width: 410px;
+    display: flex;
+    padding-top: 60px;
+}
+.rate-stars {
+    position: relative;
+    display: inline-block;
+    margin-left: 42px;
+}
+.rate img {
+    width: 40px;
+    height: 36px;
+}
+.rate .filled-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+
+.profile-sitter-info {
+    padding: 24px 0 30px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.image-sitter-wrapper {
+    margin-top: 32px;
+    width: 31%;
+}
+
+
+/* профили работ */
+.data__cat-type__wrapper {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.data__cat-type {
+    width: auto !important;
+}
+
+
+
+/* ------ */
+/* прайс */
+/* ---- */
+.price-info {
+    display: flex;
+    flex-direction: column;
+}
+.price-list {
+    margin: 30px 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    color: var(--Dark-purple, #320064);
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2rem;
+}
+
+
+.add-work-type {
+    width: auto;
+    background-color: #D9B6FF;
+    padding: 11px;
+    text-decoration: none;
+    border-radius: 14px;
+    transition: background-color 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+
+    color: #000;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 2rem;
+}
+.add-work-type:hover {
+    background-color: #c43aff;
+}
+
+
+.delete-work-type {
+    color: #ad0a0a;
+}
+.delete-work-type:hover {
+    color: #ff0b0b;
+}

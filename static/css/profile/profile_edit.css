@@ -29,7 +29,7 @@
 }
 
 
-.image-wrapper input {
+.image-wrapper input, .image-sitter-wrapper input {
     width: 100%;
     cursor: pointer;
     padding: 15px 40px;
@@ -37,7 +37,7 @@
     border-radius: 14px;
     color: #FFF;
 }
-.image-wrapper input:hover {
+.image-wrapper input:hover, .image-sitter-wrapper input:hover {
     background-color: rgb(116, 74, 168);
 }
 
@@ -45,7 +45,7 @@
     width: 58%;
 }
 
-.data-data-edit input {
+.data-data-edit > input, .data-data-edit > textarea {
     margin-top: 11px;
     width: 100%;
     border: 2px solid #D9B6FF;
@@ -59,7 +59,7 @@
     font-weight: 600;
     line-height: 1.5rem;
 }
-.data-data-edit input:focus {
+.data-data-edit > input:focus, .data-data-edit > textarea:focus {
     border-color: #3f057c;
 }
 
@@ -78,6 +78,7 @@
 
 
 .save-button {
+    margin-top: 50px;
     cursor: pointer;
     padding: 15px 40px;
     background-color: #8A4FC5;
@@ -92,4 +93,20 @@
 }
 .save-button:hover {
     background-color: rgb(116, 74, 168);
+}
+
+.select-field {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+.select-field select {
+    border: 2px solid #D9B6FF;
+    border-radius: 7px;
+
+    color: var(--Black, #140029);
+    font-family: Montserrat;
+}
+.select-field select option:hover {
+    background-color: #D9B6FF;
 }

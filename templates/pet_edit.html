@@ -1,21 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block title %} Редактирование питомца {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile/profile_edit.css' %}">
+{% endblock head %}
+
 {% block content %}
-            <button onclick="history.back();" class="auth__back-button">
-                <span>Вернуться</span>
-            </button>
-<h2>Изменить данные питомца?</h2>
-<hr>
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Применить изменения" />
-</form>
+<div class="profile__main">
+    <div class="profile__wrapper">
+        <div class="profile__content">
+
+            <a class="back__button" href="{% url 'user_app:customer_profile' username=user.username %}">
+                <i class="ri-arrow-left-s-fill"></i>
+                Вернуться в профиль
+            </a>
+            <h2 class="edit__title">Изменение данных питомца</h2>
+
+
+
+            {% if messages %}
+                    {% for message in messages %}
+                        {{ message }}<br>
+                    {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for error in user_info_form.errors.values %}
+                    {{ error }}
+                {% endfor %}                
+
+                <div class="profile-info">
+                    <div class="image-wrapper">
+                        <img src="{{ pet.image.url }}" alt="{{ pet }}" class="pet-image">
+                        {{ form.image }}
+                    </div>
+                    
+                    <div class="profile-data-edit">
+                        <div class="data-row dis-fl">
+                            <div class="data-lable w30">Возраст</div>
+                            <div class="select-field m0">{{ form.age }}</div>
+                        </div> 
+                        <div class="data-row dis-fl">
+                            <div class="data-lable w30">Вес</div>
+                            <div class="select-field m0">{{ form.weight }}</div>
+                        </div> 
+                        <div class="data-row">
+                            <div class="data-lable">Дополнительная информация</div>
+                            <div class="data-data-edit">{{ form.extra_info }}</div>
+                        </div> 
+                    </div>
+                </div>
+
+                <button class="save-button" type="submit" name="user_info_form">
+                    Сохранить
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 {% endblock content %}
-</body>
-</html>

@@ -104,6 +104,7 @@ class UserSettingsView(LoginRequiredMixin, TemplateView):
                 messages.success(request, 'Пароль успешно изменён.')
                 return self.get(request, *args, **kwargs)
             else:
+                messages.error(request, 'Ошибка при изменении пароля.')
                 context = self.get_context_data(**kwargs)
                 context['user_password_form'] = form
                 return render(request, self.template_name, context)
@@ -160,6 +161,8 @@ class SitterProfileView(TemplateView):
         context['sitter_services'] = Service.objects.filter(sitter=user)
         context['sitter_gallery'] = Gallery.objects.filter(customer_id=my_customer.id)
         context['title'] = f'Профиль пользователя {user}'
+
+        print('!!!!!!!!!!!!!!!!!!!', user.profile.rating, type(user.profile.rating))
         return context
 
 

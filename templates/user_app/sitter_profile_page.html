@@ -1,101 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Личный кабинет</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %} Личный кабинет {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/profile/profile_sitter.css' %}"> 
+    <script src="{% static 'scripts/profile.js' %}" defer></script>
+{% endblock head %}
+
 {% block content %}
-    <div class="container mt-3">
-        <button class="auth__btn auth__alt-btn">
-            <a href="{% url 'user_app:sitter_profile' username=user.username %}">Мой профиль</a>
-        </button>
-        <button class="auth__btn auth__alt-btn">
-            <a href="{% url 'home' %}">История заказов</a>
-        </button>
-        <button class="auth__btn auth__alt-btn">
-            <a href="{% url 'home' %}">Сообщения</a>
-        </button>
-        <br>
-        <div class="row">
-            <div class="col-xl-4 col-sm-12 border border-start border-0">
-            <h3 class="mb-3">Мои данные</h3>
-                    <b>Рейтинг</b> {{ sitter_profile.profile.rating }}
-                    <br>
+<div class="profile__main">
+    <div class="profile__wrapper">
+
+        <ul class="profile__nav">
+            <li><a href="{% url 'user_app:sitter_profile' username=user.username %}" class="profile__nav-selected">Мой профиль</a></li>
+            <li><a href="{% url 'home' %}">История заказов</a></li>
+            <li><a href="{% url 'home' %}">Сообщения</a></li>
+        </ul>
+    
+        <div class="profile__content">
+
+            
+            <h2 class="toggle-section" data-target="#profile-info">
+                Мои данные <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="profile-info" class="collapsible">
+
+                <div class="rate">
+                    <div class="rate-label data-lable">
+                        <span>Рейтинг</span>
+                    </div>
+                    <div class="rate-stars">
+                        <div class="empty-stars">
+                            <img src="{% static 'images/profile/star-empty.png' %}" alt="">
+                            <img src="{% static 'images/profile/star-empty.png' %}" alt="">
+                            <img src="{% static 'images/profile/star-empty.png' %}" alt="">
+                            <img src="{% static 'images/profile/star-empty.png' %}" alt="">
+                            <img src="{% static 'images/profile/star-empty.png' %}" alt="">
+                        </div>
+                        <div class="filled-stars" style="width: calc({{ sitter_profile.profile.rating|to_float }} / 5 * 100%);">
+                            <img src="{% static 'images/profile/star-filled.svg' %}" alt="">
+                            <img src="{% static 'images/profile/star-filled.svg' %}" alt="">
+                            <img src="{% static 'images/profile/star-filled.svg' %}" alt="">
+                            <img src="{% static 'images/profile/star-filled.svg' %}" alt="">
+                            <img src="{% static 'images/profile/star-filled.svg' %}" alt="">
+                        </div>
+                    </div>
+
+                </div>
+
+
+
                 {% if sitter_profile == user %}
                     <a class="btn btn-primary my-btn me-1"
                        href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">Редактировать профиль
                     </a>
                 {% endif %}
-                <p>
-                <div class="col-12 text-center">
-                {% if sitter_profile.profile.image %}
-                    <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" width="300"
-                         height="300" class="img-fluid"><br>
-                {% endif %}
-                </div>
-                    <b>Имя</b> {{ sitter_profile.first_name }}
-                    <br>
-                    <b>Фамилия</b> {{ sitter_profile.last_name }}</p>
-                    <br>
-                    <b>Возраст</b> {{ sitter_profile.profile.get_age }} лет
-                    <br>
-                    <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
-                    <br>
-                    {% if sitter_profile.profile.show_email %}
-                    <b>Email</b> {{ sitter_profile.email }}
-                    {% endif %}
-                    <br>
-                    {% if sitter_profile.profile.show_phone %}
-                    <br>
-                    <b>Телефон</b> {{ sitter_profile.profile.phone }}
-                    <br>
-                    {% endif %}
-                    <b>Моя цитата</b> {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Город</b> {{ sitter_profile.profile.location|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}</p>
-                    <br>
-                    <b>Профили работы</b> {{ sitter_profile.profile.cat_type|default_if_none:"Нет данных" }}</p>
 
-                <h3>Дополнительная информация</h3>
-                <b>Опыт ухода за животными:</b> {{ sitter_profile.profile.exp }} лет
-                <br>
-                <b>Тип жилья:</b> {{ sitter_profile.profile.house_type|default_if_none:"Нет данных" }}
-                <br>
-
-                <br>
-                <h3 class="mb-3">Прайс-лист</h3>
-                    {% for service in sitter_services %}
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-12">
-                            {{ service.category }}
-                            {{ service.description }}
-                            {{ service.price }} рублей
-                            <br>
-                {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'service_delete' service.id %}">Удалить услугу
-                    </a>
-                {% endif %}
-                        </div>
-
+                <div class="profile-sitter-info">
+                    
+                    <div class="profile-data">
+                        <div class="data-row">
+                            <div class="data-lable">Имя</div>
+                            <div class="data-data">{{ sitter_profile.first_name }}</div>
+                        </div> 
+                        {% if sitter_profile.last_name %}
+                            <div class="data-row">
+                                <div class="data-lable">Фамилия</div>
+                                <div class="data-data">{{ sitter_profile.last_name }}</div>
+                            </div> 
+                        {% endif %}
+                        <div class="data-row">
+                            <div class="data-lable">Дата рождения</div>
+                            <div class="data-data">{{ sitter_profile.profile.dob }}</div>
+                        </div> 
+                        {% if sitter_profile.profile.show_phone %}
+                            <div class="data-row">
+                                <div class="data-lable">Телефон</div>
+                                <div class="data-data">{{ sitter_profile.profile.phone }}</div>
+                            </div>
+                        {% endif %}
+                        {% if sitter_profile.profile.show_email %}
+                            <div class="data-row">
+                                <div class="data-lable">Email</div>
+                                <div class="data-data">{{ sitter_profile.email }}</div>
+                            </div> 
+                        {% endif %}
+                        <div class="data-row">
+                            <div class="data-lable">Моя цитата</div>
+                            <div class="data-data">{{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}</div>
+                        </div> 
+                        <div class="data-row">
+                            <div class="data-lable">Город</div>
+                            <div class="data-data">{{ sitter_profile.profile.location|default_if_none:"Нет данных" }}</div>
+                        </div> 
+                        <div class="data-row">
+                            <div class="data-lable">Ближайший район</div>
+                            <div class="data-data">{{ sitter_profile.profile.area|default_if_none:"Нет данных" }}</div>
+                        </div> 
+                        {% if sitter_profile.profile.cat_type %}
+                            <div class="data-row">
+                                <div class="data-lable">Профили работы</div>
+                                <div class="data__cat-type__wrapper">
+                                    {% for type in sitter_profile.profile.cat_type %}
+                                        <div class="data-data data__cat-type">{{ type }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div> 
+                        {% endif %}
                     </div>
-                    <br>
-                {% endfor %}
+
+                    <div class="image-sitter-wrapper">
+                        <img src="{{ sitter_profile.profile.image.url }}" alt="{{ sitter_profile }}" class="profile-image">
+                    </div>
+                </div>
+            </div>
+    
+
+
+            <h2 class="toggle-section" data-target="#price">
+                Прайс-лист <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="price" class="collapsible">
+                <div class="price-info">
+                    {% if sitter_profile == user %}
+                        <a class="add-work-type" href="{% url 'add_service' %}">Добавить</a>
+                    {% endif %}
+                    <div class="price-list">
+                        {% for service in sitter_services %}
+                            <div class="price-item">
+                                {{ service.category }} - {{ service.price }} рублей
+    
+                                {% if sitter_profile == user %}
+                                    <a class="delete-work-type" href="{% url 'service_delete' service.id %}">
+                                        <i class="ri-delete-bin-line"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+    
+            <h2 class="toggle-section" data-target="#settings">
+                Настройки <i class="ri-arrow-down-s-line arrow"></i>
+            </h2>
+            <div id="settings" class="collapsible collapsible-settings">
                 {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'add_service' %}">Добавить услугу
-                    </a>
-                {% endif %}
-                <h3 class="mb-3">Настройки</h3>
-                {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'user_app:user_profile_settings' username=sitter_profile.username %}">Изменить пароль
-                    </a>
+                    <a class="pet-edit-button" href="{% url 'user_app:user_profile_settings' username=sitter_profile.username %}">Изменить пароль</a>
                 {% endif %}
                 <br>
                 <button class="auth__btn auth__alt-btn">
@@ -107,7 +161,8 @@
                 </button>
             </div>
         </div>
+
+
     </div>
-{% endblock %}
-</body>
-</html>
+</div>
+{% endblock content %}

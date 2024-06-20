@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Удаление данных о питомце</title>
-</head>
-<body>
+{% extends "partials/base.html" %}
+{% load static %}
+
+
+{% block title %} Удалить данные о питомце {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock head %}
+
 {% block content %}
+<div class="auth__main">
+    <div class="auth__wrapper">
+        <div class="auth__content">
+
             <button onclick="history.back();" class="auth__back-button">
+                <img src="{% static 'images/login/back_button.svg' %}" alt="Back">
                 <span>Вернуться</span>
             </button>
-<h2>Удалить данные о питомце</h2>
-<hr>
-<form action="" method="post">
-    {% csrf_token %}
-    <p>Удаляем "{{ object.name }}"?</p>
-    <input type="submit" value="Подтвердить" />
-</form>
+
+            <h2 class="auth__title">Удаляем "{{ object.name }}"?</h2>
+            <div class="auth__form-group">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button class="auth__btn auth__main-btn" type="submit">
+                        Удалить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-</body>
-</html>
