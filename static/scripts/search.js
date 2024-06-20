@@ -3,6 +3,7 @@ document.querySelector('.filter__form').addEventListener('change', refreshSitter
 
 
 /*======================== FORM ON SUBMIT ========================*/
+handleFilter()
 function handleFilter() {
     const form = document.querySelector('.filter__form')
 
@@ -12,6 +13,6 @@ function handleFilter() {
     })
 }
 
-handleFilter()
+
 
 

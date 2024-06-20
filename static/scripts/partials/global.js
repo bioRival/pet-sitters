@@ -65,3 +65,43 @@ function renderStars(container, rating) {
         container.appendChild(iStar)
     }
 }
+
+
+
+
+
+
+/*======================== RADIO TOGGLE ========================*/
+// makes radio buttons uncheckable on click
+applyRadioToggle('.filter__button')
+function applyRadioToggle(labelName) {
+    document.querySelectorAll(labelName).forEach(label => {
+        label.addEventListener('click', (e) => {
+            e.preventDefault()
+            let input = document.getElementById(label.htmlFor)
+            console.log('label click')
+            console.log('input: '+input)
+            console.log('label.for: '+label.htmlFor)
+            console.log('input.checked: '+input.checked)
+            if (input.checked) {
+                input.checked = false
+                console.log('uncheck')
+            } else {
+                input.checked = true
+                console.log('check')
+            }
+            triggerFormChangeEvent()
+        })
+    })
+    
+    // Function to trigger the change event on the form
+    function triggerFormChangeEvent() {
+        const form = document.querySelector('.filter__form')
+        console.log(form)
+        const event = new Event('change', {
+            bubbles: true,  // Allow the event to bubble up the DOM
+            cancelable: true  // Allow the event to be canceled
+        });
+        form.dispatchEvent(event);
+    }
+}

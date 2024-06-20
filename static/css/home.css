@@ -385,6 +385,24 @@
 
 .filter__cat-dog {
     padding-block: 0;
+    border-radius: 40px;
+    border: 2px solid var(--yellow-color);
+    cursor: pointer;
+
+    color: var(--black-color);
+    font-family: var(--text-font);
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-semi-bold);
+    text-align: center;
+    transition: background-color .4s;
+}
+
+.filter__radio:checked+.filter__cat-dog {
+    background-color: var(--light-yellow-color);
+}
+
+.filter__cat-dog:hover {
+    background-color: var(--light-yellow-color);
 }
 
 .filter__cat-dog img {
