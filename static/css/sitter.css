@@ -10,14 +10,11 @@
     grid-template-columns: 1fr 2fr;
 }
 
-.left-column {
+.left-column,
+.right-column {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;  
-}
-
-.right-column {
-    background-color: hsl(0, 0%, 90%);
+    gap: 1.25rem;
 }
 
 .block {
@@ -313,6 +310,7 @@ h2 {
 
 /*========================== SPECIAL SKILLS ==========================*/
 .special {
+    border: none;
     background-color: var(--light-yellow-color);
 }
 
@@ -407,4 +405,53 @@ h2 {
 .about__service-subtext {
     font-size: 1rem;
     line-height: 1.5rem; /* 150% */
+}
+
+
+/* DETAILS */
+.about__details-list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.about__details-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.about__details-item img {
+    width: 1.5rem;
+}
+
+
+/*========================== REVIEW ==========================*/
+.review {
+    border: none;
+    background-color: var(--light-yellow-color);
+}
+.review__average {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.review__stars-data {
+    display: flex;
+    align-items: baseline;
+    gap: .2rem;
+    flex-wrap: wrap;
+}
+
+.review__average-stars {
+    display: flex;
+    gap: .2rem;
+    color: var(--dark-purple-color);
+}
+
+.review__rating-number {
+    font-size: var(--normal-font-size);
+    color: var(--dark-purple-color);
+    font-weight: var(--font-bold);
 }
