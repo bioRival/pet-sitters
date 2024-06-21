@@ -4,6 +4,7 @@
     font-size: 1.25rem;
     font-weight: var(--font-medium);
     line-height: 1.75rem; /* 140% */
+    margin-bottom: 5rem;
 }
 
 .content {
@@ -15,6 +16,10 @@
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+}
+
+.right-column {
+    min-width: 600px;
 }
 
 .block {
@@ -100,7 +105,7 @@ h2 {
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1.25rem;
     background-color: var(--white-color);
     width: 100%;
     transition: transform .4s;
@@ -206,6 +211,10 @@ h2 {
 
 .sitter__jobs span:nth-child(2) {
     color: var(--purple-color);
+}
+
+.sitter_experience {
+    margin-top: 1rem;
 }
 
 .sitter__address {
@@ -370,9 +379,102 @@ h2 {
 
 /*========================== ABOUT ==========================*/
 .about {
+    padding-block: 2.5rem;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    overflow: hidden;
+}
+
+.about__title {
+    margin-bottom: 1rem;
+}
+
+
+/* ALBUM */
+
+.about__album {
+    display: grid;
+    grid-template-columns: 380px 180px 180px;
+    grid-template-rows: 180px 180px;
+    gap: 1rem;
+    width: max-content;
+}
+
+.about__image-container {
+    position: relative;
+    display: block;
+    width: 180px;
+    height: 180px;
+    border-radius: 1.75rem;
+    overflow: hidden;
+    transition: transform .4s;
+}
+
+.about__image-container:nth-child(1) {
+    grid-column: 1 / 2; /* Spans the first column */
+    grid-row: 1 / 3; /* Spans both rows */
+    border-radius: 2.5rem;
+    width: 380px;
+    height: 380px;
+}
+
+.about__image-container:nth-child(2) {
+    grid-column: 2 / 3; /* Second column, first row */
+    grid-row: 1 / 2;
+}
+
+.about__image-container:nth-child(3) {
+    grid-column: 3 / 4; /* Third column, first row */
+    grid-row: 1 / 2;
+}
+
+.about__image-container:nth-child(4) {
+    grid-column: 2 / 3; /* Second column, second row */
+    grid-row: 2 / 3;
+}
+
+.about__image-container:nth-child(5) {
+    grid-column: 3 / 4; /* Third column, second row */
+    grid-row: 2 / 3;
+}
+
+/* Hide any item after the 5th child */
+.about__image-container:nth-child(n+6) {
+    display: none;
+}
+
+.about__image-all {
+    grid-column: 3 / 4; /* Third column, second row */
+    grid-row: 2 / 3;
+
+    background-color: var(--light-yellow-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.25rem;
+    border-radius: 1.75rem;
+
+    color: var(--dark-purple-color);
+    font-weight: var(--font-semi-bold);
+    line-height: 1.75rem; /* 140% */
+    cursor: pointer;
+    transition: color .4s, transform .4s;
+}
+
+.about__image-all:hover,
+.about__image-container:hover {
+    color: hsl(270, 100%, 30%);
+    transform: scale(1.05);
+}
+
+.about__image-container img {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 
@@ -429,11 +531,13 @@ h2 {
 /*========================== REVIEW ==========================*/
 .review {
     border: none;
+    padding-block: 2.5rem;
     background-color: var(--light-yellow-color);
 }
 .review__average {
+    margin-top: 2rem;
     display: flex;
-    gap: 1.25rem;
+    column-gap: 1.25rem;
     flex-wrap: wrap;
 }
 
@@ -454,4 +558,60 @@ h2 {
     font-size: var(--normal-font-size);
     color: var(--dark-purple-color);
     font-weight: var(--font-bold);
+}
+
+.review__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.review__item {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background-color: var(--white-color);
+    border-radius: 2.5rem;
+}
+
+.review__image-container {
+    position: relative;
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.review__image-container img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.review__name {
+    color: var(--black-color);
+    margin-bottom: 0rem;
+}
+
+.review__stars {
+    display: flex;
+    gap: .2rem;
+    margin-bottom: 1rem;
+    color: var(--yellow-color);
+}
+
+.review__more {
+    color: var(--dark-purple-color);
+    font-weight: var(--font-semi-bold);
+    text-decoration-line: underline;
+    cursor: pointer;
+    transition: color .4s;
+}
+
+.review__more:hover {
+    color: var(--purple-color);
 }

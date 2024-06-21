@@ -14,4 +14,19 @@ function initStarRender(conClass, numClass) {
 
 
 
+/*======================== ALBUM ========================*/
+// Handle more than 5 photos
+handleAlbumOverflow()
+function handleAlbumOverflow() {
+    imageCons = document.querySelectorAll('.about__image-container')
+    console.log(imageCons.length)
+    if (imageCons.length > 5) {
+        const lastCon = imageCons[4]
+        lastCon.querySelector('img').style.display = 'none'
+        lastCon.classList.add('about__image-all')
+        lastCon.textContent = 'Посмотреть еще фото'
+    }
+}
+
+
 

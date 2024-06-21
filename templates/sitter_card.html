@@ -14,6 +14,12 @@
     type="text/javascript" defer></script>
 <script src="{% static 'scripts/partials/ymap_sitter.js' %}" defer></script>
 
+<!--==================== Image Gallery - Lightbox 2 ====================-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"
+    integrity="sha512-6gudNVbNM/cVsLUMOb8g2b/RBqtQJ3aDfRFgU+5paeaCTtbYY/Dg00MzZq7r6RvJGI2KKtPBhjkHGTL/iOe21A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
 {% endblock head %}
 
 {% block title %} Petsitters.ru - {{ sitter_profile.first_name }} {% endblock title %}
@@ -49,10 +55,13 @@
                             {{ sitter_profile.profile.get_age }} лет
                         </span>
                         {% endif %}
-                        <div class="sitter__jobs">
+                        <!-- <div class="sitter__jobs">
                             <span><mark>45</mark> заказов</span>
                             |
                             <span><mark>23</mark> отзывов</span>
+                        </div> -->
+                        <div class="sitter_experience">
+                            Опыт <mark>4</mark> года
                         </div>
                     </div>
                     <div class="sitter__rating">
@@ -99,7 +108,7 @@
                         <i class="ri-check-line check-icon"></i>
                         <div class="rank__content">
                             Верифицирован с {{ sitter_profile.date_joined|date:"d.m.Y" }}
-                            
+
                         </div>
                     </li>
                 </ul>
@@ -171,7 +180,33 @@
                 </h1>
 
                 <!-- ALBUM -->
-                <!-- <div class="about__album"></div> -->
+                <div class="about__album gallery">
+                    <a class="about__image-container" href="{% static 'images/sitter/gallery-image1.jpg' %}"
+                        data-lightbox="mygallery">
+                        <img src="{% static 'images/sitter/gallery-image1.jpg' %}" alt="Image 1">
+                    </a>
+                    <a class="about__image-container" href="{% static 'images/sitter/gallery-image2.jpg' %}"
+                        data-lightbox="mygallery">
+                        <img src="{% static 'images/sitter/gallery-image2.jpg' %}" alt="Image 2">
+                    </a>
+                    <a class="about__image-container" href="{% static 'images/sitter/gallery-image3.jpg' %}"
+                        data-lightbox="mygallery">
+                        <img src="{% static 'images/sitter/gallery-image3.jpg' %}" alt="Image 3">
+                    </a>
+                    <a class="about__image-container" href="{% static 'images/sitter/gallery-image4.jpg' %}"
+                        data-lightbox="mygallery">
+                        <img src="{% static 'images/sitter/gallery-image4.jpg' %}" alt="Image 4">
+                    </a>
+                    <a class="about__image-container" href="{% static 'images/sitter/gallery-image5.jpg' %}"
+                        data-lightbox="mygallery">
+                        <img src="{% static 'images/sitter/gallery-image5.jpg' %}" alt="Image 5">
+                    </a>
+                    <a class="about__image-container" href="{% static 'images/sitter/gallery-image6.png' %}"
+                        data-lightbox="mygallery">
+                        <img src="{% static 'images/sitter/gallery-image6.png' %}" alt="Image 6">
+                    </a>
+                    <!-- <div class="about__image-all">Посмотреть еще фото</div> -->
+                </div>
 
                 <!-- SERVICE -->
                 <div class="about__service">
@@ -245,7 +280,7 @@
                 <!-- ABOUT ME -->
                 {% if sitter_profile.profile.about_me %}
                 <div class="about__me">
-                    <h2>Обо мне</h2>
+                    <h1 class="about__title">Обо мне</h1>
                     <p class="about__me-text">
                         {{ sitter_profile.profile.about_me }}
                     </p>
@@ -254,7 +289,7 @@
 
                 <!-- DETAILS -->
                 <div class="about__details">
-                    <h2>Детали</h2>
+                    <h1 class="about__title">Детали</h1>
                     <ul class="about__details-list">
                         <li class="about__details-item">
                             <img src="{% static 'images/header/logo.svg' %}" alt="icon">
@@ -304,7 +339,8 @@
 
             <!--==================== REVIEW ====================-->
             <section class="review block">
-                <h2>Отзывы о ситтере</h2>
+                <h1>Отзывы о ситтере</h1>
+
                 <div class="review__average">
                     <span class="review__text">Средняя оценка</span>
                     <div class="review__stars-data">
@@ -315,110 +351,73 @@
                     </div>
                     <span class="review__text">на основе <mark>23</mark> оценок</span>
                 </div>
+
                 <ul class="review__list">
-                    <li class="review__item"></li>
+                    <li class="review__item">
+                        <div class="review__image-container">
+                            <img src="{% static 'images/sitter/review-image1.png' %}" alt="avatar">
+                        </div>
+                        <div class="review__data">
+                            <h2 class="review__name">Мария</h2>
+                            <div class="review__stars">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                            <div class="review__text">
+                                Всё отлично! Как всегда! Собака перенесла передержку легко, все время мы были абсолютно
+                                спокойны за нее, получали фото и видео, как она адаптируется.
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="review__item">
+                        <div class="review__image-container">
+                            <img src="{% static 'images/sitter/review-image2.svg' %}" alt="avatar">
+                        </div>
+                        <div class="review__data">
+                            <h2 class="review__name">Кристина</h2>
+                            <div class="review__stars">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                            <div class="review__text">
+                                Услуги на высшем уровне! Благодаря заботе и любви все прошло хорошо.
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="review__item">
+                        <div class="review__image-container">
+                            <img src="{% static 'images/sitter/review-image3.svg' %}" alt="avatar">
+                        </div>
+                        <div class="review__data">
+                            <h2 class="review__name">Анастасия</h2>
+                            <div class="review__stars">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                            </div>
+                            <div class="review__text">
+                                Всё супер! Я очень довольна! Это был наш первый опыт взаимодействия на этом сайте. Буду
+                                обращаться еще.
+                            </div>
+                        </div>
+                    </li>
                 </ul>
+
+                <div class="review__more">
+                    Показать все (<mark>23</mark> отзыва)
+                </div>
             </section>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <b> {{ sitter_profile.first_name }} </b>
-    {{ sitter_profile.profile.get_age|default_if_none:"Нет данных" }} лет
-    {{ sitter_profile.profile.rating }}
-    <br>
-    <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
-    <br>
-    <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}
-    <br>
-    {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}
-    <br>
-    <h3 class="mb-3">Галерея</h3>
-    {% for image in sitter_gallery %}
-    <div class="row">
-        <div class="col-lg-9 col-sm-12">
-            <img src="{{ image.image.url }}" width="200" height="200" class="img-fluid">
-            <br>
-        </div>
-
-    </div>
-    <br>
-    {% endfor %}
-
-
-    <h3 class="mb-3">Виды услуг</h3>
-    {% for service in sitter_services %}
-    <div class="row">
-        <div class="col-lg-9 col-sm-12">
-            {{ service.category }}
-            {{ service.price }} рублей
-            <br>
-        </div>
-
-    </div>
-    <br>
-    {% endfor %}
-    <br>
-    <b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}
-    <br>
-    <b>Детали</b>
-    <br>
-    {% if sitter_profile.profile.exp %}
-    Опыт ухода за животными -
-    {{ sitter_profile.profile.exp }}
-    <br>
-    {% endif %}
-    {% if sitter_profile.profile.house_type %}
-    Тип жилья -
-    {{ sitter_profile.profile.house_type }}
-    <br>
-    {% endif %}
-    {% if sitter_profile.profile.pet_size %}
-    Размер питомца, принимаемого на передержку -
-    {{ sitter_profile.profile.pet_size }}
-    <br>
-    {% endif %}
-    {% if sitter_profile.profile.sit_pet %}
-    Животные, имеющиеся в доме -
-    {{ sitter_profile.profile.sit_pet }}
-    <br>
-    {% endif %}
-    {% if sitter_profile.profile.kids %}
-    Дети до 10 лет в доме -
-    {{ sitter_profile.profile.kids }}
-    <br>
-    {% endif %}
-    <br>
-    <b>Отзывы о ситтере</b>
-
-
 </main>
 {% endblock content %}
