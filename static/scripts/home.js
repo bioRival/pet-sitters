@@ -68,6 +68,7 @@ initCatDogButtons()
 
 
 /*========================= REVIEW CAROUSEL =========================*/
+initReviewCarusel()
 function initReviewCarusel() {
     // Grid gap in px
     const gap = 20;
@@ -105,8 +106,12 @@ function initReviewCarusel() {
     window.addEventListener("resize", e => (width = carousel.offsetWidth))
 
 }
+// review truncate
+document.querySelectorAll('.review__text').forEach(review => {
+    review.textContent = truncate(review.textContent, 320)
+})
 
-initReviewCarusel()
+
 
 
 

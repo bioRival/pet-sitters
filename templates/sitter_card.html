@@ -9,7 +9,9 @@
 
 <!--==================== Yandex Map Tools ====================-->
 <link rel="stylesheet" href="{% static 'css/partials/yandex_map.css' %}">
-<script src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231" type="text/javascript" defer></script>
+<script
+    src="https://api-maps.yandex.ru/2.1/?apikey=23ed166a-ffb0-4867-b8fc-f0ae8521ea51&lang=ru_RU&suggest_apikey=078789ba-87af-4113-b9cf-35a9cb93c231"
+    type="text/javascript" defer></script>
 <script src="{% static 'scripts/partials/ymap_sitter.js' %}" defer></script>
 
 {% endblock head %}
@@ -29,7 +31,7 @@
 
     <!--==================== MAIN CONTENT ====================-->
     <div class="grid content container">
-         <!--==================== LEFT COLUMN ====================-->
+        <!--==================== LEFT COLUMN ====================-->
         <div class="left-column">
             <!--==================== SITTER ====================-->
             <section class="sitter block">
@@ -43,14 +45,14 @@
                             {{ sitter_profile.first_name }}
                         </span>
                         {% if sitter_profile.profile.get_age %}
-                            <span class="sitter__age">
-                                {{ sitter_profile.profile.get_age }} лет
-                            </span>
+                        <span class="sitter__age">
+                            {{ sitter_profile.profile.get_age }} лет
+                        </span>
                         {% endif %}
                         <div class="sitter__jobs">
-                            <span><mark>3</mark> заказов</span>
+                            <span><mark>45</mark> заказов</span>
                             |
-                            <span><mark>2</mark> отзывов</span>
+                            <span><mark>23</mark> отзывов</span>
                         </div>
                     </div>
                     <div class="sitter__rating">
@@ -96,7 +98,8 @@
                     <li class="rank__item">
                         <i class="ri-check-line check-icon"></i>
                         <div class="rank__content">
-                            Верифицирован <mark>24.10.2022</mark>
+                            Верифицирован с {{ sitter_profile.date_joined|date:"d.m.Y" }}
+                            
                         </div>
                     </li>
                 </ul>
@@ -104,7 +107,8 @@
 
             <!--==================== PRELIMINARY ====================-->
             <section class="preliminary block">
-                Вы можете договориться о <b>предварительной встрече</b>, чтобы познакомить собаку с догситтером и посмотреть на условия проживания
+                Вы можете договориться о <b>предварительной встрече</b>, чтобы познакомить собаку с догситтером
+                и посмотреть на условия проживания
             </section>
 
             <!--==================== SPECIAL SKILLS ====================-->
@@ -130,7 +134,7 @@
             <section class="booking block">
                 <h2>
                     Бронирование на сайте –
-                    безопастность для вас 
+                    безопастность для вас
                     и вашего любимца
                 </h2>
                 <ul class="booking__list">
@@ -160,80 +164,160 @@
 
         <!--==================== RIGHT COLUMN ====================-->
         <div class="right-column">
+            <!--==================== ABOUT ====================-->
             <section class="about block">
                 <h1>
                     {{sitter_profile.profile.bio|default:""}}
                 </h1>
 
+                <!-- ALBUM -->
                 <!-- <div class="about__album"></div> -->
 
+                <!-- SERVICE -->
                 <div class="about__service">
                     <ul class="about__service-list">
                         {% for service in sitter_services %}
-                            {% if service.category.name == "Выгул" %}
-                                <li class="about__service-item">
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">Выгул</div>
-                                        <div class="about__service-subtext">в вашем районе</div>
-                                    </div>
+                        {% if service.category.name == "Выгул" %}
+                        <li class="about__service-item">
+                            <div class="about__service-column">
+                                <div class="about__service-text">Выгул</div>
+                                <div class="about__service-subtext">в вашем районе</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">{{ service.price }} ₽</div>
-                                        <div class="about__service-subtext">30 мин.</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-text">{{ service.price }} ₽</div>
+                                <div class="about__service-subtext">30 мин.</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">{% widthratio service.price 1 2 %} ₽</div>
-                                        <div class="about__service-subtext">1 час</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-text">{% widthratio service.price 1 2 %} ₽</div>
+                                <div class="about__service-subtext">1 час</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">+{{ service.price }} ₽</div>
-                                        <div class="about__service-subtext">+ еще 30 мин.</div>
-                                    </div>
-                                </li>
-                            {% elif service.category.name == "Передержка" %}
-                                <li class="about__service-item">
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">Передержка</div>
-                                        <div class="about__service-subtext">дома у ситтера</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-text">+{{ service.price }} ₽</div>
+                                <div class="about__service-subtext">+ еще 30 мин.</div>
+                            </div>
+                        </li>
+                        {% elif service.category.name == "Передержка" %}
+                        <li class="about__service-item">
+                            <div class="about__service-column">
+                                <div class="about__service-text">Передержка</div>
+                                <div class="about__service-subtext">дома у ситтера</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">{{ service.price }} ₽</div>
-                                        <div class="about__service-subtext">в сутки</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-text">{{ service.price }} ₽</div>
+                                <div class="about__service-subtext">в сутки</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-subtext">Выгулы входят в стоимость</div>
-                                    </div>
-                                </li>
-                            {% elif service.category.name == "Дневная няня" %}
-                                <li class="about__service-item">
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">Дневная няня</div>
-                                        <div class="about__service-subtext">у вас дома</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-subtext">Выгулы входят в стоимость</div>
+                            </div>
+                        </li>
+                        {% elif service.category.name == "Дневная няня" %}
+                        <li class="about__service-item">
+                            <div class="about__service-column">
+                                <div class="about__service-text">Дневная няня</div>
+                                <div class="about__service-subtext">у вас дома</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">{{ service.price }} ₽</div>
-                                        <div class="about__service-subtext">30 мин.</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-text">{{ service.price }} ₽</div>
+                                <div class="about__service-subtext">30 мин.</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">{% widthratio service.price 1 2 %} ₽</div>
-                                        <div class="about__service-subtext">1 час.</div>
-                                    </div>
+                            <div class="about__service-column">
+                                <div class="about__service-text">{% widthratio service.price 1 2 %} ₽</div>
+                                <div class="about__service-subtext">1 час.</div>
+                            </div>
 
-                                    <div class="about__service-column">
-                                        <div class="about__service-text">+{{ service.price }} ₽</div>
-                                        <div class="about__service-subtext">+ еще 1 час</div>
-                                    </div>
-                                </li>
-                            {% endif %}
+                            <div class="about__service-column">
+                                <div class="about__service-text">+{{ service.price }} ₽</div>
+                                <div class="about__service-subtext">+ еще 1 час</div>
+                            </div>
+                        </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
+
+                <!-- ABOUT ME -->
+                {% if sitter_profile.profile.about_me %}
+                <div class="about__me">
+                    <h2>Обо мне</h2>
+                    <p class="about__me-text">
+                        {{ sitter_profile.profile.about_me }}
+                    </p>
+                </div>
+                {% endif %}
+
+                <!-- DETAILS -->
+                <div class="about__details">
+                    <h2>Детали</h2>
+                    <ul class="about__details-list">
+                        <li class="about__details-item">
+                            <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                            <div class="about__details-text">
+                                <mark>Опыт ухода за собаками – 4 года</mark>
+                            </div>
+                        </li>
+
+                        {% if sitter_profile.profile.house_type %}
+                        <li class="about__details-item">
+                            <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                            <div class="about__details-text">
+                                Тип жилья - {{ sitter_profile.profile.house_type}}
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if sitter_profile.profile.pet_size %}
+                        <li class="about__details-item">
+                            <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                            <div class="about__details-text">
+                                Принимаемый размер питомца на передержку – {{ sitter_profile.profile.pet_size }}
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if sitter_profile.profile.sit_pet %}
+                        <li class="about__details-item">
+                            <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                            <div class="about__details-text">
+                                Животные догситтера – {{ sitter_profile.profile.sit_pet }}
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        {% if sitter_profile.profile.kids %}
+                        <li class="about__details-item">
+                            <img src="{% static 'images/header/logo.svg' %}" alt="icon">
+                            <div class="about__details-text">
+                                Дети до 10 лет в доме – {{ sitter_profile.profile.kids }}
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </section>
+
+            <!--==================== REVIEW ====================-->
+            <section class="review block">
+                <h2>Отзывы о ситтере</h2>
+                <div class="review__average">
+                    <span class="review__text">Средняя оценка</span>
+                    <div class="review__stars-data">
+                        <span class="review__rating-number" id="rating-number">
+                            {{ sitter_profile.profile.rating }}
+                        </span>
+                        <div class="review__average-stars" id="stars-container"></div>
+                    </div>
+                    <span class="review__text">на основе <mark>23</mark> оценок</span>
+                </div>
+                <ul class="review__list">
+                    <li class="review__item"></li>
+                </ul>
             </section>
         </div>
     </div>
@@ -267,74 +351,73 @@
 
 
 
-        <b> {{ sitter_profile.first_name }} </b>
-        {{ sitter_profile.profile.get_age|default_if_none:"Нет данных" }} лет
-        {{ sitter_profile.profile.rating }}
-<br>
-        <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
-<br>
-        <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}
-<br>
-        {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}
-<br>
-                <h3 class="mb-3">Галерея</h3>
-                    {% for image in sitter_gallery %}
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-12">
-                            <img src="{{ image.image.url }}" width="200"
-                 height="200" class="img-fluid">
-                            <br>
-                        </div>
+    <b> {{ sitter_profile.first_name }} </b>
+    {{ sitter_profile.profile.get_age|default_if_none:"Нет данных" }} лет
+    {{ sitter_profile.profile.rating }}
+    <br>
+    <b>Опыт</b> {{ sitter_profile.profile.get_on_site }}
+    <br>
+    <b>Ближайший район</b> {{ sitter_profile.profile.area|default_if_none:"Нет данных" }}
+    <br>
+    {{ sitter_profile.profile.bio|default_if_none:"Нет данных" }}
+    <br>
+    <h3 class="mb-3">Галерея</h3>
+    {% for image in sitter_gallery %}
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <img src="{{ image.image.url }}" width="200" height="200" class="img-fluid">
+            <br>
+        </div>
 
-                    </div>
-                    <br>
-                {% endfor %}
+    </div>
+    <br>
+    {% endfor %}
 
 
-                <h3 class="mb-3">Виды услуг</h3>
-                    {% for service in sitter_services %}
-                    <div class="row">
-                        <div class="col-lg-9 col-sm-12">
-                            {{ service.category }}
-                            {{ service.price }} рублей
-                            <br>
-                        </div>
+    <h3 class="mb-3">Виды услуг</h3>
+    {% for service in sitter_services %}
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            {{ service.category }}
+            {{ service.price }} рублей
+            <br>
+        </div>
 
-                    </div>
-                    <br>
-                {% endfor %}
-<br>
-<b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}
-<br>
-<b>Детали</b>
-<br>
-{% if sitter_profile.profile.exp %}
-Опыт ухода за животными -
-{{ sitter_profile.profile.exp }}
-<br>
-{% endif %}
-{% if sitter_profile.profile.house_type %}
-Тип жилья -
-{{ sitter_profile.profile.house_type }}
-<br>
-{% endif %}
-{% if sitter_profile.profile.pet_size %}
-Размер питомца, принимаемого на передержку -
-{{ sitter_profile.profile.pet_size }}
-<br>
-{% endif %}
-{% if sitter_profile.profile.sit_pet %}
-Животные, имеющиеся в доме -
-{{ sitter_profile.profile.sit_pet }}
-<br>
-{% endif %}
-{% if sitter_profile.profile.kids %}
-Дети до 10 лет в доме -
-{{ sitter_profile.profile.kids }}
-<br>
-{% endif %}
-<br>
-<b>Отзывы о ситтере</b>
+    </div>
+    <br>
+    {% endfor %}
+    <br>
+    <b>Обо мне</b> {{ sitter_profile.profile.about_me|default_if_none:"Нет данных" }}
+    <br>
+    <b>Детали</b>
+    <br>
+    {% if sitter_profile.profile.exp %}
+    Опыт ухода за животными -
+    {{ sitter_profile.profile.exp }}
+    <br>
+    {% endif %}
+    {% if sitter_profile.profile.house_type %}
+    Тип жилья -
+    {{ sitter_profile.profile.house_type }}
+    <br>
+    {% endif %}
+    {% if sitter_profile.profile.pet_size %}
+    Размер питомца, принимаемого на передержку -
+    {{ sitter_profile.profile.pet_size }}
+    <br>
+    {% endif %}
+    {% if sitter_profile.profile.sit_pet %}
+    Животные, имеющиеся в доме -
+    {{ sitter_profile.profile.sit_pet }}
+    <br>
+    {% endif %}
+    {% if sitter_profile.profile.kids %}
+    Дети до 10 лет в доме -
+    {{ sitter_profile.profile.kids }}
+    <br>
+    {% endif %}
+    <br>
+    <b>Отзывы о ситтере</b>
 
 
 </main>
