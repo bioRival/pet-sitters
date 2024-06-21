@@ -52,10 +52,10 @@
                 </div>
 
 
-
                 {% if sitter_profile == user %}
-                    <a class="btn btn-primary my-btn me-1"
-                       href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">Редактировать профиль
+                    <a class="edit-profile" href="{% url 'user_app:sitter_profile_edit' username=sitter_profile.username %}">
+                        <span>Редактировать профиль</span>
+                        <img src="{% static 'images/profile/profile-edit.png' %}" alt="">
                     </a>
                 {% endif %}
 
@@ -72,10 +72,12 @@
                                 <div class="data-data">{{ sitter_profile.last_name }}</div>
                             </div> 
                         {% endif %}
-                        <div class="data-row">
-                            <div class="data-lable">Дата рождения</div>
-                            <div class="data-data">{{ sitter_profile.profile.dob }}</div>
-                        </div> 
+                        {% if sitter_profile.profile.dob %}
+                            <div class="data-row">
+                                <div class="data-lable">Дата рождения</div>
+                                <div class="data-data">{{ sitter_profile.profile.dob }}</div>
+                            </div> 
+                        {% endif %}
                         {% if sitter_profile.profile.show_phone %}
                             <div class="data-row">
                                 <div class="data-lable">Телефон</div>
@@ -104,7 +106,7 @@
                             <div class="data-row">
                                 <div class="data-lable">Профили работы</div>
                                 <div class="data__cat-type__wrapper">
-                                    {% for type in sitter_profile.profile.cat_type %}
+                                    {% for type in categories %}
                                         <div class="data-data data__cat-type">{{ type }}</div>
                                     {% endfor %}
                                 </div>
@@ -152,14 +154,10 @@
                     <a class="pet-edit-button" href="{% url 'user_app:user_profile_settings' username=sitter_profile.username %}">Изменить пароль</a>
                 {% endif %}
                 <br>
-                <button class="auth__btn auth__alt-btn">
-                    <a href="{% url 'user_app:logout' %}">Выйти</a>
-                </button>
-                <br>
-                <button class="auth__btn auth__alt-btn">
-                    <a href="{% url 'home' %}">Удалить профиль</a>
-                </button>
             </div>
+            <a class="profile-dop-button" href="{% url 'user_app:logout' %}">Выйти</a>
+            <a class="profile-dop-button" href="{% url 'home' %}">Удалить профиль</a>
+
         </div>
 
 
