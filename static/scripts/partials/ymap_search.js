@@ -358,7 +358,7 @@ function renderSitterList(sitters) {
         let spanReviews = document.createElement('span')
         spanReviews.className = 'sitter__reviews'
         sitter?.reviews || sitter?.reviews === 0
-            ? spanReviews.textContent = sitter.reviews + ' заказов'
+            ? spanReviews.textContent = sitter.reviews + ' отзывов'
             : spanReviews = null
         spanOrders ? divJobs.appendChild(spanOrders) : null
         // Seperator

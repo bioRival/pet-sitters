@@ -32,7 +32,7 @@
 /* marked to edit later - delete in final */
 mark {
     background-color: transparent;
-    /* color: white; */
+    color: inherit;
 }
 
 .check-icon {
