@@ -14,8 +14,8 @@ from django.views.generic import ListView, CreateView, DetailView, TemplateView,
 from rest_framework import generics
 
 from . import models, forms
-from .forms import PetCreateForm, PetForm, AddServiceForm
-from .models import Services, Customer, Pet, Service, Gallery
+from .forms import PetCreateForm, PetForm, AddServiceForm, UploadImageForm
+from .models import Services, Customer, Pet, Service, Gallery, GalleryImage
 from .serializers import ServicesSerializer
 import json
 from django.core import serializers
@@ -147,6 +147,19 @@ class ServiceDelete(LoginRequiredMixin, DeleteView):
         # if post.host.user != self.request.user:
         #     return render(self.request, template_name='post_lock.html', context=context)
         return super(ServiceDelete, self).dispatch(request, *args, **kwargs)
+
+
+def gallery_with_upload(request):
+    if request.method == 'POST':
+        form = UploadImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            for image in request.FILES.getlist('images'):
+                GalleryImage.objects.create(image=image)
+    else:
+        form = UploadImageForm()
+
+    gallery = GalleryImage.objects.all()
+    return render(request, 'gallery_with_upload.html', {'form': form, 'gallery': gallery})
 
 
 class SittersList(ListView):

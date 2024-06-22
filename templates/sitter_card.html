@@ -61,7 +61,7 @@
                             <span><mark>23</mark> отзывов</span>
                         </div> -->
                         <div class="sitter_experience">
-                            Опыт <mark>4</mark> года
+                            Опыт {{ sitter_profile.profile.exp }} года
                         </div>
                     </div>
                     <div class="sitter__rating">
@@ -127,7 +127,7 @@
                     <li class="special__item">
                         <i class="ri-check-line check-icon"></i>
                         <div class="rank__content">
-                            <mark>Опыт ухода за собаками 4 года</mark>
+                            Опыт ухода за собаками {{ sitter_profile.profile.exp }} года
                         </div>
                     </li>
                 </ul>
@@ -294,7 +294,7 @@
                         <li class="about__details-item">
                             <img src="{% static 'images/header/logo.svg' %}" alt="icon">
                             <div class="about__details-text">
-                                <mark>Опыт ухода за собаками – 4 года</mark>
+                                Опыт ухода за собаками – {{ sitter_profile.profile.exp }} года
                             </div>
                         </li>
 
