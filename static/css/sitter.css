@@ -31,8 +31,8 @@
 
 /* marked to edit later - delete in final */
 mark {
-    background-color: red;
-    color: white;
+    background-color: transparent;
+    /* color: white; */
 }
 
 .check-icon {
