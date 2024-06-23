@@ -1,10 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Сообщений пока нет!
-</body>
-</html>
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block title %} Личный кабинет {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="profile__main">
+    <div class="profile__wrapper">
+
+        <ul class="profile__nav">
+            <li><a href="{% url 'user_app:customer_profile' username=user.username %}">Мой профиль</a></li>
+            <li><a href="{% url 'user_app:order_list' %}">История заказов</a></li>
+            <li><a href="{% url 'user_app:message_list' %}" class="profile__nav-selected">Сообщения</a></li>
+        </ul>
+    
+        <div class="profile__content ">
+            <div class="profile__history">
+                <h2>Сообщений пока нет</h2>
+
+                <img src="{% static 'images/profile/cat_foreverloop.gif' %}" alt="">
+            </div>
+
+            
+        </div>
+
+
+    </div>
+</div>
+<div class="profile-container">
+
+</div>
+{% endblock content %}

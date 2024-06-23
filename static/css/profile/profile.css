@@ -309,3 +309,25 @@
 .profile-dop-button:hover {
     color: #7938b9;
 }
+
+
+
+/* --------------------------- */
+/* истории заказов, сообщений */
+/* ------------------------- */
+
+.profile__history {
+    width: 450px;
+    margin: 0 auto;
+}
+.profile__history h2 {
+    text-align: center;
+    color: #320064;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 2.5rem;
+}
+.profile__history img {
+    width: 450px;
+}

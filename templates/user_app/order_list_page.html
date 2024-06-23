@@ -1,10 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Здесь пока ничего нет.</h1>
-</body>
-</html>
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block title %} Личный кабинет {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}">
+    <script src="{% static 'scripts/profile.js' %}" defer></script>
+{% endblock head %}
+
+{% block content %}
+<div class="profile__main">
+    <div class="profile__wrapper">
+
+        <ul class="profile__nav">
+            <li><a href="{% url 'user_app:customer_profile' username=user.username %}">Мой профиль</a></li>
+            <li><a href="{% url 'user_app:order_list' %}" class="profile__nav-selected">История заказов</a></li>
+            <li><a href="{% url 'user_app:message_list' %}">Сообщения</a></li>
+        </ul>
+    
+        <div class="profile__content">
+
+            <div class="profile__history">
+                <h2>Сейчас здесь пусто</h2>
+
+                <img src="{% static 'images/profile/cat_foreverloop.gif' %}" alt="">
+            </div>
+            
+        </div>
+
+
+    </div>
+</div>
+<div class="profile-container">
+
+</div>
+{% endblock content %}
