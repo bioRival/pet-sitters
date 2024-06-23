@@ -14,8 +14,8 @@
 
         <ul class="profile__nav">
             <li><a href="{% url 'user_app:customer_profile' username=user.username %}" class="profile__nav-selected">Мой профиль</a></li>
-            <li><a href="{% url 'home' %}">История заказов</a></li>
-            <li><a href="{% url 'home' %}">Сообщения</a></li>
+            <li><a href="{% url 'user_app:order_list' %}">История заказов</a></li>
+            <li><a href="{% url 'user_app:message_list' %}">Сообщения</a></li>
         </ul>
     
         <div class="profile__content">

@@ -203,3 +203,11 @@ class SitterEditView(LoginRequiredMixin, TemplateView):
                 context['user_profile_form'] = user_profile_form
                 context['sitter_profile_form'] = sitter_profile_form
                 return render(request, self.template_name, context)
+
+
+class OrderListView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_app/order_list_page.html'
+
+
+class MessageListView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_app/message_list_page.html'

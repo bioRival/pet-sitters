@@ -13,4 +13,6 @@ urlpatterns = [
     path('<str:username>/settings/', views.UserSettingsView.as_view(), name='user_profile_settings'),
     path('customer/<str:username>/edit/', views.UserEditView.as_view(), name='user_profile_edit'),
     path('sitter/<str:username>/edit/', views.SitterEditView.as_view(), name='sitter_profile_edit'),
+    path('orders/', views.OrderListView.as_view(), name='order_list'),
+    path('messages/', views.MessageListView.as_view(), name='message_list'),
 ]
