@@ -195,10 +195,6 @@ class SearchSitters(View):
 
 
     def get(self, request):
-        # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        #     number = 10
-        #     return JsonResponse({'number': number})
-        
         return render(request, 'search.html')
    
     def post(self, request):
@@ -232,24 +228,10 @@ class SearchSitters(View):
         address = data.get('address', None) or None
         weight = data.get('weight', None)
 
-        print(f" \
-              id_list: {list(id_list)}\n \
-              pet_dog: {pet_dog}\n \
-              pet_cat: {pet_cat}\n \
-              date_start: {date_start}\n \
-              date_end: {date_end}\n \
-              service: {service}\n \
-              address: {address}\n \
-              weight: {weight} \
-              ")
-
         #============== Поиск ситтеров ==============
         sitters = Customer.objects \
             .filter(user_type='исполнитель') \
             .filter(user_id__in=id_list)
-
-        # services = Service.objects \
-        #     .filter(sitter_id__in=id_list)
         
         # Фильтр по виду питомца
         if pet_dog and not pet_cat:
