@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, UpdateView, DeleteView
-from rest_framework import generics
+# from rest_framework import generics
 
 from . import models, forms
 from .forms import PetCreateForm, PetForm, AddServiceForm, UploadImageForm
@@ -23,9 +23,9 @@ import random
 from datetime import date
 
 # Временное представление для API
-class ServicesAPIView(generics.ListAPIView):
-    queryset = Services.objects.all()
-    serializer_class = ServicesSerializer
+# class ServicesAPIView(generics.ListAPIView):
+#     queryset = Services.objects.all()
+#     serializer_class = ServicesSerializer
 
 # Представление для начальной страницы (!) Рассчитываю, что там и должен быть список услуг (или нет?)
 class ServicesList(ListView):

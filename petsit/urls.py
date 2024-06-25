@@ -21,6 +21,6 @@ from core.views import *
 urlpatterns = [
     path("", include("core.urls")),
     path('admin/', admin.site.urls),
-    path('api/v1/serviceslist/', ServicesAPIView.as_view()),
+    # path('api/v1/serviceslist/', ServicesAPIView.as_view()),
     path('user/', include('user_app.urls', namespace='user_app')),
 ]
