@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'multiselectfield',
 
     # Third Party Apps
-    # 'rest_framework',
+    'rest_framework',
 
     # Apps
     'core',
@@ -155,14 +155,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_RENDER_CLASSES': [
-#             'rest_framework.renderers.JSONRenderer',
-#             'rest_framework.renderers.BrowsableAPIRenderer'
-#         ],
+REST_FRAMEWORK = {
+    'DEFAULT_RENDER_CLASSES': [
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer'
+        ],
 
-#     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-# }
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Django DRF Pet-Sitters",
