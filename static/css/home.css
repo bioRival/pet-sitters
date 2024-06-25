@@ -416,7 +416,8 @@
 .filter__card-bottom {
     width: 100%;
     overflow: hidden;
-    border-radius: 60px;
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
 }
 
 .filter__map {
