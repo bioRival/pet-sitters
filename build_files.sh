@@ -12,4 +12,7 @@ python3.9 -m pip install --no-cache-dir -r requirements.txt
 # collect static files using the Python interpreter from venv
 python3.9 manage.py collectstatic --noinput
 
+echo "Contents of staticfiles directory:"
+ls -R staticfiles
+
 echo "BUILD END"
