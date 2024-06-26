@@ -14,6 +14,7 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'petsit.settings')
 
-app = get_wsgi_application()
+application = get_wsgi_application()
+app = application
 
 # application = Cling(MediaCling(get_wsgi_application()))

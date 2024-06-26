@@ -99,7 +99,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'petsit.wsgi.app'
+WSGI_APPLICATION = 'petsit.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
