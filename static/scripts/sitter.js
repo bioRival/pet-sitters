@@ -19,7 +19,6 @@ function initStarRender(conClass, numClass) {
 handleAlbumOverflow()
 function handleAlbumOverflow() {
     imageCons = document.querySelectorAll('.about__image-container')
-    console.log(imageCons.length)
     if (imageCons.length > 5) {
         const lastCon = imageCons[4]
         lastCon.querySelector('img').style.display = 'none'
